@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 작성</title>
+    <link rel="stylesheet" href="style/post-style.css">
+</head>
+<body>
+   <div class="top">
+    <h1 class="top-title">아무말 대잔치</h1>
+    </div>
+        <h2 class="post">게시글 작성</h2>
+        <div class="container">
+        <form id="postForm">
+            <div>
+                <label for="postTitle"> 제목* </label>
+                <input type="text" id="postTitle" name="postTitle" placeholder="제목을 입력해주세요 (최대 26글자)" >
+            </div>
+            <div>
+            <label for="postContent">내용* </label>
+            <textarea id="postContent" name="postContent" placeholder="내용을 입력하세요"></textarea>
+            <p class="helper-text">*helper text</p> 
+            </div>
+            <div>
+                <label for="postImage"> 이미지* </label>
+                <input type="file" id="postImage" name="postImage" accept="image/*"  >
+            </div>
+            <button type="submit">완료</button>
+        </form>
+    </div>
+    <script src="script/post-script.js"></script>
+</body>
+</html>

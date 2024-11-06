@@ -38,7 +38,7 @@ app.get('/create-post', (req, res) => {
 app.get('/detail-post', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'detail-post.html'));
 });
-
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const PORT=3000;
 

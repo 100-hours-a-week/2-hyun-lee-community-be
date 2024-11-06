@@ -33,11 +33,10 @@ const postController={
         }
     },
 
-    getPosts: async (req, res) => {
-        console.log(req)
+    getPosts: async (board_id, res) => {
         try {
-            const board_id=req.query.board_id;
             const posts = await Post.getPosts(board_id);
+            //console.log(posts);
             res.status(200).json(posts);
         } catch (error) {
             console.error('게시글 조회 중 오류:', error);
