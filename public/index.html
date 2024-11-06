@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메인 페이지</title>
+    <link rel="stylesheet" href="style/style.css">
+</head>
+<body>
+    <div class="top">
+    <h1 class="top-title">아무말 대잔치</h1>
+    </div>
+    <h2 class="login">로그인</h2>
+    <div class="container">
+            <form id="login">
+                <div class="container-login">
+                <div>
+                    <label for="useremail">이메일</label>
+                    <input type="text" name="useremail" id="useremail" placeholder="이메일을 입력하세요">
+                </div>
+                <div>
+                    <label for="password">비밀번호</label>
+                    <input type="password" name="password" id="password" placeholder="비밀번호를 입력하세요">
+                    <p class="helper-text">*helper text</p> 
+                </div>
+            </div>
+                <button type="submit">로그인</button>
+            </form>
+            <button id="registerBtn">회원가입</button>
+    </div>
+    <script src="script/login-script.js"></script>
+</body>
+</html>

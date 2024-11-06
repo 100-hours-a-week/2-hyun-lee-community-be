@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원정보수정</title>
+    <link rel="stylesheet" href="style/edit-user-style.css">
+</head>
+<body>
+    <div class="top">
+        <h1 class="top-title">아무말 대잔치</h1>
+        </div>
+        <div class="dropdown-menu">
+            <div class="menu">
+            <button type="edit-user">회원정보수정</button>
+            <button type="edit-password">비밀번호수정</button>
+            <button type="logout">로그아웃</button>
+            </div>
+        </div>
+        <div class="container">
+            <div class="edit-header">
+                <p>회원정보수정</p>
+            </div>
+            <div class="user-container-profile">
+                <div class="profile-container"><label for="profile">프로필 사진*</label></div>
+                <img src="profile-placeholder.png" >
+            </div>
+            <div class="user-container">
+            <div class="user-container-email">
+                <label for="email">이메일</label>
+                <input type="email" id="email" class="input-field" value="startupcode@gmail.com"required>
+            </div>
+            <div class="user-container-nickname">
+                <label for="nickname">닉네임</label>
+                <input type="text" id="nickname" class="input-field2" value="스타트업코드">
+                <p class="helper-text">*helper text</p> 
+            </div>
+            <button type="submit">수정하기</button>
+            <button type="button" id="withdrawBtn">회원탈퇴</button>
+            <button type="button2" id="withdrawBtn" onclick="window.location.href='/'"><span>수정완료</span></button>
+            </div>
+            <div id="withdrawModal" class="modal">
+                <div class="modal-content">
+                    <h2>회원탈퇴 하시겠습니까?</h2>
+                    <p>작성된 게시글과 댓글은 삭제됩니다.</p>
+                    <div class="modal-buttons">
+                        <button class="btn cancel" id="withdrawCancelBtn">취소</button>
+                        <button class="btn confirm" id="withdrawConfirmBtn">확인</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="script/edit-user-script.js"></script>
+</body>
+</html>

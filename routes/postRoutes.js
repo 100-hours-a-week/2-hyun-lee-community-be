@@ -3,15 +3,22 @@ const router = express.Router();
 const multer = require('multer');
 const postController = require('../controllers/postController');
 const upload = multer({dest:'uploads/files/'});
+const path = require('path');
 
 
 router.post('/createPost', upload.single('postImage'), postController.createPost);
 
 router.get('/posts',postController.getAllPosts)
 
-router.get('/details-post/:board_id',(req,res)=>{
-    const boardId=req.params.board_id;
-    postController.getPosts(boardId,res)
+
+router.get('/detail-post', (req, res) => {
+
+   res.sendFile(path.join(__dirname, '..', 'public', 'detail-post.html'));
 });
 
+router.get(`/api/detail-post`,(req,res)=>{
+    const boardId=req.query.board_id;
+    console.log(boardId);
+    postController.getPosts(boardId,res);
+});
 module.exports=router;

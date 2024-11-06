@@ -19,8 +19,7 @@ const userController={
                 userId:result.insertId
             });
         } catch(error){
-            console.error('Error creating user:', error);
-            next(error);
+            res.status(500).json({message:'서버 오류'});
         }
     },
     login: async (req,res)=>{
@@ -28,6 +27,7 @@ const userController={
         const userData={useremail,password};
         try{
             const result=await User.loginCheck(userData);
+            console.log(result);
             if(result.success){
                 //세션 정보 저장
                 req.session.user={

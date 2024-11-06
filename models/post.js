@@ -2,7 +2,7 @@ const db=require('../config/db');
 
 const Post = {
     create: (postData)=>{
-        const query='INSERT INTO board(page_title,page_content,create_at,user_fk,likes_count, view_count,page_image) VALUES (?,?,NOW(),?,0,0,?)';
+        const query='INSERT INTO board(page_title,page_content,create_at,user_fk,likes_count, view_count,page_image,comment_count) VALUES (?,?,NOW(),?,0,0,?,0)';
         return new Promise((resolve,reject)=>{
             db.query(query,[postData.postTitle,postData.postContent,postData.userId,postData.postImage],(err,result)=>{
                 if(err){
@@ -32,9 +32,9 @@ const Post = {
     getPosts: async (board_id) => {
         
         const sql = `
-        SELECT * FROM board WHERE board_id=${board_id};
+        SELECT * FROM board,user WHERE board.board_id=${board_id} and board.user_fk=user.user_id;
         `;
-
+        
         try {
             const results = await db.promise().query(sql);
             return results;
