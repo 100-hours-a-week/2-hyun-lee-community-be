@@ -42,6 +42,15 @@ body {
     
  }
 
+ .preview {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    position: absolute;
+    right: 500px;
+}
+
 .edit-header{
     display: flex;
     justify-content: center;

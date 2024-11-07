@@ -33,6 +33,17 @@ body {
     justify-content: center;
     margin: 0 auto; 
 }
+
+
+.back-button {
+    font-size: 24px;
+    border:  solid #F4F5F7;
+    background-color: #F4F5F7;
+    cursor: pointer;
+    position: relative;
+    right: 65%;
+}
+
 .register{
     position: absolute;
     top: 20%;
@@ -144,3 +155,4 @@ body {
     font-weight: 100;
     color: #000000;
 }
+

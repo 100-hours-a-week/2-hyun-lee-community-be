@@ -34,6 +34,24 @@ body {
     margin: 0 auto; 
 }
 
+.back-button {
+    font-size: 24px;
+    border:  solid #F4F5F7;
+    background-color: #F4F5F7;
+    cursor: pointer;
+    position: relative;
+    right: 65%;
+}
+
+.preview {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    position: absolute;
+    right: 500px;
+}
+
 .post{
     height: 31px; 
     position: absolute;

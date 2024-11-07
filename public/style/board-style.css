@@ -34,6 +34,14 @@ body {
     margin: 0 auto; 
 }
 
+.preview {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    position: absolute;
+    right: 500px;
+}
 
 .board-container {
     width: 100%;
@@ -54,14 +62,21 @@ body {
     font-size: 18px;
 }
 
+.button-container {
+    position: relative;
+    overflow: hidden; 
+    display: flex;
+    justify-content: flex-end;
+    bottom: 20px;
+}
+
 .create-post-button {
-    background-color: #7f6aee; 
-    color: #ffffff; 
+    background-color: #7f6aee;
+    color: #ffffff;
     border: none;
     padding: 10px 20px;
     border-radius: 15px;
     font-size: 16px;
-    line-height: 25.04;
     font-weight: 700;
     cursor: pointer;
     width: 120px;
@@ -70,9 +85,7 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    position: absolute;
-    top: 200px; 
-    right: 32%; 
+    position: relative;
 }
 
 .post-header {
@@ -129,7 +142,7 @@ body {
 
 .author-avatar {
     width: 36px;
-    height: 3px;
+    height: 36px;
     background-color: #d9d9d9;
     border-radius: 50%;
 }

@@ -16,7 +16,7 @@ const Post = {
     // 게시글 목록 조회
     getAllPosts: async () => {
         const sql = `
-        SELECT  b.board_id, b.page_title, b.likes_count, b.create_at, b.view_count, b.comment_count, u.nickname
+        SELECT  b.board_id, b.page_title, b.likes_count, b.create_at, b.view_count, b.comment_count, u.nickname, u.profile
         FROM board AS b
         JOIN user AS u ON b.user_fk = u.user_id
         ORDER BY b.board_id DESC;
@@ -42,6 +42,16 @@ const Post = {
             throw new Error('게시글 조회 실패: ' + error.message);
         }
     },
+
+    deletePost: async (board_id)=>{
+        const sql=`DELETE FROM board WHERE board_id=${board_id};`
+        try{
+            const result= await db.promise().query(sql);
+            return result;
+        } catch(error){
+            throw new Error('게시글 삭제 실패: ' + error.message);
+        }
+    }
 
 
 };

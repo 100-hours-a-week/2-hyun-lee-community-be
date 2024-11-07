@@ -22,7 +22,7 @@ app.use(session({
 
 // 정적 파일 제공
 app.use(express.static(path.join(__dirname, 'public'))); 
-app.use('/', userRoutes);
+app.use('/', userRoutes); 
 app.use(postRoutes);
 app.get('/register', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'register.html'));

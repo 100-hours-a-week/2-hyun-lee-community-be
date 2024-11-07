@@ -34,6 +34,24 @@ body {
     margin: 0 auto; 
 }
 
+.back-button {
+    font-size: 24px;
+    border:  solid #F4F5F7;
+    background-color: #F4F5F7;
+    cursor: pointer;
+    position: relative;
+    right: 65%;
+}
+
+.preview {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    position: absolute;
+    right: 500px;
+}
+
 #container {
    display: flex;
    align-items: center;
@@ -117,7 +135,8 @@ body {
 }
 
 .post-image img{
-    width: 540px;
+    width: 544px;
+    height: 306px;
 }
 
 .post-content{
@@ -227,10 +246,19 @@ body {
     right: 0;
 
 }
-.comment button{
+.comment-action{
     border: 1px solid #aca0eb;
     padding: 5px 10px;
     background-color: #ffffff;
+    border-radius: 6px;
+    text-align: center; 
+    cursor: pointer;
+    margin: 0 auto;
+    font-size: 14px;
+}
+.comment button{
+    border: 1px solid #aca0eb;
+    padding: 5px 10px;
     border-radius: 6px;
     text-align: center; 
     cursor: pointer;
@@ -241,12 +269,14 @@ body {
 .modal {
     display: none;
     position: fixed;
-    top:0;
+    top: 0;
     left: 0;
     width: 100%;
     height: 100vh;
     overflow: hidden;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5); /* 배경 불투명도 50% */
+    justify-content: center;
+    align-items: center;
   
 }
 
