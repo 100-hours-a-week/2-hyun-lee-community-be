@@ -22,4 +22,11 @@ router.get(`/api/detail-post`,(req,res)=>{
 });
 
 router.delete('/details-post/deletePost', postController.deletePost);
+
+router.post('/comment',postController.createComment);
+
+router.get('/comments', postController.getAllComments);
+
+router.delete('/comment/:boardId/deleteComment/:commentId', postController.deleteComment);
+
 module.exports=router;

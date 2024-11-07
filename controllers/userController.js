@@ -32,7 +32,8 @@ const userController={
                 req.session.user={
                     userId:result.user.user_id,
                     useremail:result.user.email,
-                    nickname: result.user.nickname
+                    nickname: result.user.nickname,
+                    profile : result.user.profile
                 };
                 return res.status(200).json({message: result.message, user:result.user});
             } else{
