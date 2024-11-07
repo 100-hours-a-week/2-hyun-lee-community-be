@@ -15,6 +15,8 @@ router.post('/login', userController.login);
 
 router.get('/check-email', userController.checkEmail);
 
+router.post('/check-login', userController.checkLogin);
+
 // 닉네임 중복 확인 라우트
 router.get('/check-nickname', userController.checkNickname);
 

@@ -34,6 +34,15 @@ body {
     margin: 0 auto; 
 }
 
+.back-button {
+    font-size: 24px;
+    border:  solid #F4F5F7;
+    background-color: #F4F5F7;
+    cursor: pointer;
+    position: relative;
+    right: 65%;
+}
+
 .edit-header{
     display: flex;
     justify-content: center;

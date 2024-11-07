@@ -18,7 +18,8 @@ router.get('/detail-post', (req, res) => {
 
 router.get(`/api/detail-post`,(req,res)=>{
     const boardId=req.query.board_id;
-    console.log(boardId);
     postController.getPosts(boardId,res);
 });
+
+router.delete('/details-post/deletePost', postController.deletePost);
 module.exports=router;

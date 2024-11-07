@@ -23,16 +23,15 @@ const userController={
         }
     },
     login: async (req,res)=>{
-        const {useremail,password}=req.body;
-        const userData={useremail,password};
+        const {email,password}=req.body;
+        const userData={email,password};
         try{
             const result=await User.loginCheck(userData);
-            console.log(result);
             if(result.success){
                 //세션 정보 저장
                 req.session.user={
                     userId:result.user.user_id,
-                    useremail:result.user.useremail,
+                    useremail:result.user.email,
                     nickname: result.user.nickname
                 };
                 return res.status(200).json({message: result.message, user:result.user});
@@ -42,6 +41,18 @@ const userController={
 
         } catch(error){
             res.status(500).json({message:'서버 오류'});
+        }
+    },
+    checkLogin: async (req,res)=>{
+        const {email,password}=req.body;
+        const userData={email,password};
+        try{
+            const result=await User.loginCheck(userData);
+            console.log(result);
+                return res.status(200).json({success:result.success,message: result.message, user:result.user});
+
+        } catch(error){
+            res.status(500).json({success:false,message:'서버 오류'});
         }
     },
 
@@ -90,7 +101,7 @@ const userController={
         } catch(error){
             res.status(500).json({message: '서버 오류'});
         }
-    }
+    },
     
 };
 

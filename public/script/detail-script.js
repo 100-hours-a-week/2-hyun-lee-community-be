@@ -26,7 +26,7 @@ function renderPost(posts){
                 <div class="post-footer">
                     <div class="author-avatar"></div>
                     <span class="author-name">${post.nickname}</span>
-                    <span class="post-date">${post.create_at}</span>
+                    <span class="post-date">${formatDate(post.create_at)}</span>
                 </div>
                 <span class="work-post">
                     <button class="modify-post-button">수정</button>
@@ -118,6 +118,7 @@ function renderPost(posts){
                 </div>
             </div>
         </div>
+
         <div class="modal comment-modal">
             <div class="modal-content">
                 <h2>댓글을 삭제하시겠습니까?</h2>
@@ -147,30 +148,62 @@ function renderPost(posts){
     
     postDeleteBtn.addEventListener('click',()=>{
         postModal.style.display='flex';
+        document.body.style.overflow = 'hidden'; 
     })
     
-    commentDeleteBtn.addEventListener('click',()=>{
-        commentModal.style.display='flex';
-    })
+    // commentDeleteBtn.addEventListener('click',()=>{
+    //     commentModal.style.display='flex';
+    //     document.body.style.overflow = 'hidden'; 
+    // })
     
     
     postCancelBtn.addEventListener('click',()=>{
         postModal.style.display='none';
+        document.body.style.overflow = 'auto'; 
     })
     
-    commentCancelBtn.addEventListener('click',()=>{
-        commentModal.style.display='none';
-    })
+    // commentCancelBtn.addEventListener('click',()=>{
+    //     commentModal.style.display='none';
+    //     document.body.style.overflow = 'auto'; 
+    // })
     
-    commentConfirmBtn.addEventListener('click', () => {
-        commentModal.style.display = 'none';
-        alert('댓글이 삭제되었습니다.');
+    // commentConfirmBtn.addEventListener('click', () => {
+    //     commentModal.style.display = 'none';
+    //     document.body.style.overflow = 'auto'; 
+    //     alert('댓글이 삭제되었습니다.');
+    // });
+    
+    
+    postConfirmBtn.addEventListener('click', async() => { 
+        const urlParams = new URLSearchParams(window.location.search);
+        const boardId = urlParams.get('board_id');
+    
+        const response = await fetch(`/details-post/deletePost?board_id=${boardId}`,{
+            method: 'DELETE'
+        });
+        const result = await response.json();
+        if(response.ok){
+            postModal.style.display = 'none';
+            document.body.style.overflow = 'auto'; 
+            alert("삭제 하였습니다.");
+            window.location.href = '/community'; 
+        } else{
+            alert(result.message);
+        }
+       
     });
     
-    
-    postConfirmBtn.addEventListener('click', () => {
-        postModal.style.display = 'none';
-        alert('게시글이 삭제되었습니다.');
-    });
-    
+}
+
+
+// 날짜 형식을 변환하는 함수
+function formatDate(isoString) {
+    const date = new Date(isoString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }

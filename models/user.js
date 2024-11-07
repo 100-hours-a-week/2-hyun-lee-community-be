@@ -33,33 +33,28 @@ const User = {
     },
 
     loginCheck: async (userData)=>{
-        const {useremail,password}=userData;
+        const {email,password}=userData;
         try{
             const results = await new Promise((resolve, reject) => {
-                db.query('SELECT * FROM user WHERE useremail = ?', [useremail], (err, results) => {
+                db.query('SELECT * FROM user WHERE useremail = ?', [email], (err, results) => {
                     if (err) {
                         return reject(err);
                     }
                     resolve(results);
                 });
             });
-    
-            if (results.length === 0) {
-                return { success: false, message: '이메일 또는 비밀번호가 잘못되었습니다.' };
-            }
-    
+
             const user = results[0];
-    
             // 비밀번호 비교
             const isMatch = await bcrypt.compare(password, user.password);
             
             if (isMatch) {
-                return { success: true, message: '로그인 성공', user };
+                return { success:true, message: '로그인 성공', user };
             } else {
-                return { success: false, message: '이메일 또는 비밀번호가 잘못되었습니다.' };
+                return { success: false, message: '*비밀번호가 다릅니다.' };
             }
         } catch (error) {
-            throw error; // 오류 발생 시 처리
+            throw error; 
         }
     },
 
@@ -106,7 +101,18 @@ const User = {
                 resolve(result[0].userId); 
             });
         });
-    }
+    },
+    findByPassword: async (email)=>{
+        return new Promise((resolve,reject)=>{
+            db.query('SELECT * FROM user WHERE useremail = ?', [email], (err, results) => {
+                if (err) {
+                    return reject(err);
+                }
+                resolve(results.length > 0); // 중복이면 true, 아니면 false 반환
+            });
+        });
+        
+    },
 };
 
 module.exports = User;
