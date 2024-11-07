@@ -1,4 +1,4 @@
-const Post = require('../models/post'); // 게시글 모델 임포트
+const Post = require('../models/post'); 
 const { post } = require('../routes/userRoutes');
 
 const postController={
@@ -69,7 +69,72 @@ const postController={
             res.status(500).json({ success: false,message: '서버 오류' });
     
         }
-    }
+    },
+    createComment: async(req,res)=>{
+        try{
+            const user=req.session.user;
+            const commentData={
+                board_id:req.body.boardId,
+                content:req.body.content,
+                user_id:user.userId,
+                userNickname:user.nickname,
+                userProfile:user.profile
+            }
+            const resultData= await Post.createComment(commentData);
+            if (resultData) {
+                return res.status(200).json({ resultData,success: true, message: '댓글이 작성되었습니다.' });
+            } else {
+                return res.status(500).json({ success: false, message: '댓글 작성에 실패했습니다.' });
+            }
+        } catch(error){
+            console.error('댓글 작성중 오류:', error);
+            res.status(500).json({ success: false,message: '서버 오류' });
+    
+        }
+    },
+    getAllComments : async(req,res)=>{
+        const { board_id } = req.query;
+        const userId=req.session.user.userId;
+        try{
+            const resultData=await Post.getAllComments(board_id);
+            if (resultData) {
+                return res.status(200).json({ resultData,userId,success: true, message: '전체 댓글 조회' });
+            } else {
+                return res.status(500).json({ success: false, message: '댓글 조회에 실패하였습니다.' });
+            }
+        } catch(error){
+            console.error('댓글 조회중 오류:', error);
+            res.status(500).json({ success: false,message: '서버 오류' });
+        }
+    },
+    deleteComment: async(req,res)=>{
+         try{
+            const { boardId, commentId } = req.params;
+            const data={
+                boardId,commentId
+            }
+            
+            const user=req.session.user;
+       
+            const comment = await Post.getComments(data);
+
+            if (!comment) {
+                return res.status(404).json({ success: false, message: '댓글을 찾을 수 없습니다.' });
+            }
+
+            if (comment[0][0].user_id !== user.userId) {
+                return res.status(403).json({ success: false, message: '삭제 권한이 없습니다.' });
+            }
+            const resultData=await Post.deleteComment(data);
+            if (resultData) {
+                return res.status(200).json({ success: true, message: '댓글이 삭제되었습니다.' });
+            } else {
+                return res.status(500).json({ success: false, message: '댓글 삭제에 실패했습니다.' });
+            }
+        } catch(error){
+
+        }
+ }
 };
 
 module.exports=postController;
