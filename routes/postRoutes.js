@@ -11,6 +11,7 @@ router.post('/createPost', upload.single('postImage'), postController.createPost
 router.get('/posts',postController.getAllPosts)
 
 
+
 router.get('/detail-post', (req, res) => {
 
    res.sendFile(path.join(__dirname, '..', 'public', 'detail-post.html'));

@@ -3,7 +3,10 @@ const { post } = require('../routes/userRoutes');
 
 const postController={
     createPost: async(req,res)=>{
-        const user=req.session.user;
+        const user = req.session.user;
+
+   
+        console.log("user session",req.session.user);
         const postData ={
             postTitle:req.body.postTitle,
             postContent: req.body.postContent,
@@ -24,6 +27,8 @@ const postController={
         }
     },
     getAllPosts: async (req, res) => {
+        const user = req.session;
+       console.log("user session gg:",req.session.user);
         try {
             const posts = await Post.getAllPosts();
             res.status(200).json(posts);
@@ -36,6 +41,7 @@ const postController={
     getPosts: async (board_id, res) => {
         try {
             const posts = await Post.getPosts(board_id);
+            
             //console.log(posts);
             res.status(200).json(posts);
         } catch (error) {

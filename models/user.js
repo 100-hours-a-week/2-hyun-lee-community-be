@@ -33,10 +33,11 @@ const User = {
     },
 
     loginCheck: async (userData)=>{
-        const {email,password}=userData;
+        const {useremail,password}=userData;
+        
         try{
             const results = await new Promise((resolve, reject) => {
-                db.query('SELECT * FROM user WHERE useremail = ?', [email], (err, results) => {
+                db.query('SELECT * FROM user WHERE useremail = ?', [useremail], (err, results) => {
                     if (err) {
                         return reject(err);
                     }
