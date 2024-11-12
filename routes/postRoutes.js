@@ -12,10 +12,11 @@ router.get('/posts',postController.getAllPosts)
 
 
 
-// router.get('/detail-post', (req, res) => {
-
-//    res.sendFile(path.join(__dirname, '..', 'public', 'detail-post.html'));
-// });
+router.get('/detail-post', (req, res) => {
+    const board_id=req.query.board_id;
+    console.log("b",board_id);
+    postController.getPosts(board_id,res);
+ });
 
 // router.get(`/api/detail-post`,(req,res)=>{
 //     const boardId=req.query.board_id;

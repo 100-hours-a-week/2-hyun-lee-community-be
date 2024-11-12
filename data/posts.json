@@ -1,26 +1,15 @@
 [
   {
-    "page_title": "h",
-    "postContent": "h",
+    "page_title": "hhh",
+    "page_content": "ee",
     "userId": 0,
     "nickname": "test1",
     "profile": "uploads/dc54a09c9e7c6ee96472d5a01d6cb9c8",
     "postImage": null,
-    "create_at": "2024-11-12T12:02:24.002Z",
+    "create_at": "2024-11-12T12:11:29.022Z",
     "view_count": 0,
     "likes_count": 0,
-    "comment_count": 0
-  },
-  {
-    "page_title": "안녕하세요",
-    "postContent": "나야",
-    "userId": 0,
-    "nickname": "test1",
-    "profile": "uploads/dc54a09c9e7c6ee96472d5a01d6cb9c8",
-    "postImage": null,
-    "create_at": "2024-11-12T12:04:13.650Z",
-    "view_count": 0,
-    "likes_count": 0,
-    "comment_count": 0
+    "comment_count": 0,
+    "board_id": 0
   }
 ]

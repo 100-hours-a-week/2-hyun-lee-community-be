@@ -161,7 +161,6 @@ const postController ={
                  return res.status(500).json({message: '서버 오류'});
             }
             const posts= JSON.parse(data);
-            console.log(posts);
             res.status(200).json({posts});
         });
     },
@@ -170,7 +169,7 @@ const postController ={
         
                     const postData ={
                     page_title:req.body.postTitle,
-                    postContent: req.body.postContent,
+                    page_content: req.body.postContent,
                     userId:sessionData[0].userId,
                     nickname:sessionData[0].nickname,
                     profile:sessionData[0].profile,
@@ -186,7 +185,7 @@ const postController ={
                          return res.status(500).json({message: '서버 오류'});
                     }
                     const posts= JSON.parse(data);
-                    posts.board_id = posts.length;
+                    postData.board_id = posts.length;
                     posts.push(postData);
                     fs.writeFile(PostsFilePath,JSON.stringify(posts,null,2),(err)=>{
                         if(err){
@@ -198,10 +197,21 @@ const postController ={
                     })
                     
                 });
-                
-
-                    
             },
+            getPosts: async (board_id, res) => {
+
+                fs.readFile(PostsFilePath,'utf-8',(err,data)=>{
+                    if(err){
+                         console.error('파일 읽기 오류: ',err);
+                         return res.status(500).json({message: '서버 오류'});
+                    }
+                    const posts= JSON.parse(data);
+    
+                    const post = posts.find(p=> p.board_id=== Number(board_id));
+                    res.status(200).json(post);
+                      
+                });
+            }
 
 }
 
