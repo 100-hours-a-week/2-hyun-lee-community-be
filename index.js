@@ -1,6 +1,7 @@
 const express=require('express');
 const userRoutes = require('./routes/userRoutes');
 const postRoutes = require('./routes/postRoutes');
+const commentRoutes = require('./routes/commentRoutes');
 const colors = require('colors');
 const moment = require('moment');
 const path = require('path');
@@ -42,7 +43,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use('/',userRoutes); 
 app.use('/',postRoutes);
-
+app.use('/',commentRoutes);
 
 const PORT=3000;
 

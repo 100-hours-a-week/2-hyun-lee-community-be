@@ -4,7 +4,7 @@ const { post } = require('../routes/userRoutes');
 const fs = require('fs');
 const path = require('path');
 
-const PostsFilePath = path.join(__dirname,'../data/posts.json');
+const postsFilePath = path.join(__dirname,'../data/posts.json');
 
 
 //임시 세션
@@ -154,11 +154,10 @@ const sessionData = require('../config/session.js');
 
 const postController ={
     getAllPosts: async (req,res)=>{
-        const user = sessionData[0];
-        fs.readFile(PostsFilePath,'utf-8',(err,data)=>{
+        fs.readFile(postsFilePath,'utf-8',(err,data)=>{
             if(err){
                  console.error('파일 읽기 오류: ',err);
-                 return res.status(500).json({message: '서버 오류'});
+                 return res.status(500).json({success: false, message: '서버 오류'});
             }
             const posts= JSON.parse(data);
             res.status(200).json({posts});
@@ -173,21 +172,21 @@ const postController ={
                     userId:sessionData[0].userId,
                     nickname:sessionData[0].nickname,
                     profile:sessionData[0].profile,
-                    postImage: req.file ? req.file.path : null,
+                    page_image: req.file ? req.file.path : null,
                     create_at: new Date(),
                     view_count:0,
                     likes_count:0,
                     comment_count:0,
                 };
-                fs.readFile(PostsFilePath,'utf-8',(err,data)=>{
+                fs.readFile(postsFilePath,'utf-8',(err,data)=>{
                     if(err){
                          console.error('파일 읽기 오류: ',err);
-                         return res.status(500).json({message: '서버 오류'});
+                         return res.status(500).json({success: false, message: '서버 오류'});
                     }
                     const posts= JSON.parse(data);
                     postData.board_id = posts.length;
                     posts.push(postData);
-                    fs.writeFile(PostsFilePath,JSON.stringify(posts,null,2),(err)=>{
+                    fs.writeFile(postsFilePath,JSON.stringify(posts,null,2),(err)=>{
                         if(err){
                             console.error('파일 저장 오류:',err);
                             return res.status(500).json({success: false,message :'서버 오류'});
@@ -198,20 +197,76 @@ const postController ={
                     
                 });
             },
-            getPosts: async (board_id, res) => {
+    getPosts: async (board_id, res) => {
 
-                fs.readFile(PostsFilePath,'utf-8',(err,data)=>{
-                    if(err){
-                         console.error('파일 읽기 오류: ',err);
-                         return res.status(500).json({message: '서버 오류'});
-                    }
-                    const posts= JSON.parse(data);
+        fs.readFile(postsFilePath,'utf-8',(err,data)=>{
+            if(err){
+                console.error('파일 읽기 오류: ',err);
+                return res.status(500).json({success: false, message: '서버 오류'});
+                }
+            const posts= JSON.parse(data);
     
-                    const post = posts.find(p=> p.board_id=== Number(board_id));
-                    res.status(200).json(post);
+            const post = posts.find(p=> p.board_id=== Number(board_id));
+            post.view_count += 1;
+            fs.writeFile(postsFilePath, JSON.stringify(posts, null, 2), (err) => {
+                if (err) {
+                    console.error('파일 쓰기 오류:', err);
+                    return res.status(500).json({ success: false, message: '서버 오류' });
+                }
+    
+                
+                res.status(200).json(post);
+            });
                       
-                });
+        });
+    },
+    likesUpdate: async (board_id,res)=>{
+        fs.readFile(postsFilePath,'utf-8',(err,data)=>{
+            if(err){
+                console.error('파일 읽기 오류: ',err);
+                return res.status(500).json({success: false, message: '서버 오류'});
+                }
+            const posts= JSON.parse(data);
+
+            const post = posts.find(p=> p.board_id=== Number(board_id));
+      
+            post.likes_count += 1;
+
+        fs.writeFile(postsFilePath, JSON.stringify(posts, null, 2), (err) => {
+            if (err) {
+                console.error('파일 쓰기 오류:', err);
+                return res.status(500).json({success: false, message: '서버 오류' });
             }
+
+            
+            res.status(200).json({ success: true, message: '좋아요 업데이트 완료' });
+        });
+                                 
+        });
+    } ,
+    commentCountUpdate:async(board_id,res)=>{
+        fs.readFile(postsFilePath,'utf-8',(err,data)=>{
+            if(err){
+                console.error('파일 읽기 오류: ',err);
+                return res.status(500).json({success: false, message: '서버 오류'});
+                }
+            const posts= JSON.parse(data);
+
+            const post = posts.find(p=> p.board_id=== Number(board_id));
+      
+            post.comment_count += 1;
+
+        fs.writeFile(postsFilePath, JSON.stringify(posts, null, 2), (err) => {
+            if (err) {
+                console.error('파일 쓰기 오류:', err);
+                return res.status(500).json({success: false, message: '서버 오류' });
+            }
+
+            
+            res.status(200).json({ success: true, message: '좋아요 업데이트 완료' });
+             });
+         });
+    }
 
 }
 

@@ -3,7 +3,7 @@ const router = express.Router();
 const multer = require('multer');
 const postController = require('../controllers/postController');
 const upload = multer({dest:'uploads/files/'});
-const path = require('path');
+
 
 
 router.post('/createPost', upload.single('postImage'), postController.createPost);
@@ -12,11 +12,21 @@ router.get('/posts',postController.getAllPosts)
 
 
 
-router.get('/detail-post', (req, res) => {
+router.patch('/details-post/:board_id/likes', (req, res) => {
+    const {board_id} = req.body;
+    postController.likesUpdate(board_id,res);
+    });
+
+router.patch('/detail-post', (req, res) => {
     const board_id=req.query.board_id;
-    console.log("b",board_id);
     postController.getPosts(board_id,res);
  });
+
+ router.patch('/details-post/:board_id/commentCount', (req, res) => {
+    const {board_id} = req.body;
+    postController.commentCountUpdate(board_id,res);
+    });
+
 
 // router.get(`/api/detail-post`,(req,res)=>{
 //     const boardId=req.query.board_id;
