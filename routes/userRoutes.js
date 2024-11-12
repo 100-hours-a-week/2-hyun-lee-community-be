@@ -6,12 +6,12 @@ const postController = require('../controllers/postController');
 const upload = multer({dest:'uploads/'});
 
 
-router.post('/register', upload.single('profileImage'), userController.createUser);
+//router.post('/register', upload.single('profileImage'), userController.createUser);
 
 
 
 
- router.post('/login', userController.login);
+router.post('/login', userController.login);
 
 // router.get('/check-email', userController.checkEmail);
 

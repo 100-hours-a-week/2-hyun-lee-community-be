@@ -12,22 +12,22 @@ router.get('/posts',postController.getAllPosts)
 
 
 
-router.get('/detail-post', (req, res) => {
+// router.get('/detail-post', (req, res) => {
 
-   res.sendFile(path.join(__dirname, '..', 'public', 'detail-post.html'));
-});
+//    res.sendFile(path.join(__dirname, '..', 'public', 'detail-post.html'));
+// });
 
-router.get(`/api/detail-post`,(req,res)=>{
-    const boardId=req.query.board_id;
-    postController.getPosts(boardId,res);
-});
+// router.get(`/api/detail-post`,(req,res)=>{
+//     const boardId=req.query.board_id;
+//     postController.getPosts(boardId,res);
+// });
 
-router.delete('/details-post/deletePost', postController.deletePost);
+// router.delete('/details-post/deletePost', postController.deletePost);
 
-router.post('/comment',postController.createComment);
+// router.post('/comment',postController.createComment);
 
-router.get('/comments', postController.getAllComments);
+// router.get('/comments', postController.getAllComments);
 
-router.delete('/comment/:boardId/deleteComment/:commentId', postController.deleteComment);
+// router.delete('/comment/:boardId/deleteComment/:commentId', postController.deleteComment);
 
 module.exports=router;

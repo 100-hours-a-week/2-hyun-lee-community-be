@@ -5,6 +5,9 @@ const path = require('path');
 
 const usersFilePath = path.join(__dirname,'../data/users.json');
 
+//임시 세션
+const sessionData =  require('../config/session.js');
+
 
 // const userController={
 //     createUser: async (req,res,next)=>{
@@ -143,7 +146,7 @@ const userController ={
             if(users.some(user=> user.nickname === nickname)){
                 return res.status(400).json({result:"nickname" ,message: '이미 등록된 닉네임 입니다.'});
             }
-            newUser.id = users.length;
+            newUser.userId = users.length;
 
             users.push(newUser);
             fs.writeFile(usersFilePath,JSON.stringify(users,null,2),(err)=>{
@@ -156,7 +159,7 @@ const userController ={
                     userId:newUser.id,
                     ok:true
                 });
-            })
+            });
         })
                 
     },
@@ -182,18 +185,18 @@ const userController ={
                     return res.status(401).json({ success: false, message: '이메일 또는 비밀번호가 올바르지 않습니다.' });
                 }
 
-                // 세션에 사용자 정보 저장
-                  req.session.user = {
-                   userId: user.userId,
-                   useremail: user.useremail,
-                   nickname: user.nickname,
-                   profile: user.profile
-                  };
-
-                res.status(200).json({ success: true, message: '로그인 성공', user: req.session.user });
+                const sessionUser={
+                    userId: user.userId,
+                    useremail: user.useremail,
+                    nickname: user.nickname,
+                    profile: user.profile
+           
+                }
+                sessionData.push(sessionUser);
+                res.status(200).json({ success: true, message: '로그인 성공', user: user });
             });
         },
-    
+
     };
 
 
