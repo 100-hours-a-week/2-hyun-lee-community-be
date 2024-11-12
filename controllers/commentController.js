@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const commentsFilePath = path.join(__dirname,'../data/comments.json');
+const postsFilePath = path.join(__dirname,'../data/posts.json');
 
 const sessionData = require('../config/session.js');
 
@@ -48,9 +49,47 @@ const commentController ={
 
             const comment = comments.filter(c=> c.board_id=== Number(board_id));
        
-            console.log(comment);
             res.status(200).json({comment,userId:sessionData[0].userId});
         });
+    },
+    deleteComment:async(req,res)=>{
+        const {boardId,commentId}=req.params;
+        fs.readFile(commentsFilePath,'utf-8',(err,data)=>{
+            if(err){
+                 console.error('파일 읽기 오류: ',err);
+                 return res.status(500).json({success: false, message: '서버 오류'});
+            }
+            const comments= JSON.parse(data);
+            
+            const comment = comments.filter(c=>  !(c.board_id === Number(boardId) && c.comment_id === Number(commentId)));
+       
+            fs.writeFile(commentsFilePath,JSON.stringify(comment,null,2),(err)=>{
+                if(err){
+                    console.error('파일 저장 오류:',err);
+                    return res.status(500).json({success: false,message :'서버 오류'});
+                }
+                res.status(201).json({success: true, message: '댓글 삭제완료'});   
+            });
+            
+       });
+       //댓글수 감소
+       fs.readFile(postsFilePath,'utf-8',(err,data)=>{
+        if(err){
+             console.error('파일 읽기 오류: ',err);
+             return res.status(500).json({success: false, message: '서버 오류'});
+        }
+        const posts= JSON.parse(data);
+        const post= posts.find(p=> p.board_id===Number(boardId));
+        post.comment_count -= 1;
+        fs.writeFile(postsFilePath,JSON.stringify(posts,null,2),(err)=>{
+            if(err){
+                console.error('파일 저장 오류:',err);
+                return res.status(500).json({success: false,message :'서버 오류'});
+            }
+        })
+        
+    });
+
     }
 
 }

@@ -33,5 +33,12 @@
     "nickname": "test5",
     "profile": "uploads/d9c1f9c6fa7bcebc4742d8de6e1d9a8d",
     "userId": 4
+  },
+  {
+    "useremail": "test23@naver.com",
+    "password": "test23@naver.comQ",
+    "nickname": "test23",
+    "profile": "uploads/5fd24730c2d2d57b97b8f45a7409a680",
+    "userId": 5
   }
 ]

@@ -36,24 +36,6 @@
     "comment_id": 3
   },
   {
-    "board_id": 0,
-    "content": "ㅂㅈㄷ",
-    "user_id": 4,
-    "nickname": "test5",
-    "profile": "uploads/d9c1f9c6fa7bcebc4742d8de6e1d9a8d",
-    "create_at": "2024-11-12T14:36:01.935Z",
-    "comment_id": 4
-  },
-  {
-    "board_id": 1,
-    "content": "qwe",
-    "user_id": 4,
-    "nickname": "test5",
-    "profile": "uploads/d9c1f9c6fa7bcebc4742d8de6e1d9a8d",
-    "create_at": "2024-11-12T14:36:42.503Z",
-    "comment_id": 5
-  },
-  {
     "board_id": 2,
     "content": "dddd",
     "user_id": 4,
@@ -61,5 +43,95 @@
     "profile": "uploads/d9c1f9c6fa7bcebc4742d8de6e1d9a8d",
     "create_at": "2024-11-12T14:36:55.810Z",
     "comment_id": 6
+  },
+  {
+    "board_id": 1,
+    "content": "qwe",
+    "user_id": 4,
+    "nickname": "test5",
+    "profile": "uploads/d9c1f9c6fa7bcebc4742d8de6e1d9a8d",
+    "create_at": "2024-11-12T14:39:14.057Z",
+    "comment_id": 8
+  },
+  {
+    "board_id": 1,
+    "content": "qwe",
+    "user_id": 4,
+    "nickname": "test5",
+    "profile": "uploads/d9c1f9c6fa7bcebc4742d8de6e1d9a8d",
+    "create_at": "2024-11-12T14:39:28.562Z",
+    "comment_id": 9
+  },
+  {
+    "board_id": 2,
+    "content": "ww",
+    "user_id": 4,
+    "nickname": "test5",
+    "profile": "uploads/d9c1f9c6fa7bcebc4742d8de6e1d9a8d",
+    "create_at": "2024-11-12T14:40:32.061Z",
+    "comment_id": 11
+  },
+  {
+    "board_id": 2,
+    "content": "rr",
+    "user_id": 4,
+    "nickname": "test5",
+    "profile": "uploads/d9c1f9c6fa7bcebc4742d8de6e1d9a8d",
+    "create_at": "2024-11-12T14:40:36.340Z",
+    "comment_id": 12
+  },
+  {
+    "board_id": 2,
+    "content": "ww",
+    "user_id": 4,
+    "nickname": "test5",
+    "profile": "uploads/d9c1f9c6fa7bcebc4742d8de6e1d9a8d",
+    "create_at": "2024-11-12T14:40:39.260Z",
+    "comment_id": 13
+  },
+  {
+    "board_id": 2,
+    "content": "e",
+    "user_id": 4,
+    "nickname": "test5",
+    "profile": "uploads/d9c1f9c6fa7bcebc4742d8de6e1d9a8d",
+    "create_at": "2024-11-12T14:40:42.974Z",
+    "comment_id": 14
+  },
+  {
+    "board_id": 2,
+    "content": "t",
+    "user_id": 4,
+    "nickname": "test5",
+    "profile": "uploads/d9c1f9c6fa7bcebc4742d8de6e1d9a8d",
+    "create_at": "2024-11-12T14:40:45.321Z",
+    "comment_id": 15
+  },
+  {
+    "board_id": 2,
+    "content": "qw",
+    "user_id": 4,
+    "nickname": "test5",
+    "profile": "uploads/d9c1f9c6fa7bcebc4742d8de6e1d9a8d",
+    "create_at": "2024-11-12T14:40:51.820Z",
+    "comment_id": 16
+  },
+  {
+    "board_id": 2,
+    "content": "hellow",
+    "user_id": 5,
+    "nickname": "test23",
+    "profile": "uploads/5fd24730c2d2d57b97b8f45a7409a680",
+    "create_at": "2024-11-12T15:14:22.101Z",
+    "comment_id": 13
+  },
+  {
+    "board_id": 3,
+    "content": "qweqweqweqwe",
+    "user_id": 5,
+    "nickname": "test23",
+    "profile": "uploads/5fd24730c2d2d57b97b8f45a7409a680",
+    "create_at": "2024-11-12T15:14:42.328Z",
+    "comment_id": 14
   }
 ]

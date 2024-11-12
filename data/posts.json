@@ -7,9 +7,9 @@
     "profile": "uploads/dc54a09c9e7c6ee96472d5a01d6cb9c8",
     "page_image": null,
     "create_at": "2024-11-12T12:11:29.022Z",
-    "view_count": 45,
+    "view_count": 87,
     "likes_count": 0,
-    "comment_count": 0,
+    "comment_count": 3,
     "board_id": 0
   },
   {
@@ -20,9 +20,9 @@
     "profile": "uploads/dc54a09c9e7c6ee96472d5a01d6cb9c8",
     "page_image": null,
     "create_at": "2024-11-12T12:43:33.418Z",
-    "view_count": 38,
+    "view_count": 46,
     "likes_count": 6,
-    "comment_count": 1,
+    "comment_count": 2,
     "board_id": 1
   },
   {
@@ -33,9 +33,9 @@
     "profile": "uploads/dc54a09c9e7c6ee96472d5a01d6cb9c8",
     "page_image": null,
     "create_at": "2024-11-12T13:01:57.368Z",
-    "view_count": 25,
-    "likes_count": 3,
-    "comment_count": 1,
+    "view_count": 48,
+    "likes_count": 4,
+    "comment_count": 8,
     "board_id": 2
   },
   {
@@ -46,9 +46,9 @@
     "profile": "uploads/d9c1f9c6fa7bcebc4742d8de6e1d9a8d",
     "page_image": "uploads/files/428ef5d9dde5ae027b0fb8d37027d83c",
     "create_at": "2024-11-12T13:05:25.758Z",
-    "view_count": 12,
+    "view_count": 17,
     "likes_count": 2,
-    "comment_count": 0,
+    "comment_count": 1,
     "board_id": 3
   }
 ]

@@ -13,10 +13,6 @@ router.get('/comments',(req,res)=>{
 
 router.post('/comment',commentController.createComment);
 
-
-router.patch('/details-post/:board_id/commentCount', (req, res) => {
-    const {board_id} = req.body;
-    postController.commentUpdate(board_id,res);
-    });
+router.delete('/comment/:boardId/deleteComment/:commentId',commentController.deleteComment)
 
 module.exports=router;
