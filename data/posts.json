@@ -1,28 +1,54 @@
 [
   {
-    "page_title": "하잇",
-    "page_content": "ㅂㅈㄷ",
+    "userId": 7,
+    "nickname": "test10",
+    "profile": "uploads/4aa0f78934c93db60b0a819610da7528",
+    "create_at": "2024-11-13T06:37:05.038Z",
+    "view_count": 43,
+    "likes_count": 0,
+    "comment_count": 1,
+    "board_id": 0,
+    "page_image": "uploads/files/481718705ead1f50a7ed4de393ba179a",
+    "page_title": "he",
+    "page_content": "hhhh"
+  },
+  {
+    "page_title": "d안녕",
+    "page_content": "하이d",
+    "userId": 7,
+    "nickname": "test10",
+    "profile": "uploads/4aa0f78934c93db60b0a819610da7528",
+    "page_image": null,
+    "create_at": "2024-11-13T06:37:12.011Z",
+    "view_count": 7,
+    "likes_count": 0,
+    "comment_count": 2,
+    "board_id": 1
+  },
+  {
+    "page_title": "나도",
+    "page_content": "댓글",
     "userId": 6,
     "nickname": "test202",
     "profile": "uploads/3b6c86ae48d395bad1d8d063bddbbc07",
     "page_image": null,
-    "create_at": "2024-11-13T05:49:10.857Z",
-    "view_count": 13,
-    "likes_count": 2,
-    "comment_count": 2,
+    "create_at": "2024-11-13T06:37:39.251Z",
+    "view_count": 2,
+    "likes_count": 0,
+    "comment_count": 1,
     "board_id": 2
   },
   {
-    "page_title": "안녕하세요",
-    "page_content": "하이",
+    "page_title": "w",
+    "page_content": "w",
     "userId": 7,
     "nickname": "test10",
     "profile": "uploads/4aa0f78934c93db60b0a819610da7528",
-    "page_image": "uploads/files/c53c7772e8eeca7a4b4aa654baeeeb93",
-    "create_at": "2024-11-13T06:19:58.584Z",
-    "view_count": 2,
-    "likes_count": 1,
-    "comment_count": 1,
-    "board_id": 1
+    "page_image": null,
+    "create_at": "2024-11-13T06:53:21.188Z",
+    "view_count": 0,
+    "likes_count": 0,
+    "comment_count": 0,
+    "board_id": 3
   }
 ]

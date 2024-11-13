@@ -21,6 +21,9 @@ router.patch('/detail-post', (req, res) => {
     postController.getPosts(board_id,res);
  });
 
+router.patch('/detail-post/:board_id/editPost',upload.single('postImage'),postController.updatePost);
+
+
  router.patch('/details-post/:board_id/commentCount', (req, res) => {
     const {board_id} = req.body;
     postController.commentCountUpdate(board_id,res);

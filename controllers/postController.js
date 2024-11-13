@@ -165,7 +165,6 @@ const postController ={
     },
     createPost: async(req,res)=>{
       
-        
                     const postData ={
                     page_title:req.body.postTitle,
                     page_content: req.body.postContent,
@@ -264,6 +263,36 @@ const postController ={
 
         
     },
+    updatePost:async(req,res)=>{
+        const board_id=req.body.boardId;
+        console.log(req.body);
+        fs.readFile(postsFilePath,'utf-8',(err,data)=>{
+            if(err){
+                console.error('파일 읽기 오류: ',err);
+                return res.status(500).json({success: false, message: '서버 오류'});
+                }
+            const posts= JSON.parse(data);
+
+            const post = posts.find(p=> p.board_id=== Number(board_id));   
+            post.page_title=req.body.postTitle;
+            post.page_content=req.body.postContent;
+            post.page_image=req.file ? req.file.path : null;
+            post.create_at=new Date();
+            console.log("postsSSss:",post);
+
+        fs.writeFile(postsFilePath, JSON.stringify(posts, null, 2), (err) => {
+            if (err) {
+                console.error('파일 쓰기 오류:', err);
+                return res.status(500).json({success: false, message: '서버 오류' });
+            }
+
+            
+            res.status(200).json({ success: true, message: '게시글 수정 완료' });
+        });
+                                 
+        });
+    },
+
     likesUpdate: async (board_id,res)=>{
         fs.readFile(postsFilePath,'utf-8',(err,data)=>{
             if(err){

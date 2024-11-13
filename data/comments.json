@@ -25,5 +25,41 @@
     "profile": "uploads/4aa0f78934c93db60b0a819610da7528",
     "create_at": "2024-11-13T06:20:03.750Z",
     "comment_id": 2
+  },
+  {
+    "board_id": 0,
+    "content": "댓글",
+    "user_id": 7,
+    "nickname": "test10",
+    "profile": "uploads/4aa0f78934c93db60b0a819610da7528",
+    "create_at": "2024-11-13T06:37:16.484Z",
+    "comment_id": 3
+  },
+  {
+    "board_id": 1,
+    "content": "안녕",
+    "user_id": 6,
+    "nickname": "test202",
+    "profile": "uploads/3b6c86ae48d395bad1d8d063bddbbc07",
+    "create_at": "2024-11-13T06:37:44.344Z",
+    "comment_id": 4
+  },
+  {
+    "board_id": 2,
+    "content": "ㅎㅎ",
+    "user_id": 6,
+    "nickname": "test202",
+    "profile": "uploads/3b6c86ae48d395bad1d8d063bddbbc07",
+    "create_at": "2024-11-13T06:37:47.924Z",
+    "comment_id": 5
+  },
+  {
+    "board_id": 1,
+    "content": "eegg",
+    "user_id": 7,
+    "nickname": "test10",
+    "profile": "uploads/4aa0f78934c93db60b0a819610da7528",
+    "create_at": "2024-11-13T07:00:32.100Z",
+    "comment_id": 6
   }
 ]
