@@ -40,5 +40,12 @@
     "nickname": "test23",
     "profile": "uploads/5fd24730c2d2d57b97b8f45a7409a680",
     "userId": 5
+  },
+  {
+    "useremail": "test202@naver.com",
+    "password": "dlwngus123#E",
+    "nickname": "test202",
+    "profile": "uploads/3b6c86ae48d395bad1d8d063bddbbc07",
+    "userId": 6
   }
 ]

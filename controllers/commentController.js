@@ -90,6 +90,31 @@ const commentController ={
         
     });
 
+    },
+    updateComment : async (req,res)=>{
+        const {boardId,commentId}=req.params;
+        const newContent=req.body.content;
+        fs.readFile(commentsFilePath,'utf-8',(err,data)=>{
+            if(err){
+                 console.error('파일 읽기 오류: ',err);
+                 return res.status(500).json({success: false, message: '서버 오류'});
+            }
+            const comments= JSON.parse(data);
+            
+            const comment = comments.find(c=>  c.board_id === Number(boardId) && c.comment_id === Number(commentId));
+       
+            comment.content=newContent;
+            comment.create_at=new Date();
+
+            fs.writeFile(commentsFilePath,JSON.stringify(comments,null,2),(err)=>{
+                if(err){
+                    console.error('파일 저장 오류:',err);
+                    return res.status(500).json({success: false,message :'서버 오류'});
+                }
+                res.status(201).json({success: true, message: '댓글 수정완료'});   
+            });
+            
+       });
     }
 
 }

@@ -263,7 +263,7 @@ const postController ={
             }
 
             
-            res.status(200).json({ success: true, message: '좋아요 업데이트 완료' });
+            res.status(200).json({ success: true, message: '댓글수 업데이트 완료' });
              });
          });
     }
