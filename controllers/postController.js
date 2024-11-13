@@ -339,6 +339,32 @@ const postController ={
             res.status(200).json({ success: true, message: '댓글수 업데이트 완료' });
              });
          });
+    },
+
+    deleteUserPosts: async(req,res)=>{
+        const {userId}=req.params;
+
+        console.log("user",userId);
+        fs.readFile(postsFilePath,'utf-8',(err,data)=>{
+            if(err){
+                console.error('파일 읽기 오류: ',err);
+                return res.status(500).json({success: false, message: '서버 오류'});
+            }
+            const posts= JSON.parse(data);
+
+            const post = posts.filter(p=> !(p.userId=== Number(userId)));
+            
+            console.log("post",post);
+            fs.writeFile(postsFilePath, JSON.stringify(post, null, 2), (err) => {
+                if (err) {
+                    console.error('파일 쓰기 오류:', err);
+                    return res.status(500).json({success: false, message: '서버 오류' });
+                }
+    
+                
+                res.status(200).json({ success: true, message: '모든 게시글 삭제 완료' });
+            });
+        });
     }
 
 }

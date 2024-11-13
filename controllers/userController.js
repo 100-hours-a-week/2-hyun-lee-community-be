@@ -259,7 +259,37 @@ const userController ={
 
             });
 
-           
+          
+        },
+        deleteUser :async(req,res)=>{
+            const {userId}=req.params;
+
+            fs.readFile(usersFilePath,'utf-8',(err,data)=>{
+                if(err){
+                     console.error('파일 읽기 오류: ',err);
+                     return res.status(500).json({success: false,message: '서버 오류'});
+                }
+
+                const users= JSON.parse(data)|| [];
+
+                //유지 정보 찾기
+                const user = users.filter(u => !(u.userId === Number(userId)));
+                 sessionData.pop();
+                if (!user) {
+                    return res.status(401).json({ success: false, message: '회원 정보가 없습니다.' });
+                }
+                sessionData.pop();
+                fs.writeFile(usersFilePath,JSON.stringify(user,null,2),(err)=>{
+                    if(err){
+                        console.error('파일 저장 오류:',err);
+                        return res.status(500).json({ success:false, message :'서버 오류'});
+                    }
+                    res.status(200).json({
+                        message: '회원탈퇴 완료',
+                        success:true
+                    });
+                });
+            });
         }
 
     };

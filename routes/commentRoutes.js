@@ -19,4 +19,9 @@ router.patch('/comment/:boardId/updateComment/:commentId',commentController.upda
 
 router.post('/comment/',commentController.createComment);
 
+router.delete('/user/deleteUserComments/:userId',commentController.deleteUserComments)
+
+
+
+
 module.exports=router;

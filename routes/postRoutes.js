@@ -32,6 +32,9 @@ router.patch('/detail-post/:board_id/editPost',upload.single('postImage'),postCo
 
 router.delete('/details-post/deletePost', postController.deletePost);
 
+router.delete('/user/deleteUserPosts/:userId',postController.deleteUserPosts)
+
+
 // router.post('/comment',postController.createComment);
 
 // router.get('/comments', postController.getAllComments);

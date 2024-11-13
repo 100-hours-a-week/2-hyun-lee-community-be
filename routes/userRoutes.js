@@ -18,6 +18,8 @@ router.get('/loadUser',userController.loadUser);
 
 router.patch('/user/:user_id',upload.single('profileImage'),userController.updateUser);
 
+router.delete(`/user/deleteUser/:userId`,userController.deleteUser);
+
 // router.post('/check-login', userController.checkLogin);
 
 
