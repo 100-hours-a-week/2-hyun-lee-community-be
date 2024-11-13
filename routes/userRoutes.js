@@ -14,6 +14,8 @@ router.post('/login', userController.login);
 
 router.get('/logout', userController.logout);
 
+router.get('/loadProfile',userController.loadProfile);
+
 // router.post('/check-login', userController.checkLogin);
 
 

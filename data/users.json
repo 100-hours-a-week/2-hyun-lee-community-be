@@ -54,5 +54,19 @@
     "nickname": "test10",
     "profile": "uploads/4aa0f78934c93db60b0a819610da7528",
     "userId": 7
+  },
+  {
+    "useremail": "test100@naver.com",
+    "password": "test100@naver.comQ",
+    "nickname": "test100",
+    "profile": "uploads/bd3d03829f64c51d5de46518e447c7a9",
+    "userId": 8
+  },
+  {
+    "useremail": "test1001@naver.com",
+    "password": "test1001@naver.comW",
+    "nickname": "test10001",
+    "profile": "uploads/14d1052c13ac644a62a9f9a62f8310a5",
+    "userId": 9
   }
 ]

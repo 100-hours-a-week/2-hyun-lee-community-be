@@ -203,6 +203,14 @@ const userController ={
             }
             sessionData.pop();
             res.status(200).json({success:true, message: '로그아웃 성공'});
+        },
+
+        loadProfile : async(req,res)=>{
+            if(!sessionData){
+                return res.status(500).json({success: false, message: '서버 오류'});
+            }
+            res.status(200).json({profileImage:sessionData[0].profile,success:true, message: '프로필이미지 로드 성공'});
+
         }
 
     };

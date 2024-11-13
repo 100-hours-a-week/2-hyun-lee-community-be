@@ -61,5 +61,32 @@
     "profile": "uploads/4aa0f78934c93db60b0a819610da7528",
     "create_at": "2024-11-13T07:00:32.100Z",
     "comment_id": 6
+  },
+  {
+    "board_id": 3,
+    "content": "하이",
+    "user_id": 8,
+    "nickname": "test100",
+    "profile": "uploads/bd3d03829f64c51d5de46518e447c7a9",
+    "create_at": "2024-11-13T07:54:56.485Z",
+    "comment_id": 7
+  },
+  {
+    "board_id": 0,
+    "content": "hel",
+    "user_id": 8,
+    "nickname": "test100",
+    "profile": "uploads/bd3d03829f64c51d5de46518e447c7a9",
+    "create_at": "2024-11-13T08:18:19.940Z",
+    "comment_id": 8
+  },
+  {
+    "board_id": 0,
+    "content": "w",
+    "user_id": 8,
+    "nickname": "test100",
+    "profile": "uploads/bd3d03829f64c51d5de46518e447c7a9",
+    "create_at": "2024-11-13T10:48:54.425Z",
+    "comment_id": 9
   }
 ]
