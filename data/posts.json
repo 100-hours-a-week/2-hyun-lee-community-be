@@ -7,22 +7,22 @@
     "profile": "uploads/3b6c86ae48d395bad1d8d063bddbbc07",
     "page_image": null,
     "create_at": "2024-11-13T05:49:10.857Z",
-    "view_count": 4,
-    "likes_count": 1,
-    "comment_count": 1,
+    "view_count": 13,
+    "likes_count": 2,
+    "comment_count": 2,
     "board_id": 2
   },
   {
-    "page_title": "나도 글",
-    "page_content": "안녕",
+    "page_title": "안녕하세요",
+    "page_content": "하이",
     "userId": 7,
     "nickname": "test10",
     "profile": "uploads/4aa0f78934c93db60b0a819610da7528",
-    "page_image": null,
-    "create_at": "2024-11-13T05:50:19.902Z",
-    "view_count": 4,
+    "page_image": "uploads/files/c53c7772e8eeca7a4b4aa654baeeeb93",
+    "create_at": "2024-11-13T06:19:58.584Z",
+    "view_count": 2,
     "likes_count": 1,
     "comment_count": 1,
-    "board_id": 3
+    "board_id": 1
   }
 ]

@@ -28,7 +28,7 @@ const User = {
                 });
             });
         } catch (err) {
-            throw err; // 오류를 throw하여 상위에서 처리하도록 함
+            throw err; 
         }
     },
 

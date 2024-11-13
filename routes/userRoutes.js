@@ -12,7 +12,7 @@ router.post('/register', upload.single('profileImage'), userController.createUse
 
 router.post('/login', userController.login);
 
-// router.get('/check-email', userController.checkEmail);
+router.get('/logout', userController.logout);
 
 // router.post('/check-login', userController.checkLogin);
 

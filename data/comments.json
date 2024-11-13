@@ -9,12 +9,21 @@
     "comment_id": 6
   },
   {
-    "board_id": 3,
-    "content": "히히",
+    "board_id": 2,
+    "content": "glglgl",
+    "user_id": 6,
+    "nickname": "test202",
+    "profile": "uploads/3b6c86ae48d395bad1d8d063bddbbc07",
+    "create_at": "2024-11-13T06:19:09.134Z",
+    "comment_id": 2
+  },
+  {
+    "board_id": 1,
+    "content": "...",
     "user_id": 7,
     "nickname": "test10",
     "profile": "uploads/4aa0f78934c93db60b0a819610da7528",
-    "create_at": "2024-11-13T05:51:01.191Z",
-    "comment_id": 7
+    "create_at": "2024-11-13T06:20:03.750Z",
+    "comment_id": 2
   }
 ]
