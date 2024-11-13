@@ -1,28 +1,28 @@
 [
   {
-    "page_title": "안녕하세요",
-    "page_content": "hellow",
+    "page_title": "하잇",
+    "page_content": "ㅂㅈㄷ",
     "userId": 6,
     "nickname": "test202",
     "profile": "uploads/3b6c86ae48d395bad1d8d063bddbbc07",
     "page_image": null,
-    "create_at": "2024-11-13T02:15:50.158Z",
-    "view_count": 15,
-    "likes_count": 5,
-    "comment_count": 3,
-    "board_id": 0
+    "create_at": "2024-11-13T05:49:10.857Z",
+    "view_count": 4,
+    "likes_count": 1,
+    "comment_count": 1,
+    "board_id": 2
   },
   {
-    "page_title": "헬로우",
-    "page_content": "하이 님들아",
-    "userId": 1,
-    "nickname": "test1",
-    "profile": "uploads/921b79ea695d180757c1544893a70611",
-    "page_image": "uploads/files/902ac42fc26d5ebb0f9c6a34b314ec83",
-    "create_at": "2024-11-13T02:17:08.741Z",
-    "view_count": 7,
+    "page_title": "나도 글",
+    "page_content": "안녕",
+    "userId": 7,
+    "nickname": "test10",
+    "profile": "uploads/4aa0f78934c93db60b0a819610da7528",
+    "page_image": null,
+    "create_at": "2024-11-13T05:50:19.902Z",
+    "view_count": 4,
     "likes_count": 1,
-    "comment_count": 2,
-    "board_id": 1
+    "comment_count": 1,
+    "board_id": 3
   }
 ]

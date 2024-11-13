@@ -11,7 +11,6 @@ router.post('/createPost', upload.single('postImage'), postController.createPost
 router.get('/posts',postController.getAllPosts)
 
 
-
 router.patch('/details-post/:board_id/likes', (req, res) => {
     const {board_id} = req.body;
     postController.likesUpdate(board_id,res);
@@ -28,12 +27,7 @@ router.patch('/detail-post', (req, res) => {
     });
 
 
-// router.get(`/api/detail-post`,(req,res)=>{
-//     const boardId=req.query.board_id;
-//     postController.getPosts(boardId,res);
-// });
-
-// router.delete('/details-post/deletePost', postController.deletePost);
+router.delete('/details-post/deletePost', postController.deletePost);
 
 // router.post('/comment',postController.createComment);
 

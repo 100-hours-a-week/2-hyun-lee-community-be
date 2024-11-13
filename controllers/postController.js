@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 
 const postsFilePath = path.join(__dirname,'../data/posts.json');
-
+const commentsFilePath = path.join(__dirname,'../data/comments.json');
 
 //임시 세션
 const sessionData = require('../config/session.js');
@@ -198,7 +198,7 @@ const postController ={
                 });
             },
     getPosts: async (board_id, res) => {
-
+        const userId=sessionData[0].userId;
         fs.readFile(postsFilePath,'utf-8',(err,data)=>{
             if(err){
                 console.error('파일 읽기 오류: ',err);
@@ -215,10 +215,54 @@ const postController ={
                 }
     
                 
-                res.status(200).json(post);
+                res.status(200).json({post,userId});
             });
                       
         });
+    },
+    deletePost: async(req,res)=>{
+       const board_id = req.query.board_id;
+
+       //게시글 관련 댓글 삭제
+       fs.readFile(commentsFilePath,'utf-8',(err,data)=>{
+        if(err){
+             console.error('파일 읽기 오류: ',err);
+             return res.status(500).json({success: false, message: '서버 오류'});
+        }
+        const comments= JSON.parse(data);
+        
+        const comment = comments.filter(c=>!(c.board_id === Number(board_id)));
+   
+        fs.writeFile(commentsFilePath,JSON.stringify(comment,null,2),(err)=>{
+            if(err){
+                console.error('파일 저장 오류:',err);
+                return res.status(500).json({success: false,message :'서버 오류'});
+            }  
+        });
+        
+        });
+       //게시글 삭제
+       fs.readFile(postsFilePath,'utf-8',(err,data)=>{
+        if(err){
+            console.error('파일 읽기 오류: ',err);
+            return res.status(500).json({success: false, message: '서버 오류'});
+            }
+        const posts= JSON.parse(data);
+
+        const post = posts.filter(p=> !(p.board_id=== Number(board_id)));
+        
+        fs.writeFile(postsFilePath, JSON.stringify(post, null, 2), (err) => {
+            if (err) {
+                console.error('파일 쓰기 오류:', err);
+                return res.status(500).json({success: false, message: '서버 오류' });
+            }
+
+            
+            res.status(200).json({ success: true, message: '게시글 및 댓글 삭제 완료' });
+        });
+        });
+
+        
     },
     likesUpdate: async (board_id,res)=>{
         fs.readFile(postsFilePath,'utf-8',(err,data)=>{

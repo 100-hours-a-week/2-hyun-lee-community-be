@@ -1,47 +1,20 @@
 [
   {
-    "board_id": 0,
-    "content": "내 댓글입니다.",
-    "user_id": 6,
-    "nickname": "test202",
-    "profile": "uploads/3b6c86ae48d395bad1d8d063bddbbc07",
-    "create_at": "2024-11-13T02:16:08.936Z",
-    "comment_id": 0
+    "board_id": 2,
+    "content": "댓글",
+    "user_id": 7,
+    "nickname": "test10",
+    "profile": "uploads/4aa0f78934c93db60b0a819610da7528",
+    "create_at": "2024-11-13T05:50:47.803Z",
+    "comment_id": 6
   },
   {
-    "board_id": 0,
-    "content": "하이",
-    "user_id": 6,
-    "nickname": "test202",
-    "profile": "uploads/3b6c86ae48d395bad1d8d063bddbbc07",
-    "create_at": "2024-11-13T02:16:14.862Z",
-    "comment_id": 1
-  },
-  {
-    "board_id": 1,
-    "content": "댓글 남기기",
-    "user_id": 1,
-    "nickname": "test1",
-    "profile": "uploads/921b79ea695d180757c1544893a70611",
-    "create_at": "2024-11-13T02:17:16.705Z",
-    "comment_id": 3
-  },
-  {
-    "board_id": 0,
-    "content": "다시 댓글",
-    "user_id": 1,
-    "nickname": "test1",
-    "profile": "uploads/921b79ea695d180757c1544893a70611",
-    "create_at": "2024-11-13T02:17:26.483Z",
-    "comment_id": 3
-  },
-  {
-    "board_id": 1,
-    "content": "또 남기기\n",
-    "user_id": 1,
-    "nickname": "test1",
-    "profile": "uploads/921b79ea695d180757c1544893a70611",
-    "create_at": "2024-11-13T02:17:37.051Z",
-    "comment_id": 4
+    "board_id": 3,
+    "content": "히히",
+    "user_id": 7,
+    "nickname": "test10",
+    "profile": "uploads/4aa0f78934c93db60b0a819610da7528",
+    "create_at": "2024-11-13T05:51:01.191Z",
+    "comment_id": 7
   }
 ]

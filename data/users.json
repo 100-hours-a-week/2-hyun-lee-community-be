@@ -47,5 +47,12 @@
     "nickname": "test202",
     "profile": "uploads/3b6c86ae48d395bad1d8d063bddbbc07",
     "userId": 6
+  },
+  {
+    "useremail": "test10@naver.com",
+    "password": "test10@naver.comW",
+    "nickname": "test10",
+    "profile": "uploads/4aa0f78934c93db60b0a819610da7528",
+    "userId": 7
   }
 ]
