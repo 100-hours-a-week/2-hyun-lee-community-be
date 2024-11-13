@@ -173,7 +173,7 @@ const userController ={
              fs.readFile(usersFilePath,'utf-8',(err,data)=>{
                 if(err){
                      console.error('파일 읽기 오류: ',err);
-                     return res.status(500).json({message: '서버 오류'});
+                     return res.status(500).json({success: false,message: '서버 오류'});
                 }
 
                 const users= JSON.parse(data)|| [];
@@ -205,12 +205,61 @@ const userController ={
             res.status(200).json({success:true, message: '로그아웃 성공'});
         },
 
-        loadProfile : async(req,res)=>{
+        loadUser : async(req,res)=>{
             if(!sessionData){
                 return res.status(500).json({success: false, message: '서버 오류'});
             }
-            res.status(200).json({profileImage:sessionData[0].profile,success:true, message: '프로필이미지 로드 성공'});
+            res.status(200).json({userInfo :sessionData[0],success:true, message: '프로필이미지 로드 성공'});
 
+        },
+        updateUser : async(req,res)=>{
+            const profileImage = req.file ? req.file.path : null; 
+            const nickname=req.body.nickname;
+            const user_id=req.body.user_id;
+
+            fs.readFile(usersFilePath,'utf-8',(err,data)=>{
+                if(err){
+                     console.error('파일 읽기 오류: ',err);
+                     return res.status(500).json({success: false, message: '서버 오류'});
+                }
+
+                const users= JSON.parse(data)|| [];
+
+                //유지 정보 찾기
+                const user = users.find(u => u.userId === Number(user_id));
+                
+                if (!user) {
+                    return res.status(401).json({ success: false, message: '회원 정보를 찾지 못하였습니다.' });
+                }
+                const allUser=users.filter(u => !(u.userId === Number(user_id)));
+            
+                //닉네임 중복 확인
+                if(allUser.some(user=> user.nickname === nickname)){
+                    return res.status(400).json({result:"nickname" ,message: '이미 등록된 닉네임 입니다.'});
+                }
+
+                user.nickname=nickname;
+                user.profile=profileImage;
+
+
+                //세션 업데이트
+                sessionData[0].nickname=nickname;
+                sessionData[0].profile=profileImage;
+
+                fs.writeFile(usersFilePath,JSON.stringify(users,null,2),(err)=>{
+                    if(err){
+                        console.error('파일 저장 오류:',err);
+                        return res.status(500).json({ success:false, message :'서버 오류'});
+                    }
+                    res.status(201).json({
+                        message: '회원정보 업데이트',
+                        success:true
+                    });
+                });
+
+            });
+
+           
         }
 
     };

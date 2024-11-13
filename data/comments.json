@@ -88,5 +88,14 @@
     "profile": "uploads/bd3d03829f64c51d5de46518e447c7a9",
     "create_at": "2024-11-13T10:48:54.425Z",
     "comment_id": 9
+  },
+  {
+    "board_id": 4,
+    "content": "안녕",
+    "user_id": 6,
+    "nickname": "test202",
+    "profile": "uploads/3b6c86ae48d395bad1d8d063bddbbc07",
+    "create_at": "2024-11-13T11:47:05.099Z",
+    "comment_id": 10
   }
 ]

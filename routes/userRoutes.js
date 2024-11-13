@@ -14,7 +14,9 @@ router.post('/login', userController.login);
 
 router.get('/logout', userController.logout);
 
-router.get('/loadProfile',userController.loadProfile);
+router.get('/loadUser',userController.loadUser);
+
+router.patch('/user/:user_id',upload.single('profileImage'),userController.updateUser);
 
 // router.post('/check-login', userController.checkLogin);
 

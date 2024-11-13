@@ -4,7 +4,7 @@
     "nickname": "test10",
     "profile": "uploads/4aa0f78934c93db60b0a819610da7528",
     "create_at": "2024-11-13T06:37:05.038Z",
-    "view_count": 73,
+    "view_count": 80,
     "likes_count": 3,
     "comment_count": 3,
     "board_id": 0,
@@ -33,7 +33,7 @@
     "profile": "uploads/3b6c86ae48d395bad1d8d063bddbbc07",
     "page_image": null,
     "create_at": "2024-11-13T06:37:39.251Z",
-    "view_count": 6,
+    "view_count": 7,
     "likes_count": 0,
     "comment_count": 1,
     "board_id": 2
@@ -59,9 +59,9 @@
     "profile": "uploads/bd3d03829f64c51d5de46518e447c7a9",
     "page_image": "uploads/files/2ac999d02235dd3c822ca8f9f699eb62",
     "create_at": "2024-11-13T07:54:10.013Z",
-    "view_count": 13,
-    "likes_count": 5,
-    "comment_count": 0,
+    "view_count": 24,
+    "likes_count": 6,
+    "comment_count": 1,
     "board_id": 4
   },
   {
@@ -98,22 +98,48 @@
     "profile": "uploads/bd3d03829f64c51d5de46518e447c7a9",
     "page_image": null,
     "create_at": "2024-11-13T10:50:15.655Z",
-    "view_count": 2,
+    "view_count": 3,
     "likes_count": 1,
     "comment_count": 0,
     "board_id": 7
   },
   {
     "page_title": "s",
-    "page_content": "s",
+    "page_content": "swwㄴ",
     "userId": 1,
     "nickname": "test1",
     "profile": "uploads/921b79ea695d180757c1544893a70611",
     "page_image": null,
-    "create_at": "2024-11-13T11:38:46.310Z",
-    "view_count": 11,
+    "create_at": "2024-11-13T11:57:44.213Z",
+    "view_count": 27,
     "likes_count": 0,
     "comment_count": 0,
     "board_id": 8
+  },
+  {
+    "page_title": "e",
+    "page_content": "hello",
+    "userId": 6,
+    "nickname": "test202",
+    "profile": "uploads/3b6c86ae48d395bad1d8d063bddbbc07",
+    "page_image": null,
+    "create_at": "2024-11-13T11:49:06.901Z",
+    "view_count": 6,
+    "likes_count": 0,
+    "comment_count": 0,
+    "board_id": 9
+  },
+  {
+    "page_title": "q",
+    "page_content": "w",
+    "userId": 1,
+    "nickname": "hello",
+    "profile": "uploads/e5a3ca352ffcfa37e6ff085c5d4545b9",
+    "page_image": null,
+    "create_at": "2024-11-13T14:11:24.144Z",
+    "view_count": 0,
+    "likes_count": 0,
+    "comment_count": 0,
+    "board_id": 10
   }
 ]
