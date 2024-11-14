@@ -18,7 +18,7 @@ router.get('/user/profile',userController.loadUser);
 
 router.patch('/user/profile',upload.single('profileImage'),userController.updateUser);
 
-router.delete(`/user/:user_id`,userController.deleteUser);
+router.delete(`/user/:user_id/comments`,userController.deleteUser);
 
 router.patch('/user/password',upload.none(),userController.updatePassword);
 

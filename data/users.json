@@ -4,13 +4,20 @@
     "password": "test10@naver.comW",
     "nickname": "test10",
     "profile": "uploads/1e9670d2923f7c0f48a7a33c5e995d78",
-    "userId": 2
+    "user_id": 2
   },
   {
-    "useremail": "test1@naver.com",
+    "useremail": "test2@naver.com",
     "password": "dlwngus123!Q",
-    "nickname": "test1",
-    "profile": "uploads/87ff38da4ef2d36c857fdc96c2b895f2",
-    "userId": 3
+    "nickname": "test2",
+    "profile": "uploads/650d3046927e419c07dd595219c3b22b",
+    "user_id": 4
+  },
+  {
+    "useremail": "test4@naver.com",
+    "password": "dlwngus123!Q",
+    "nickname": "test4",
+    "profile": "uploads/cc7aab17c5e85779ec82bd37f81e1691",
+    "user_id": 5
   }
 ]

@@ -1,11 +1,38 @@
 [
   {
-    "post_id": 1,
-    "content": "we",
-    "user_id": 3,
-    "nickname": "test1",
-    "profile": "uploads/87ff38da4ef2d36c857fdc96c2b895f2",
-    "create_at": "2024-11-14T08:50:07.744Z",
+    "post_id": 0,
+    "content": "댓글 남겨요\n수정요",
+    "user_id": 4,
+    "nickname": "test2",
+    "profile": "uploads/650d3046927e419c07dd595219c3b22b",
+    "create_at": "2024-11-14T12:58:14.245Z",
+    "comment_id": 0
+  },
+  {
+    "post_id": 0,
+    "content": "ㅈㄷ",
+    "user_id": 4,
+    "nickname": "test2",
+    "profile": "uploads/650d3046927e419c07dd595219c3b22b",
+    "create_at": "2024-11-14T12:58:08.957Z",
     "comment_id": 1
+  },
+  {
+    "post_id": 1,
+    "content": "ㅚ",
+    "user_id": 4,
+    "nickname": "test2",
+    "profile": "uploads/650d3046927e419c07dd595219c3b22b",
+    "create_at": "2024-11-14T12:58:20.946Z",
+    "comment_id": 2
+  },
+  {
+    "post_id": 4,
+    "content": "댓글 남겨요",
+    "user_id": 5,
+    "nickname": "test4",
+    "profile": "uploads/cc7aab17c5e85779ec82bd37f81e1691",
+    "create_at": "2024-11-14T13:01:28.956Z",
+    "comment_id": 7
   }
 ]

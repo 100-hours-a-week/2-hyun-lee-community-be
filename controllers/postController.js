@@ -168,7 +168,7 @@ const postController ={
                     const postData ={
                     page_title:req.body.postTitle,
                     page_content: req.body.postContent,
-                    userId:sessionData[0].userId,
+                    user_id:sessionData[0].user_id,
                     nickname:sessionData[0].nickname,
                     profile:sessionData[0].profile,
                     page_image: req.file ? req.file.path : null,
@@ -198,7 +198,7 @@ const postController ={
             },
     getPosts: async (req, res) => {
         const {post_id}=req.params;
-        const userId=sessionData[0].userId;
+        const user_id=sessionData[0].user_id;
         fs.readFile(postsFilePath,'utf-8',(err,data)=>{
             if(err){
                 console.error('파일 읽기 오류: ',err);
@@ -215,7 +215,7 @@ const postController ={
                 }
     
                 
-                res.status(200).json({post,userId});
+                res.status(200).json({post,user_id});
             });
                       
         });
@@ -346,9 +346,9 @@ const postController ={
     },
 
     deleteUserPosts: async(req,res)=>{
-        const {userId}=req.params;
+        const {user_id}=req.params;
 
-        console.log("user",userId);
+        console.log("user",user_id);
         fs.readFile(postsFilePath,'utf-8',(err,data)=>{
             if(err){
                 console.error('파일 읽기 오류: ',err);
@@ -356,7 +356,7 @@ const postController ={
             }
             const posts= JSON.parse(data);
 
-            const post = posts.filter(p=> !(p.userId=== Number(userId)));
+            const post = posts.filter(p=> !(p.user_id=== Number(user_id)));
             
             console.log("post",post);
             fs.writeFile(postsFilePath, JSON.stringify(post, null, 2), (err) => {

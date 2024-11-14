@@ -23,7 +23,7 @@ router.patch('/posts/update/:post_id',upload.single('postImage'),postController.
 
 router.delete('/posts/:post_id', postController.deletePost);
 
-router.delete('/user/deleteUserPosts/:userId',postController.deleteUserPosts)
+router.delete('/user/:user_id/posts',postController.deleteUserPosts)
 
 
 // router.post('/comment',postController.createComment);

@@ -9,16 +9,16 @@ const sessionData = require('../config/session.js');
 const commentController ={
     createComment:async(req,res)=>{
         const user=sessionData[0];
-        console.log(req.body);
+        const {post_id} = req.params;
+        const id = Number(post_id);
         const commentData={
-                post_id:req.body.post_id,
+                post_id:id,
                 content:req.body.content,
-                user_id:user.userId,
+                user_id:user.user_id,
                 nickname:user.nickname,
                 profile:user.profile,
                 create_at: new Date()
                 }
-        console.log(commentData);
         fs.readFile(commentsFilePath,'utf-8',(err,data)=>{
             if(err){
                  console.error('파일 읽기 오류: ',err);
@@ -38,8 +38,9 @@ const commentController ={
             
         });
     },
-    getAllComments: async(post_id,res)=>{
-        console.log("userId",sessionData[0]);
+    getAllComments: async(req,res)=>{
+       const {post_id} = req.params;
+    
         fs.readFile(commentsFilePath,'utf-8',(err,data)=>{
             if(err){
                  console.error('파일 읽기 오류: ',err);
@@ -48,12 +49,12 @@ const commentController ={
             const comments= JSON.parse(data);
 
             const comment = comments.filter(c=> c.post_id=== Number(post_id));
-       
-            res.status(200).json({comment,userId:sessionData[0].userId});
+            console.log(comment);
+            res.status(200).json({comment,user_id:sessionData[0].user_id});
         });
     },
     deleteComment:async(req,res)=>{
-        const {post_id,commentId}=req.params;
+        const {post_id,comment_id}=req.params;
         fs.readFile(commentsFilePath,'utf-8',(err,data)=>{
             if(err){
                  console.error('파일 읽기 오류: ',err);
@@ -61,7 +62,7 @@ const commentController ={
             }
             const comments= JSON.parse(data);
             
-            const comment = comments.filter(c=>  !(c.post_id === Number(post_id) && c.comment_id === Number(commentId)));
+            const comment = comments.filter(c=>  !(c.post_id === Number(post_id) && c.comment_id === Number(comment_id)));
        
             fs.writeFile(commentsFilePath,JSON.stringify(comment,null,2),(err)=>{
                 if(err){
@@ -92,7 +93,7 @@ const commentController ={
 
     },
     updateComment : async (req,res)=>{
-        const {post_id,commentId}=req.params;
+        const {post_id,comment_id}=req.params;
         const newContent=req.body.content;
         fs.readFile(commentsFilePath,'utf-8',(err,data)=>{
             if(err){
@@ -101,7 +102,7 @@ const commentController ={
             }
             const comments= JSON.parse(data);
             
-            const comment = comments.find(c=>  c.post_id === Number(post_id) && c.comment_id === Number(commentId));
+            const comment = comments.find(c=>  c.post_id === Number(post_id) && c.comment_id === Number(comment_id));
        
             comment.content=newContent;
             comment.create_at=new Date();
@@ -117,7 +118,7 @@ const commentController ={
        });
     },
     deleteUserComments:async(req,res)=>{
-        const {userId}=req.params;
+        const {user_id}=req.params;
         fs.readFile(commentsFilePath,'utf-8',(err,data)=>{
             if(err){
                  console.error('파일 읽기 오류: ',err);
@@ -125,8 +126,8 @@ const commentController ={
             }
             const comments= JSON.parse(data);
             
-            const allComment = comments.filter(c=> (c.user_id === Number(userId)));
-            const comment = comments.filter(c=> !(c.user_id === Number(userId)));
+            const allComment = comments.filter(c=> (c.user_id === Number(user_id)));
+            const comment = comments.filter(c=> !(c.user_id === Number(user_id)));
             
             fs.readFile(postsFilePath,'utf-8',(err,data)=>{
                 if(err){

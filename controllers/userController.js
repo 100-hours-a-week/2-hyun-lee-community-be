@@ -145,8 +145,8 @@ const userController ={
             if(users.some(user=> user.nickname === nickname)){
                 return res.status(400).json({result:"nickname" ,message: '이미 등록된 닉네임 입니다.'});
             }
-            const maxId = users.length > 0 ? Math.max(...users.map(user => user.userId)) : 0;            
-            newUser.userId = maxId+1;
+            const maxId = users.length > 0 ? Math.max(...users.map(user => user.user_id)) : 0;            
+            newUser.user_id = maxId+1;
             users.push(newUser);
             fs.writeFile(usersFilePath,JSON.stringify(users,null,2),(err)=>{
                 if(err){
@@ -155,7 +155,7 @@ const userController ={
                 }
                 res.status(201).json({
                     message: '회원가입 성공',
-                    userId:newUser.id,
+                    user_id:newUser.id,
                     ok:true
                 });
             });
@@ -185,7 +185,7 @@ const userController ={
                 }
 
                 const sessionUser={
-                    userId: user.userId,
+                    user_id: user.user_id,
                     useremail: user.useremail,
                     nickname: user.nickname,
                     profile: user.profile
@@ -226,12 +226,12 @@ const userController ={
                 const users= JSON.parse(data)|| [];
 
                 //유지 정보 찾기
-                const user = users.find(u => u.userId === Number(user_id));
+                const user = users.find(u => u.user_id === Number(user_id));
                 
                 if (!user) {
                     return res.status(401).json({ success: false, message: '회원 정보를 찾지 못하였습니다.' });
                 }
-                const allUser=users.filter(u => !(u.userId === Number(user_id)));
+                const allUser=users.filter(u => !(u.user_id === Number(user_id)));
             
                 //닉네임 중복 확인
                 if(allUser.some(user=> user.nickname === nickname)){
@@ -273,7 +273,7 @@ const userController ={
                 const users= JSON.parse(data)|| [];
 
                 //유지 정보 찾기
-                const user = users.filter(u => !(u.userId === Number(user_id)));
+                const user = users.filter(u => !(u.user_id === Number(user_id)));
                  sessionData.pop();
                 if (!user) {
                     return res.status(401).json({ success: false, message: '회원 정보가 없습니다.' });
@@ -308,7 +308,7 @@ const userController ={
 
                 
                 //유지 정보 찾기
-                const user = users.find(u => (u.userId === Number(user_id)));
+                const user = users.find(u => (u.user_id === Number(user_id)));
                 console.log(user);
                 if (!user) {
                     return res.status(401).json({ success: false, message: '회원 정보가 없습니다.' });

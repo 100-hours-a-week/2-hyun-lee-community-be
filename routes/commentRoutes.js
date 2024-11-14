@@ -6,20 +6,17 @@ const upload = multer({dest:'uploads/files/'});
 const path = require('path');
 
 
-router.get('/comments',(req,res)=>{
-    const post_id=req.query.post_id;
-    commentController.getAllComments(post_id,res);
-});
+router.get('/posts/:post_id/comments',commentController.getAllComments);
 
-router.post('/comment',commentController.createComment);
+router.post('/posts/:post_id/comment',commentController.createComment);
 
-router.delete('/comment/:post_id/deleteComment/:commentId',commentController.deleteComment);
+router.delete('/posts/:post_id/comment/:comment_id',commentController.deleteComment);
 
-router.patch('/comment/:post_id/updateComment/:commentId',commentController.updateComment);
+router.patch('/posts/:post_id/comment/:comment_id',commentController.updateComment);
 
 router.post('/comment/',commentController.createComment);
 
-router.delete('/user/deleteUserComments/:userId',commentController.deleteUserComments)
+router.delete('/user/:user_id',commentController.deleteUserComments)
 
 
 
