@@ -137,7 +137,10 @@ const commentController ={
 
                 allComment.forEach(c=>{
                     const post = posts.find(p=>p.board_id===Number(c.board_id));
-                    post.comment_count -= 1;
+                    if(post){
+                        post.comment_count -= 1;
+
+                    }                    
                 }); 
 
                 fs.writeFile(postsFilePath,JSON.stringify(posts,null,2),(err)=>{

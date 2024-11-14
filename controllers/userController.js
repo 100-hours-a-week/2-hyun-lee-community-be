@@ -2,7 +2,6 @@ const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const fs = require('fs');
 const path = require('path');
-
 const usersFilePath = path.join(__dirname,'../data/users.json');
 
 //임시 세션
@@ -146,8 +145,8 @@ const userController ={
             if(users.some(user=> user.nickname === nickname)){
                 return res.status(400).json({result:"nickname" ,message: '이미 등록된 닉네임 입니다.'});
             }
-            newUser.userId = users.length;
-
+            const maxId = users.length > 0 ? Math.max(...users.map(user => user.userId)) : 0;            
+            newUser.userId = maxId+1;
             users.push(newUser);
             fs.writeFile(usersFilePath,JSON.stringify(users,null,2),(err)=>{
                 if(err){
@@ -216,6 +215,7 @@ const userController ={
             const profileImage = req.file ? req.file.path : null; 
             const nickname=req.body.nickname;
             const user_id=req.body.user_id;
+
 
             fs.readFile(usersFilePath,'utf-8',(err,data)=>{
                 if(err){
@@ -286,6 +286,43 @@ const userController ={
                     }
                     res.status(200).json({
                         message: '회원탈퇴 완료',
+                        success:true
+                    });
+                });
+            });
+        },
+
+        updatePassword: async(req,res)=>{
+            const password = req.body.password; 
+            const confirmPassword=req.body.confirmPassword;
+            const user_id=req.body.user_id;
+
+           console.log("rr",req.body);
+            fs.readFile(usersFilePath,'utf-8',(err,data)=>{
+                if(err){
+                     console.error('파일 읽기 오류: ',err);
+                     return res.status(500).json({success: false,message: '서버 오류'});
+                }
+
+                const users= JSON.parse(data)|| [];
+
+                
+                //유지 정보 찾기
+                const user = users.find(u => (u.userId === Number(user_id)));
+                console.log(user);
+                if (!user) {
+                    return res.status(401).json({ success: false, message: '회원 정보가 없습니다.' });
+                }
+
+                user.password=password;
+               
+                fs.writeFile(usersFilePath,JSON.stringify(users,null,2),(err)=>{
+                    if(err){
+                        console.error('파일 저장 오류:',err);
+                        return res.status(500).json({ success:false, message :'서버 오류'});
+                    }
+                    res.status(201).json({
+                        message: '비밀번호 수정 완료',
                         success:true
                     });
                 });

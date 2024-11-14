@@ -16,9 +16,11 @@ router.get('/logout', userController.logout);
 
 router.get('/loadUser',userController.loadUser);
 
-router.patch('/user/:user_id',upload.single('profileImage'),userController.updateUser);
+router.patch('/user',upload.single('profileImage'),userController.updateUser);
 
 router.delete(`/user/deleteUser/:userId`,userController.deleteUser);
+
+router.patch('/user/updatePassword',upload.none(),userController.updatePassword);
 
 // router.post('/check-login', userController.checkLogin);
 
