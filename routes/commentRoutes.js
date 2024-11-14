@@ -7,15 +7,15 @@ const path = require('path');
 
 
 router.get('/comments',(req,res)=>{
-    const board_id=req.query.board_id;
-    commentController.getAllComments(board_id,res);
+    const post_id=req.query.post_id;
+    commentController.getAllComments(post_id,res);
 });
 
 router.post('/comment',commentController.createComment);
 
-router.delete('/comment/:boardId/deleteComment/:commentId',commentController.deleteComment);
+router.delete('/comment/:post_id/deleteComment/:commentId',commentController.deleteComment);
 
-router.patch('/comment/:boardId/updateComment/:commentId',commentController.updateComment);
+router.patch('/comment/:post_id/updateComment/:commentId',commentController.updateComment);
 
 router.post('/comment/',commentController.createComment);
 

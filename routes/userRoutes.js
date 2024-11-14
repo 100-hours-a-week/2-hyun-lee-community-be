@@ -5,24 +5,24 @@ const multer = require('multer');
 const upload = multer({dest:'uploads/'});
 
 
-router.post('/register', upload.single('profileImage'), userController.createUser);
+router.post('/users/register', upload.single('profileImage'), userController.createUser);
 
 
 
 
-router.post('/login', userController.login);
+router.post('/users/login', userController.login);
 
-router.get('/logout', userController.logout);
+router.get('/users/logout', userController.logout);
 
-router.get('/loadUser',userController.loadUser);
+router.get('/user/profile',userController.loadUser);
 
-router.patch('/user',upload.single('profileImage'),userController.updateUser);
+router.patch('/user/profile',upload.single('profileImage'),userController.updateUser);
 
-router.delete(`/user/deleteUser/:userId`,userController.deleteUser);
+router.delete(`/user/:user_id`,userController.deleteUser);
 
-router.patch('/user/updatePassword',upload.none(),userController.updatePassword);
+router.patch('/user/password',upload.none(),userController.updatePassword);
 
-// router.post('/check-login', userController.checkLogin);
+// router.post('/users/check', userController.checkLogin);
 
 
 // router.get('/check-session', (req, res) => {

@@ -1,20 +1,11 @@
 [
   {
-    "board_id": 0,
-    "content": "내 댓글 ㅎㅎ 수정좀",
+    "post_id": 1,
+    "content": "we",
     "user_id": 3,
-    "nickname": "test3",
-    "profile": "uploads/6ce1173cc5b1717631b2ba1d30edddee",
-    "create_at": "2024-11-14T02:41:44.602Z",
-    "comment_id": 0
-  },
-  {
-    "board_id": 2,
-    "content": "ㅗㅎ",
-    "user_id": 2,
-    "nickname": "test2",
-    "profile": "uploads/6804afb337f03be99839825d17b1ebf7",
-    "create_at": "2024-11-14T02:43:53.525Z",
+    "nickname": "test1",
+    "profile": "uploads/87ff38da4ef2d36c857fdc96c2b895f2",
+    "create_at": "2024-11-14T08:50:07.744Z",
     "comment_id": 1
   }
 ]

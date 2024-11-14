@@ -183,7 +183,7 @@ const postController ={
                          return res.status(500).json({success: false, message: '서버 오류'});
                     }
                     const posts= JSON.parse(data);
-                    postData.board_id = posts.length;
+                    postData.post_id = posts.length;
                     posts.push(postData);
                     fs.writeFile(postsFilePath,JSON.stringify(posts,null,2),(err)=>{
                         if(err){
@@ -196,7 +196,8 @@ const postController ={
                     
                 });
             },
-    getPosts: async (board_id, res) => {
+    getPosts: async (req, res) => {
+        const {post_id}=req.params;
         const userId=sessionData[0].userId;
         fs.readFile(postsFilePath,'utf-8',(err,data)=>{
             if(err){
@@ -205,7 +206,7 @@ const postController ={
                 }
             const posts= JSON.parse(data);
     
-            const post = posts.find(p=> p.board_id=== Number(board_id));
+            const post = posts.find(p=> p.post_id=== Number(post_id));
             post.view_count += 1;
             fs.writeFile(postsFilePath, JSON.stringify(posts, null, 2), (err) => {
                 if (err) {
@@ -220,7 +221,7 @@ const postController ={
         });
     },
     deletePost: async(req,res)=>{
-       const board_id = req.query.board_id;
+       const{post_id} = req.params;
 
        //게시글 관련 댓글 삭제
        fs.readFile(commentsFilePath,'utf-8',(err,data)=>{
@@ -230,7 +231,7 @@ const postController ={
         }
         const comments= JSON.parse(data);
         
-        const comment = comments.filter(c=>!(c.board_id === Number(board_id)));
+        const comment = comments.filter(c=>!(c.post_id === Number(post_id)));
    
         fs.writeFile(commentsFilePath,JSON.stringify(comment,null,2),(err)=>{
             if(err){
@@ -248,7 +249,7 @@ const postController ={
             }
         const posts= JSON.parse(data);
 
-        const post = posts.filter(p=> !(p.board_id=== Number(board_id)));
+        const post = posts.filter(p=> !(p.post_id=== Number(post_id)));
         
         fs.writeFile(postsFilePath, JSON.stringify(post, null, 2), (err) => {
             if (err) {
@@ -264,7 +265,7 @@ const postController ={
         
     },
     updatePost:async(req,res)=>{
-        const board_id=req.body.boardId;
+        const {post_id}=req.params;
         console.log(req.body);
         fs.readFile(postsFilePath,'utf-8',(err,data)=>{
             if(err){
@@ -273,7 +274,7 @@ const postController ={
                 }
             const posts= JSON.parse(data);
 
-            const post = posts.find(p=> p.board_id=== Number(board_id));   
+            const post = posts.find(p=> p.post_id=== Number(post_id));   
             post.page_title=req.body.postTitle;
             post.page_content=req.body.postContent;
             post.page_image=req.file ? req.file.path : null;
@@ -293,7 +294,8 @@ const postController ={
         });
     },
 
-    likesUpdate: async (board_id,res)=>{
+    likesUpdate: async (req,res)=>{
+        const {post_id} = req.params;
         fs.readFile(postsFilePath,'utf-8',(err,data)=>{
             if(err){
                 console.error('파일 읽기 오류: ',err);
@@ -301,7 +303,7 @@ const postController ={
                 }
             const posts= JSON.parse(data);
 
-            const post = posts.find(p=> p.board_id=== Number(board_id));
+            const post = posts.find(p=> p.post_id=== Number(post_id));
       
             post.likes_count += 1;
 
@@ -317,7 +319,9 @@ const postController ={
                                  
         });
     } ,
-    commentCountUpdate:async(board_id,res)=>{
+    commentCountUpdate:async(req,res)=>{
+        const {post_id} = req.params;
+        console.log("asdasdasd",post_id);
         fs.readFile(postsFilePath,'utf-8',(err,data)=>{
             if(err){
                 console.error('파일 읽기 오류: ',err);
@@ -325,7 +329,7 @@ const postController ={
                 }
             const posts= JSON.parse(data);
 
-            const post = posts.find(p=> p.board_id=== Number(board_id));
+            const post = posts.find(p=> p.post_id=== Number(post_id));
       
             post.comment_count += 1;
 
@@ -360,7 +364,7 @@ const postController ={
                     console.error('파일 쓰기 오류:', err);
                     return res.status(500).json({success: false, message: '서버 오류' });
                 }
-    
+
                 
                 res.status(200).json({ success: true, message: '모든 게시글 삭제 완료' });
             });

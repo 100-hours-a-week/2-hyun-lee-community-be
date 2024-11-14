@@ -1,41 +1,41 @@
 [
   {
-    "page_title": "hello world!!",
-    "page_content": "hi",
+    "page_title": "e",
+    "page_content": "e",
     "userId": 3,
-    "nickname": "test3",
-    "profile": "uploads/6ce1173cc5b1717631b2ba1d30edddee",
-    "page_image": "uploads/files/f0379feb0d05e71cc974adcbe8e6b196",
-    "create_at": "2024-11-14T02:41:34.143Z",
-    "view_count": 16,
+    "nickname": "test1",
+    "profile": "uploads/87ff38da4ef2d36c857fdc96c2b895f2",
+    "page_image": "uploads/files/f7cc537f42b5c2beaf4e468f08e01b58",
+    "create_at": "2024-11-14T08:50:03.790Z",
+    "view_count": 3,
     "likes_count": 1,
     "comment_count": 1,
-    "board_id": 0
+    "post_id": 1
   },
   {
-    "page_title": "hi",
-    "page_content": "hello",
+    "page_title": "dasd",
+    "page_content": "as",
     "userId": 3,
-    "nickname": "test3",
-    "profile": "uploads/6ce1173cc5b1717631b2ba1d30edddee",
-    "page_image": "uploads/files/4d07ff57ead5c54db0e57b88bdccae67",
-    "create_at": "2024-11-14T02:41:57.400Z",
-    "view_count": 6,
+    "nickname": "test1",
+    "profile": "uploads/87ff38da4ef2d36c857fdc96c2b895f2",
+    "page_image": null,
+    "create_at": "2024-11-14T08:53:36.703Z",
+    "view_count": 0,
     "likes_count": 0,
     "comment_count": 0,
-    "board_id": 1
+    "post_id": 2
   },
   {
-    "page_title": " 수정좀 ㅎㅎ작성합니다.",
-    "page_content": "ㅗㅎㅎ",
-    "userId": 2,
-    "nickname": "test2",
-    "profile": "uploads/6804afb337f03be99839825d17b1ebf7",
+    "page_title": "e",
+    "page_content": "e",
+    "userId": 3,
+    "nickname": "test1",
+    "profile": "uploads/87ff38da4ef2d36c857fdc96c2b895f2",
     "page_image": null,
-    "create_at": "2024-11-14T02:43:44.166Z",
-    "view_count": 10,
-    "likes_count": 1,
-    "comment_count": 1,
-    "board_id": 2
+    "create_at": "2024-11-14T08:55:47.956Z",
+    "view_count": 0,
+    "likes_count": 0,
+    "comment_count": 0,
+    "post_id": 3
   }
 ]

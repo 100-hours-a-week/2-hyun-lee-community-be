@@ -11,7 +11,7 @@ const commentController ={
         const user=sessionData[0];
         console.log(req.body);
         const commentData={
-                board_id:req.body.boardId,
+                post_id:req.body.post_id,
                 content:req.body.content,
                 user_id:user.userId,
                 nickname:user.nickname,
@@ -38,7 +38,7 @@ const commentController ={
             
         });
     },
-    getAllComments: async(board_id,res)=>{
+    getAllComments: async(post_id,res)=>{
         console.log("userId",sessionData[0]);
         fs.readFile(commentsFilePath,'utf-8',(err,data)=>{
             if(err){
@@ -47,13 +47,13 @@ const commentController ={
             }
             const comments= JSON.parse(data);
 
-            const comment = comments.filter(c=> c.board_id=== Number(board_id));
+            const comment = comments.filter(c=> c.post_id=== Number(post_id));
        
             res.status(200).json({comment,userId:sessionData[0].userId});
         });
     },
     deleteComment:async(req,res)=>{
-        const {boardId,commentId}=req.params;
+        const {post_id,commentId}=req.params;
         fs.readFile(commentsFilePath,'utf-8',(err,data)=>{
             if(err){
                  console.error('파일 읽기 오류: ',err);
@@ -61,7 +61,7 @@ const commentController ={
             }
             const comments= JSON.parse(data);
             
-            const comment = comments.filter(c=>  !(c.board_id === Number(boardId) && c.comment_id === Number(commentId)));
+            const comment = comments.filter(c=>  !(c.post_id === Number(post_id) && c.comment_id === Number(commentId)));
        
             fs.writeFile(commentsFilePath,JSON.stringify(comment,null,2),(err)=>{
                 if(err){
@@ -79,7 +79,7 @@ const commentController ={
              return res.status(500).json({success: false, message: '서버 오류'});
         }
         const posts= JSON.parse(data);
-        const post= posts.find(p=> p.board_id===Number(boardId));
+        const post= posts.find(p=> p.post_id===Number(post_id));
         post.comment_count -= 1;
         fs.writeFile(postsFilePath,JSON.stringify(posts,null,2),(err)=>{
             if(err){
@@ -92,7 +92,7 @@ const commentController ={
 
     },
     updateComment : async (req,res)=>{
-        const {boardId,commentId}=req.params;
+        const {post_id,commentId}=req.params;
         const newContent=req.body.content;
         fs.readFile(commentsFilePath,'utf-8',(err,data)=>{
             if(err){
@@ -101,7 +101,7 @@ const commentController ={
             }
             const comments= JSON.parse(data);
             
-            const comment = comments.find(c=>  c.board_id === Number(boardId) && c.comment_id === Number(commentId));
+            const comment = comments.find(c=>  c.post_id === Number(post_id) && c.comment_id === Number(commentId));
        
             comment.content=newContent;
             comment.create_at=new Date();
@@ -136,7 +136,7 @@ const commentController ={
                 const posts= JSON.parse(data);
 
                 allComment.forEach(c=>{
-                    const post = posts.find(p=>p.board_id===Number(c.board_id));
+                    const post = posts.find(p=>p.post_id===Number(c.post_id));
                     if(post){
                         post.comment_count -= 1;
 

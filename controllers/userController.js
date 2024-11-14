@@ -262,7 +262,7 @@ const userController ={
           
         },
         deleteUser :async(req,res)=>{
-            const {userId}=req.params;
+            const {user_id}=req.params;
 
             fs.readFile(usersFilePath,'utf-8',(err,data)=>{
                 if(err){
@@ -273,7 +273,7 @@ const userController ={
                 const users= JSON.parse(data)|| [];
 
                 //유지 정보 찾기
-                const user = users.filter(u => !(u.userId === Number(userId)));
+                const user = users.filter(u => !(u.userId === Number(user_id)));
                  sessionData.pop();
                 if (!user) {
                     return res.status(401).json({ success: false, message: '회원 정보가 없습니다.' });

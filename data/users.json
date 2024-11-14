@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "useremail": "test10@naver.com",
+    "password": "test10@naver.comW",
+    "nickname": "test10",
+    "profile": "uploads/1e9670d2923f7c0f48a7a33c5e995d78",
+    "userId": 2
+  },
+  {
+    "useremail": "test1@naver.com",
+    "password": "dlwngus123!Q",
+    "nickname": "test1",
+    "profile": "uploads/87ff38da4ef2d36c857fdc96c2b895f2",
+    "userId": 3
+  }
+]
