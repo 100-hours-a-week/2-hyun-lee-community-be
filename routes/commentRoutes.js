@@ -1,10 +1,10 @@
-const express = require('express');
-const router = express.Router();
-const multer = require('multer');
-const commentController = require('../controllers/commentController.js');
-const upload = multer({dest:'uploads/files/'});
-const path = require('path');
+import express from 'express';
+import multer from 'multer';
+import path from 'path';
+import commentController from '../controllers/commentController.js';
 
+const router = express.Router();
+const upload = multer({ dest: 'uploads/files/' });
 
 router.get('/posts/:post_id/comments',commentController.getAllComments);
 
@@ -21,4 +21,4 @@ router.delete('/user/:user_id',commentController.deleteUserComments)
 
 
 
-module.exports=router;
+export default router;

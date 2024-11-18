@@ -1,22 +1,27 @@
-const mysql = require('mysql2');
-const colors = require('colors');
-require('dotenv').config();
+import dotenv from 'dotenv';
+import mysql from 'mysql2/promise';
+import colors from 'colors';
 
 
-//mySQL 데이터베이스 연결 설정
-const db = mysql.createConnection({
+dotenv.config();
+
+
+const db = mysql.createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
+    database: process.env.DB_NAME,
+    port: 13306
 });
 
-db.connect((err)=>{
-    if(err){
-        console.err('DB connection error'.red,err);
-        return;
+(async () => {
+    try {
+        const connection = await db.getConnection(); 
+        console.log('DB connected!'.green);
+        connection.release(); 
+    } catch (err) {
+        console.error('DB connection error'.red, err);
     }
-    console.log('DB connected!'.green);
-});
+})();
 
-module.exports=db;
+export default db;

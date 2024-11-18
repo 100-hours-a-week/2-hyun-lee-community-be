@@ -19,5 +19,19 @@
     "nickname": "test4",
     "profile": "uploads/cc7aab17c5e85779ec82bd37f81e1691",
     "user_id": 5
+  },
+  {
+    "useremail": "hello2@naver.com",
+    "password": "dlwngus123!Q",
+    "nickname": "hello23",
+    "profile": "uploads/239b4795e1700733c7e5fcddb68e5cb1",
+    "user_id": 6
+  },
+  {
+    "useremail": "hello@naver.com",
+    "password": "dlwngus123!Q",
+    "nickname": "hello",
+    "profile": "uploads/02bca926441d5005067376a78cb36765",
+    "user_id": 7
   }
 ]

@@ -1,14 +1,18 @@
-const Post = require('../models/post'); 
-const { post } = require('../routes/userRoutes');
+import Post from '../models/post.js'; 
+import fs from 'fs'; 
+import path from 'path'; 
+import sessionData from '../config/session.js'; 
+import { fileURLToPath } from 'url';
 
-const fs = require('fs');
-const path = require('path');
+const __filename = fileURLToPath(import.meta.url); 
+const __dirname = path.dirname(__filename);
 
-const postsFilePath = path.join(__dirname,'../data/posts.json');
-const commentsFilePath = path.join(__dirname,'../data/comments.json');
 
-//임시 세션
-const sessionData = require('../config/session.js');
+const postsFilePath = path.join(__dirname, '../data/posts.json');
+const commentsFilePath = path.join(__dirname, '../data/comments.json');
+
+
+
 
 // const postController={
 //     createPost: async(req,res)=>{
@@ -373,4 +377,4 @@ const postController ={
 
 }
 
-module.exports=postController;
+export default postController;

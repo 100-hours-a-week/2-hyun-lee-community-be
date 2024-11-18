@@ -1,14 +1,19 @@
-const express=require('express');
-const userRoutes = require('./routes/userRoutes');
-const postRoutes = require('./routes/postRoutes');
-const commentRoutes = require('./routes/commentRoutes');
-const colors = require('colors');
-const moment = require('moment');
-const path = require('path');
-const cors =require('cors');
-const session = require('express-session');
-require('dotenv').config();
+import express from 'express';
+import userRoutes from './routes/userRoutes.js';
+import postRoutes from './routes/postRoutes.js';
+import commentRoutes from './routes/commentRoutes.js';
+import colors from 'colors';
+import moment from 'moment';
+import path from 'path';
+import cors from 'cors';
+import session from 'express-session';
+import dotenv from 'dotenv';
+import { fileURLToPath } from 'url';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+dotenv.config(); 
 
 
 
@@ -17,16 +22,14 @@ const app= express();
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
-
 app.use(session({
     secret:'secret',
     resave: false,
     saveUninitialized: true,
     cookie: {
-      path: '/',
-      maxAge: 24 * 6 * 60 * 10000,
-      sameSite: 'None',
+      maxAge: 24 * 60 * 60 * 1000,
       httpOnly: true,
+      sameSite: 'None',
       secure: false,
   }
 }));
@@ -38,8 +41,15 @@ app.use(
   }),
 )
 
+// app.use((req, res, next) => {
+//   console.log('Session ID:', req.sessionID);
+//   console.log('Session Data:', req.session);
+//   next();
+// });
+
 // 정적 파일 제공
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 
 app.use('/',userRoutes); 
 app.use('/',postRoutes);

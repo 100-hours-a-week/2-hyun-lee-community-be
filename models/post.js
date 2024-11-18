@@ -1,5 +1,6 @@
-const db=require('../config/db');
-const { deleteComment } = require('../controllers/postController');
+import db from '../config/db.js'; 
+
+
 
 const Post = {
     create: (postData)=>{
@@ -112,4 +113,5 @@ const Post = {
     }
 };
 
-module.exports=Post;
+
+export default Post;

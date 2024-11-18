@@ -1,35 +1,21 @@
-const User = require('../models/user');
-const bcrypt = require('bcrypt');
-const fs = require('fs');
-const path = require('path');
-const usersFilePath = path.join(__dirname,'../data/users.json');
+import User from '../models/user.js'; 
+import bcrypt from 'bcrypt';
+import fs from 'fs'; 
+import path from 'path'; 
+import { fileURLToPath } from 'url';
 
-//임시 세션
-const sessionData =  require('../config/session.js');
+
+const __filename = fileURLToPath(import.meta.url); 
+const __dirname = path.dirname(__filename); 
+
+const usersFilePath = path.join(__dirname, '../data/users.json');
+
+
+import sessionData from '../config/session.js'; 
+
 
 
 // const userController={
-//     createUser: async (req,res,next)=>{
-//         const userData = {
-//             useremail: req.body.useremail,
-//             password: req.body.password,
-//             nickname: req.body.nickname,
-//             profile: req.file ? req.file.path : null, // 파일 경로
-//         };
-//         console.log("session:",req.session);
-        
-//         try{
-//             const result= await User.create(userData);
-//             console.log("회원가입 id",result.insertId);
-//             return res.status(201).json({
-//                 message: '회원가입 성공',
-//                 userId:result.insertId,
-//                 ok:true
-//             });
-//         } catch(error){
-//             res.status(500).json({ok:false,message:'서버 오류'});
-//         }
-//     },
 //     login: async (req,res)=>{
 //         const {useremail,password}=req.body;
 //         const userData={useremail,password};
@@ -119,6 +105,35 @@ const sessionData =  require('../config/session.js');
 // };
 
 const userController ={
+    // createUser: async (req,res)=>{
+    //     try{
+    //         const { useremail, password, nickname } = req.body;
+    //         const profile = req.file ? req.file.path : null; // 파일 경로
+    //         const userData = {useremail, password, nickname, profile};
+
+    //         // 이메일 중복 확인
+    //         const emailExists = await User.findByEmail(userData.useremail);
+    //         if (emailExists) {
+    //             return res.status(400).json({result:"email",message: '이미 등록된 이메일 입니다.'});
+    //         }
+
+    //         // 닉네임 중복 확인
+    //         const nicknameExists = await User.findByNickname(userData.nickname);
+    //         if (nicknameExists) {
+    //             return res.status(400).json({result:"nickname" ,message: '이미 등록된 닉네임 입니다.'});
+    //         }
+        
+    //         const result= await User.create(userData);
+    //         return res.status(201).json({
+    //         message: '회원가입 성공',
+    //         userId:result.insertId,
+    //         success:true
+    //         });
+    //     } catch(error){
+    //         console.error('Error in createUser:', error); // 자세한 에러 로그 출력
+    //         res.status(500).json({success:false,message:'서버 오류'});
+    //     }
+    // },
     createUser: async (req,res)=>{
         const { useremail, password, nickname } = req.body;
         const profile = req.file ? req.file.path : null; // 파일 경로
@@ -155,19 +170,45 @@ const userController ={
                 }
                 res.status(201).json({
                     message: '회원가입 성공',
-                    user_id:newUser.id,
-                    ok:true
+                    user_id:newUser.user_id,
+                    success:true
                 });
             });
         })
                 
     },
+    // login: async (req,res)=>{
+    //             const {useremail,password}=req.body;
+    //             const userData={useremail,password};
+    //             console.log("userData",userData);
+    //             try{
+    //                 const result=await User.loginCheck(userData);
+    //                 console.log("result",result);
+    //                 if(result.success){
+                       
+    //                     //세션 정보 저장
+    //                     req.session.user={
+    //                         userId:result.user.user_id,
+    //                         useremail:result.user.useremail,
+    //                         nickname: result.user.nickname,
+    //                         profile : result.user.profile
+    //                     };
+                    
+    //                     console.log("sessionId",req.session.id);
+    //                     console.log("sessionData",req.session.user);
+    //                     return res.status(200).json({ success: true, message: '로그인 성공', user:result.user});
+    //                 } else{
+    //                     return res.status(401).json({ success: false,message:result.message});
+    //                 } 
+        
+    //             } catch(error){
+    //                 res.status(500).json({message:'서버 오류'});
+    //             }
+    //         },
     login: async (req,res)=>{
                 const {useremail,password}=req.body;
                 const userData={useremail,password};
                 console.log("userData",userData);
-
-
 
              fs.readFile(usersFilePath,'utf-8',(err,data)=>{
                 if(err){
@@ -205,6 +246,7 @@ const userController ={
         },
 
         loadUser : async(req,res)=>{
+            
             if(!sessionData){
                 return res.status(500).json({success: false, message: '서버 오류'});
             }
@@ -332,4 +374,4 @@ const userController ={
     };
 
 
-module.exports=userController;
+export default userController

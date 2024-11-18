@@ -1,3 +1,4 @@
 const session=[];
 
-module.exports=session;
+
+export default session;

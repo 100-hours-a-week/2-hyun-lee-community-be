@@ -34,5 +34,23 @@
     "profile": "uploads/cc7aab17c5e85779ec82bd37f81e1691",
     "create_at": "2024-11-14T13:01:28.956Z",
     "comment_id": 7
+  },
+  {
+    "post_id": 0,
+    "content": "wk",
+    "user_id": 6,
+    "nickname": "hello23",
+    "profile": "uploads/4709cb36be0492e0a3ebea5c093b0d11",
+    "create_at": "2024-11-18T08:43:34.784Z",
+    "comment_id": 4
+  },
+  {
+    "post_id": 0,
+    "content": "l",
+    "user_id": 6,
+    "nickname": "hello23",
+    "profile": "uploads/239b4795e1700733c7e5fcddb68e5cb1",
+    "create_at": "2024-11-18T08:43:30.187Z",
+    "comment_id": 5
   }
 ]

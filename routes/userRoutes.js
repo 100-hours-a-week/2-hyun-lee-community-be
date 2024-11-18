@@ -1,8 +1,9 @@
-const express = require('express');
+import express from 'express';
+import multer from 'multer';
+import userController from '../controllers/userController.js';
+
 const router = express.Router();
-const userController= require('../controllers/userController');
-const multer = require('multer');
-const upload = multer({dest:'uploads/'});
+const upload = multer({ dest: 'uploads/' });
 
 
 router.post('/users/register', upload.single('profileImage'), userController.createUser);
@@ -43,4 +44,5 @@ router.patch('/user/password',upload.none(),userController.updatePassword);
 
 
 
-module.exports=router;
+
+export default router;

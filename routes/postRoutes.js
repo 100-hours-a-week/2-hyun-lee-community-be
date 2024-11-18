@@ -1,8 +1,10 @@
-const express = require('express');
+import express from 'express';
+import multer from 'multer';
+import postController from '../controllers/postController.js';
+
 const router = express.Router();
-const multer = require('multer');
-const postController = require('../controllers/postController');
-const upload = multer({dest:'uploads/files/'});
+const upload = multer({ dest: 'uploads/files/' });
+
 
 
 
@@ -32,4 +34,5 @@ router.delete('/user/:user_id/posts',postController.deleteUserPosts)
 
 // router.delete('/comment/:post_id/deleteComment/:commentId', postController.deleteComment);
 
-module.exports=router;
+
+export default router;

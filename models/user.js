@@ -1,49 +1,29 @@
-const db = require('../config/db');
-const bcrypt = require('bcrypt');
+import db from '../config/db.js'; 
+import bcrypt from 'bcrypt'; 
+import mysql from 'mysql2/promise'; 
+
 
 const User = {
     create: async (userData) => {
         try {
 
-            // 이메일 중복 확인
-            const emailExists = await User.findByEmail(userData.useremail);
-            if (emailExists) {
-                throw new Error('이미 사용 중인 이메일입니다.');
-            }
-
-            // 닉네임 중복 확인
-            const nicknameExists = await User.findByNickname(userData.nickname);
-            if (nicknameExists) {
-                throw new Error('이미 사용 중인 닉네임입니다.');
-            }
             const salt = await bcrypt.genSalt(10);
             const hashedPassword = await bcrypt.hash(userData.password, salt);
-            const query = 'INSERT INTO user (useremail, reg_date, password, nickname, profile) VALUES (?, NOW(), ?, ?, ?)';
-            return new Promise((resolve, reject) => {
-                db.query(query, [userData.useremail, hashedPassword, userData.nickname, userData.profile], (err, results) => {
-                    if (err) {
-                        return reject(err);
-                    }
-                    resolve(results);
-                });
-            });
+            const query = 'INSERT INTO user (useremail, password, nickname, profile) VALUES (?, ?, ?, ?)';
+            const [results] = await db.execute(query, [userData.useremail, hashedPassword, userData.nickname, userData.profile]);
+  
+            return results;
         } catch (err) {
-            throw err; 
+            console.error(err.message);
         }
+
     },
 
-    loginCheck: async (userData)=>{
-        const {useremail,password}=userData;
-        
+    loginCheck: async (userData)=>{        
         try{
-            const results = await new Promise((resolve, reject) => {
-                db.query('SELECT * FROM user WHERE useremail = ?', [useremail], (err, results) => {
-                    if (err) {
-                        return reject(err);
-                    }
-                    resolve(results);
-                });
-            });
+            const {useremail,password}=userData;
+            const query = 'SELECT * FROM user WHERE useremail = ?';
+            const [results] = await db.execute(query,[useremail]);
 
             const user = results[0];
             // 비밀번호 비교
@@ -72,25 +52,33 @@ const User = {
     },
     
     findByEmail: async (email)=>{
-        return new Promise((resolve,reject)=>{
-            db.query('SELECT * FROM user WHERE useremail = ?', [email], (err, results) => {
-                if (err) {
-                    return reject(err);
-                }
-                resolve(results.length > 0); // 중복이면 true, 아니면 false 반환
-            });
-        });
+       try{
+            const query = 'SELECT COUNT(*) as count FROM user WHERE useremail = ?';
+            const [result] = await db.execute(query, [email]);
+ 
+            if (result[0].count > 0) {
+                return true; 
+            }
+            return false; 
+       } catch(err){
+        console.error(err);
+        throw err;
+       }
         
     },
     findByNickname: async (nickname) => {
-        return new Promise((resolve, reject) => {
-            db.query('SELECT * FROM user WHERE nickname = ?', [nickname], (err, results) => {
-                if (err) {
-                    return reject(err);
-                }
-                resolve(results.length > 0); // 중복이면 true, 아니면 false 반환
-            });
-        });
+        try{
+            const query = 'SELECT COUNT(*) as count FROM user WHERE nickname = ?';
+            const [result] = await db.execute(query, [nickname]);
+ 
+            if (result[0].count > 0) {
+                return true; 
+            }
+            return false; 
+       } catch(err){
+        console.error(err);
+        throw err;
+       }
     },
 
     findById: async (email) => {
@@ -116,4 +104,4 @@ const User = {
     },
 };
 
-module.exports = User;
+export default User;
