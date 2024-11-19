@@ -152,21 +152,13 @@ const userController ={
             }
             const users= JSON.parse(data);
 
-            //이메일 중복 확인
-            if(users.some(user=> user.useremail === useremail)){
-                return res.status(400).json({result:"email",message: '이미 등록된 이메일 입니다.'});
-            }
-            //닉네임 중복 확인
-            if(users.some(user=> user.nickname === nickname)){
-                return res.status(400).json({result:"nickname" ,message: '이미 등록된 닉네임 입니다.'});
-            }
             const maxId = users.length > 0 ? Math.max(...users.map(user => user.user_id)) : 0;            
             newUser.user_id = maxId+1;
             users.push(newUser);
             fs.writeFile(usersFilePath,JSON.stringify(users,null,2),(err)=>{
                 if(err){
                     console.error('파일 저장 오류:',err);
-                    return res.status(500).json({message :'서버 오류'});
+                    return res.status(500).json({success: false,message :'서버 오류'});
                 }
                 res.status(201).json({
                     message: '회원가입 성공',
@@ -303,6 +295,40 @@ const userController ={
 
           
         },
+        checkEmail : async (req,res)=>{
+            const email = req.query.email;
+           
+            fs.readFile(usersFilePath,'utf-8',(err,data)=>{
+                if(err){
+                    console.error('파일 읽기 오류: ',err);
+                    return res.status(500).json({message: '서버 오류'});
+                }
+                const users= JSON.parse(data);
+    
+                //이메일 중복 확인
+                if(users.some(user=> user.useremail === email)){
+                    return res.status(200).json({success: true,message: '이미 등록된 이메일 입니다.'});
+                }
+                res.status(400).json({ success: false, message: '등록된 이메일이 없습니다.' });
+            });
+        },
+        checkNickname: async(req,res)=>{
+            const nickname = req.query.nickname;
+            fs.readFile(usersFilePath,'utf-8',(err,data)=>{
+                if(err){
+                    console.error('파일 읽기 오류: ',err);
+                    return res.status(500).json({message: '서버 오류'});
+                }
+                const users= JSON.parse(data);
+    
+                //닉네임 중복 확인
+                if(users.some(user=> user.nickname === nickname)){
+                    return res.status(200).json({success:true ,message: '이미 등록된 닉네임 입니다.'});
+                }
+                res.status(400).json({ success: false, message: '등록된 닉네임이 없습니다.' });
+            })
+        },
+
         deleteUser :async(req,res)=>{
             const {user_id}=req.params;
 

@@ -27,15 +27,6 @@
     "comment_id": 2
   },
   {
-    "post_id": 4,
-    "content": "댓글 남겨요",
-    "user_id": 5,
-    "nickname": "test4",
-    "profile": "uploads/cc7aab17c5e85779ec82bd37f81e1691",
-    "create_at": "2024-11-14T13:01:28.956Z",
-    "comment_id": 7
-  },
-  {
     "post_id": 0,
     "content": "wk",
     "user_id": 6,
@@ -52,5 +43,23 @@
     "profile": "uploads/239b4795e1700733c7e5fcddb68e5cb1",
     "create_at": "2024-11-18T08:43:30.187Z",
     "comment_id": 5
+  },
+  {
+    "post_id": 3,
+    "content": "hello\n",
+    "user_id": 6,
+    "nickname": "hello23",
+    "profile": "uploads/239b4795e1700733c7e5fcddb68e5cb1",
+    "create_at": "2024-11-19T02:24:58.471Z",
+    "comment_id": 6
+  },
+  {
+    "post_id": 5,
+    "content": "ㅈ",
+    "user_id": 6,
+    "nickname": "hello23",
+    "profile": "uploads/f0047b338b47b042e517e92df6d81468",
+    "create_at": "2024-11-19T06:18:23.578Z",
+    "comment_id": 6
   }
 ]

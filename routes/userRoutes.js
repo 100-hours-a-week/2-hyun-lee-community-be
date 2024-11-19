@@ -8,6 +8,9 @@ const upload = multer({ dest: 'uploads/' });
 
 router.post('/users/register', upload.single('profileImage'), userController.createUser);
 
+router.get('/users/email/check', userController.checkEmail);
+
+router.get('/users/nickname/check', userController.checkNickname);
 
 
 

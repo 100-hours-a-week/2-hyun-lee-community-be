@@ -175,7 +175,7 @@ const postController ={
                     user_id:sessionData[0].user_id,
                     nickname:sessionData[0].nickname,
                     profile:sessionData[0].profile,
-                    page_image: req.file ? req.file.path : null,
+                    page_image: req.file ? req.file.path : 'uploads/d5d3a97711245d8bea727e5448a2c60c',
                     create_at: new Date(),
                     view_count:0,
                     likes_count:0,
