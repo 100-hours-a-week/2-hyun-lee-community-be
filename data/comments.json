@@ -61,5 +61,50 @@
     "profile": "uploads/f0047b338b47b042e517e92df6d81468",
     "create_at": "2024-11-19T06:18:23.578Z",
     "comment_id": 6
+  },
+  {
+    "post_id": 0,
+    "content": "w",
+    "user_id": 12,
+    "nickname": "test232",
+    "profile": "uploads/89956a188a3eb4101ad9e56ee64d2cce",
+    "create_at": "2024-11-19T14:55:47.584Z",
+    "comment_id": 7
+  },
+  {
+    "post_id": 1,
+    "content": "ㅎ",
+    "user_id": 12,
+    "nickname": "test232",
+    "profile": "uploads/89956a188a3eb4101ad9e56ee64d2cce",
+    "create_at": "2024-11-19T15:06:10.653Z",
+    "comment_id": 8
+  },
+  {
+    "post_id": 0,
+    "content": "ㄷ",
+    "user_id": 12,
+    "nickname": "test232",
+    "profile": "uploads/89956a188a3eb4101ad9e56ee64d2cce",
+    "create_at": "2024-11-19T15:06:21.256Z",
+    "comment_id": 9
+  },
+  {
+    "post_id": 1,
+    "content": "hello",
+    "user_id": 12,
+    "nickname": "test232",
+    "profile": "uploads/89956a188a3eb4101ad9e56ee64d2cce",
+    "create_at": "2024-11-19T15:06:26.511Z",
+    "comment_id": 10
+  },
+  {
+    "post_id": 1,
+    "content": "e",
+    "user_id": 12,
+    "nickname": "test232",
+    "profile": "uploads/89956a188a3eb4101ad9e56ee64d2cce",
+    "create_at": "2024-11-19T15:06:37.631Z",
+    "comment_id": 11
   }
 ]

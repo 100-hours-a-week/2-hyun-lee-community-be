@@ -61,5 +61,12 @@
     "nickname": "test23",
     "profile": "uploads/d7a79fcc891233b525bb6b29c6cae6fe",
     "user_id": 11
+  },
+  {
+    "useremail": "test23@naver.co",
+    "password": "dlwngus123!Q",
+    "nickname": "test232",
+    "profile": "uploads/89956a188a3eb4101ad9e56ee64d2cce",
+    "user_id": 12
   }
 ]
