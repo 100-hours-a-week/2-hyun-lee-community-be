@@ -9,6 +9,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename); 
 
 const usersFilePath = path.join(__dirname, '../data/users.json');
+const postsFilePath = path.join(__dirname, '../data/posts.json');
+const commentsFilePath = path.join(__dirname, '../data/comments.json');
 
 
 import sessionData from '../config/session.js'; 
@@ -272,9 +274,67 @@ const userController ={
                     return res.status(400).json({result:"nickname" ,message: '이미 등록된 닉네임 입니다.'});
                 }
 
-                user.nickname=nickname;
-                user.profile=profileImage;
+                const oldProfilePath = user.profile;
 
+                user.nickname=nickname;
+                if(profileImage){
+                    user.profile = profileImage;
+                    fs.readFile(postsFilePath,'utf-8',(err,data)=>{
+                        if(err){
+                            console.error('파일 읽기 오류: ',err);
+                            return res.status(500).json({success: false, message: '서버 오류'});
+                            }
+                        const posts = JSON.parse(data)|| [];
+
+                        const userPosts = posts.filter(p => p.user_id === Number(user_id));
+
+                        userPosts.forEach(post => {
+                            post.profile = profileImage;
+                            post.nickname = nickname;
+                        });
+
+                        fs.writeFile(postsFilePath, JSON.stringify(posts, null, 2), (err) => {
+                            if (err) {
+                                console.error('파일 쓰기 오류:', err);
+                                return res.status(500).json({success: false, message: '서버 오류' });
+                            }
+                        });    
+                    })
+
+                    fs.readFile(commentsFilePath,'utf-8',(err,data)=>{
+                        if(err){
+                             console.error('파일 읽기 오류: ',err);
+                             return res.status(500).json({success: false, message: '서버 오류'});
+                        }
+                        const comments= JSON.parse(data)||[];
+
+                        
+                        const userComments = comments.filter(c=> c.user_id === Number(user_id));
+
+                        userComments.forEach(comment=>{
+                            comment.profile=profileImage;
+                            comment.nickname=nickname;
+                        })
+                   
+                        fs.writeFile(commentsFilePath,JSON.stringify(comments,null,2),(err)=>{
+                            if(err){
+                                console.error('파일 저장 오류:',err);
+                                return res.status(500).json({success: false,message :'서버 오류'});
+                            }  
+                        });
+                        
+                    });
+                    
+                    if (oldProfilePath && oldProfilePath !== profileImage) {
+                        fs.unlink(oldProfilePath, (unlinkErr) => {
+                            if (unlinkErr) {
+                                console.error('기존 파일 삭제 오류:', unlinkErr);
+                            } else {
+                                console.log('기존 파일 삭제 완료:', oldProfilePath);
+                            }
+                        });
+                    } 
+                }
 
                 //세션 업데이트
                 sessionData[0].nickname=nickname;

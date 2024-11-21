@@ -175,7 +175,7 @@ const postController ={
                     user_id:sessionData[0].user_id,
                     nickname:sessionData[0].nickname,
                     profile:sessionData[0].profile,
-                    page_image: req.file ? req.file.path : 'uploads/d5d3a97711245d8bea727e5448a2c60c',
+                    page_image: req.file ? req.file.path : '',
                     create_at: new Date(),
                     view_count:0,
                     likes_count:0,
@@ -308,12 +308,9 @@ const postController ={
                             console.log('기존 파일 삭제 완료:', oldImagePath);
                         }
                     });
-                } else {
-                   // post.page_image = oldImagePath;
-                }
+                } 
             }
             
-           // post.page_image=req.file ? req.file.path : 'uploads/d5d3a97711245d8bea727e5448a2c60c';
             post.create_at=new Date();
             console.log("postsSSss:",post);
 

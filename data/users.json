@@ -1,9 +1,16 @@
 [
   {
-    "useremail": "hello@gmail.com",
-    "password": "dlwngus123!Q",
-    "nickname": "hello",
-    "profile": "uploads/1732169924289-2syJC1722251676.jpg",
+    "useremail": "hi@gmail.com",
+    "password": "dlwmgus123!Q",
+    "nickname": "hi",
+    "profile": "uploads/1732202547261-2syJC1722251676.jpg",
     "user_id": 1
+  },
+  {
+    "useremail": "hello@gmail.com",
+    "password": "dlwngus123!W",
+    "nickname": "helloW",
+    "profile": "uploads/1732202642390-2608C5D1-2A50-41CF-B358-500BE332297D.jpg",
+    "user_id": 2
   }
 ]
