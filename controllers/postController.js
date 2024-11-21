@@ -187,7 +187,9 @@ const postController ={
                          return res.status(500).json({success: false, message: '서버 오류'});
                     }
                     const posts= JSON.parse(data);
-                    postData.post_id = posts.length;
+
+                    const maxId = posts.length > 0 ? Math.max(...posts.map(post => post.post_id)) : 0;            
+                    postData.post_id = maxId+1;
                     posts.push(postData);
                     fs.writeFile(postsFilePath,JSON.stringify(posts,null,2),(err)=>{
                         if(err){
@@ -281,7 +283,7 @@ const postController ={
             const post = posts.find(p=> p.post_id=== Number(post_id));   
             post.page_title=req.body.postTitle;
             post.page_content=req.body.postContent;
-            post.page_image=req.file ? req.file.path : null;
+            post.page_image=req.file ? req.file.path : 'uploads/d5d3a97711245d8bea727e5448a2c60c';
             post.create_at=new Date();
             console.log("postsSSss:",post);
 

@@ -307,9 +307,9 @@ const userController ={
     
                 //이메일 중복 확인
                 if(users.some(user=> user.useremail === email)){
-                    return res.status(200).json({success: true,message: '이미 등록된 이메일 입니다.'});
+                    return res.status(400).json({success: false,message: '이미 등록된 이메일 입니다.'});
                 }
-                res.status(400).json({ success: false, message: '등록된 이메일이 없습니다.' });
+                res.status(200).json({ success: true, message: '등록된 이메일이 없습니다.' });
             });
         },
         checkNickname: async(req,res)=>{
@@ -323,9 +323,9 @@ const userController ={
     
                 //닉네임 중복 확인
                 if(users.some(user=> user.nickname === nickname)){
-                    return res.status(200).json({success:true ,message: '이미 등록된 닉네임 입니다.'});
+                    return res.status(400).json({success:false ,message: '이미 등록된 닉네임 입니다.'});
                 }
-                res.status(400).json({ success: false, message: '등록된 닉네임이 없습니다.' });
+                res.status(200).json({ success: true, message: '등록된 닉네임이 없습니다.' });
             })
         },
 

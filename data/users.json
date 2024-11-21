@@ -28,13 +28,6 @@
     "user_id": 6
   },
   {
-    "useremail": "hello@naver.com",
-    "password": "dlwngus123!Q",
-    "nickname": "hello",
-    "profile": "uploads/02bca926441d5005067376a78cb36765",
-    "user_id": 7
-  },
-  {
     "useremail": "heloo@naver.com",
     "password": "dlwngus123!Q",
     "nickname": "hello@",
@@ -56,17 +49,45 @@
     "user_id": 10
   },
   {
-    "useremail": "test23@naver.com",
-    "password": "dlwngus123!Q",
-    "nickname": "test23",
-    "profile": "uploads/d7a79fcc891233b525bb6b29c6cae6fe",
-    "user_id": 11
-  },
-  {
     "useremail": "test23@naver.co",
     "password": "dlwngus123!Q",
     "nickname": "test232",
-    "profile": "uploads/89956a188a3eb4101ad9e56ee64d2cce",
+    "profile": "uploads/0e42fe237012b6ab4481f4f9ba810242",
     "user_id": 12
+  },
+  {
+    "useremail": "test100@naver.com",
+    "password": "dlwngus123!Q",
+    "nickname": "test1001",
+    "profile": "uploads/8fdb76797e75b425997b291f9b3cf774",
+    "user_id": 13
+  },
+  {
+    "useremail": "test1000@naver.com",
+    "password": "dlwngus123!Q",
+    "nickname": "hello",
+    "profile": "uploads/aa458fac1bb70915f51431a484a75241",
+    "user_id": 14
+  },
+  {
+    "useremail": "test222@naver.com",
+    "password": "dlwngus123!W",
+    "nickname": "test2233",
+    "profile": "uploads/c093f4e1b62142b0f85a36d31c833ca3",
+    "user_id": 15
+  },
+  {
+    "useremail": "hello@naver.com",
+    "password": "dlwngus123!Q",
+    "nickname": "hello2",
+    "profile": "uploads/b06f2edfe55846e7581e4005d05a8e2a",
+    "user_id": 16
+  },
+  {
+    "useremail": "hi@gmail.com",
+    "password": "dlwngus123!Q",
+    "nickname": "hi",
+    "profile": "uploads/4d0eb1b130b01d01e8884e2668c5cb80",
+    "user_id": 17
   }
 ]
