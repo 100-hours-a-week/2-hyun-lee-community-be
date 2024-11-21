@@ -281,9 +281,39 @@ const postController ={
             const posts= JSON.parse(data);
 
             const post = posts.find(p=> p.post_id=== Number(post_id));   
+
+            const oldImagePath = post.page_image;
+
+
             post.page_title=req.body.postTitle;
             post.page_content=req.body.postContent;
-            post.page_image=req.file ? req.file.path : 'uploads/d5d3a97711245d8bea727e5448a2c60c';
+            if (req.body.deleteImage === 'true') {
+                if (oldImagePath) {
+                    fs.unlink(oldImagePath, (err) => {
+                        if (err) {
+                            console.error('기존 이미지 삭제 오류:', err);
+                        } else {
+                            console.log('기존 이미지 삭제 성공:', oldImagePath);
+                        }
+                    });
+                }
+                post.page_image = ''; 
+            } else if(req.file){
+                post.page_image = req.file.path;
+                if (oldImagePath && oldImagePath !== req.file.path) {
+                    fs.unlink(oldImagePath, (unlinkErr) => {
+                        if (unlinkErr) {
+                            console.error('기존 파일 삭제 오류:', unlinkErr);
+                        } else {
+                            console.log('기존 파일 삭제 완료:', oldImagePath);
+                        }
+                    });
+                } else {
+                   // post.page_image = oldImagePath;
+                }
+            }
+            
+           // post.page_image=req.file ? req.file.path : 'uploads/d5d3a97711245d8bea727e5448a2c60c';
             post.create_at=new Date();
             console.log("postsSSss:",post);
 

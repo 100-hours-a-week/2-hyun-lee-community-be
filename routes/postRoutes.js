@@ -3,7 +3,17 @@ import multer from 'multer';
 import postController from '../controllers/postController.js';
 
 const router = express.Router();
-const upload = multer({ dest: 'uploads/files/' });
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/files'); 
+    },
+    filename: (req, file, cb) => {
+        const uniqueName = `${Date.now()}-${Buffer.from(file.originalname, 'latin1').toString('utf8')}`;
+        cb(null, uniqueName);
+    },
+});
+const upload = multer({ storage });
 
 
 

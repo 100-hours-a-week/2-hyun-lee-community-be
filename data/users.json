@@ -1,93 +1,9 @@
 [
   {
-    "useremail": "test10@naver.com",
-    "password": "test10@naver.comW",
-    "nickname": "test10",
-    "profile": "uploads/1e9670d2923f7c0f48a7a33c5e995d78",
-    "user_id": 2
-  },
-  {
-    "useremail": "test2@naver.com",
-    "password": "dlwngus123!Q",
-    "nickname": "test2",
-    "profile": "uploads/650d3046927e419c07dd595219c3b22b",
-    "user_id": 4
-  },
-  {
-    "useremail": "test4@naver.com",
-    "password": "dlwngus123!Q",
-    "nickname": "test4",
-    "profile": "uploads/cc7aab17c5e85779ec82bd37f81e1691",
-    "user_id": 5
-  },
-  {
-    "useremail": "hello2@naver.com",
-    "password": "dlwngus123!Q",
-    "nickname": "hello23",
-    "profile": "uploads/f0047b338b47b042e517e92df6d81468",
-    "user_id": 6
-  },
-  {
-    "useremail": "heloo@naver.com",
-    "password": "dlwngus123!Q",
-    "nickname": "hello@",
-    "profile": "uploads/436dfe613a75851a02d579140f9019cc",
-    "user_id": 8
-  },
-  {
-    "useremail": "hello32@naver.com",
-    "password": "dlwngus123!Q",
-    "nickname": "12hello",
-    "profile": "uploads/30d44b208c3708ca3f142b4237d7f7a8",
-    "user_id": 9
-  },
-  {
-    "useremail": "hello@naver.co",
-    "password": "dlwngus123!Q",
-    "nickname": "hellow",
-    "profile": "uploads/8b6fa4dee2fc644bfec4dd0e26569cf8",
-    "user_id": 10
-  },
-  {
-    "useremail": "test23@naver.co",
-    "password": "dlwngus123!Q",
-    "nickname": "test232",
-    "profile": "uploads/0e42fe237012b6ab4481f4f9ba810242",
-    "user_id": 12
-  },
-  {
-    "useremail": "test100@naver.com",
-    "password": "dlwngus123!Q",
-    "nickname": "test1001",
-    "profile": "uploads/8fdb76797e75b425997b291f9b3cf774",
-    "user_id": 13
-  },
-  {
-    "useremail": "test1000@naver.com",
+    "useremail": "hello@gmail.com",
     "password": "dlwngus123!Q",
     "nickname": "hello",
-    "profile": "uploads/aa458fac1bb70915f51431a484a75241",
-    "user_id": 14
-  },
-  {
-    "useremail": "test222@naver.com",
-    "password": "dlwngus123!W",
-    "nickname": "test2233",
-    "profile": "uploads/c093f4e1b62142b0f85a36d31c833ca3",
-    "user_id": 15
-  },
-  {
-    "useremail": "hello@naver.com",
-    "password": "dlwngus123!Q",
-    "nickname": "hello2",
-    "profile": "uploads/b06f2edfe55846e7581e4005d05a8e2a",
-    "user_id": 16
-  },
-  {
-    "useremail": "hi@gmail.com",
-    "password": "dlwngus123!Q",
-    "nickname": "hi",
-    "profile": "uploads/4d0eb1b130b01d01e8884e2668c5cb80",
-    "user_id": 17
+    "profile": "uploads/1732169924289-2syJC1722251676.jpg",
+    "user_id": 1
   }
 ]

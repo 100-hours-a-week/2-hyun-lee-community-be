@@ -3,7 +3,18 @@ import multer from 'multer';
 import userController from '../controllers/userController.js';
 
 const router = express.Router();
-const upload = multer({ dest: 'uploads/' });
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads'); 
+    },
+    filename: (req, file, cb) => {
+        const uniqueName = `${Date.now()}-${Buffer.from(file.originalname, 'latin1').toString('utf8')}`;
+        cb(null, uniqueName);
+    },
+});
+const upload = multer({ storage });
+
 
 
 router.post('/users/register', upload.single('profileImage'), userController.createUser);

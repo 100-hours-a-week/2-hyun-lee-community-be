@@ -286,7 +286,7 @@ const userController ={
                         return res.status(500).json({ success:false, message :'서버 오류'});
                     }
                     res.status(201).json({
-                        message: '회원정보 업데이트',
+                        message: '수정 완료',
                         success:true
                     });
                 });
