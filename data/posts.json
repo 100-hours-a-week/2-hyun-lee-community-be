@@ -1,13 +1,13 @@
 [
   {
-    "page_title": "h",
-    "page_content": "e",
+    "page_title": "whww",
+    "page_content": "eweeewqweqwewwee",
     "user_id": 1,
-    "nickname": "hi",
-    "profile": "uploads/1732202547261-2syJC1722251676.jpg",
+    "nickname": "hiwe",
+    "profile": "uploads/1732348904302-배경_카클스_yellow.png",
     "page_image": "",
-    "create_at": "2024-11-21T15:22:34.363Z",
-    "view_count": 5,
+    "create_at": "2024-11-23T08:00:27.643Z",
+    "view_count": 306,
     "likes_count": 0,
     "comment_count": 2,
     "post_id": 1
@@ -16,8 +16,8 @@
     "page_title": "w",
     "page_content": "w",
     "user_id": 1,
-    "nickname": "hi",
-    "profile": "uploads/1732202547261-2syJC1722251676.jpg",
+    "nickname": "hiwe",
+    "profile": "uploads/1732348904302-배경_카클스_yellow.png",
     "page_image": "uploads/files/1732202560277-Default-Profile-Picture-PNG-Download-Image.png",
     "create_at": "2024-11-21T15:22:40.279Z",
     "view_count": 3,
@@ -50,5 +50,18 @@
     "likes_count": 0,
     "comment_count": 0,
     "post_id": 4
+  },
+  {
+    "page_title": "w",
+    "page_content": "eweeqqq",
+    "user_id": 1,
+    "nickname": "hiwe",
+    "profile": "uploads/1732348904302-배경_카클스_yellow.png",
+    "page_image": "",
+    "create_at": "2024-11-23T08:02:25.183Z",
+    "view_count": 14,
+    "likes_count": 0,
+    "comment_count": 0,
+    "post_id": 5
   }
 ]

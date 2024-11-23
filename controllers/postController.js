@@ -283,11 +283,11 @@ const postController ={
             const post = posts.find(p=> p.post_id=== Number(post_id));   
 
             const oldImagePath = post.page_image;
-
-
+           
+            
             post.page_title=req.body.postTitle;
             post.page_content=req.body.postContent;
-            if (req.body.deleteImage === 'true') {
+            if (req.body.postDelete === 'true') {
                 if (oldImagePath) {
                     fs.unlink(oldImagePath, (err) => {
                         if (err) {
@@ -298,9 +298,12 @@ const postController ={
                     });
                 }
                 post.page_image = ''; 
-            } else if(req.file){
+            } else {
+                if(!req.file){
+                    post.page_image=oldImagePath;
+                } else {
                 post.page_image = req.file.path;
-                if (oldImagePath && oldImagePath !== req.file.path) {
+                if (oldImagePath) {
                     fs.unlink(oldImagePath, (unlinkErr) => {
                         if (unlinkErr) {
                             console.error('기존 파일 삭제 오류:', unlinkErr);
@@ -309,6 +312,7 @@ const postController ={
                         }
                     });
                 } 
+                }
             }
             
             post.create_at=new Date();

@@ -1,9 +1,9 @@
 [
   {
     "useremail": "hi@gmail.com",
-    "password": "dlwmgus123!Q",
-    "nickname": "hi",
-    "profile": "uploads/1732202547261-2syJC1722251676.jpg",
+    "password": "Helloworld!W1",
+    "nickname": "hiwe",
+    "profile": "uploads/1732348904302-배경_카클스_yellow.png",
     "user_id": 1
   },
   {
@@ -12,5 +12,19 @@
     "nickname": "helloW",
     "profile": "uploads/1732202642390-2608C5D1-2A50-41CF-B358-500BE332297D.jpg",
     "user_id": 2
+  },
+  {
+    "useremail": "ex@gmail.com",
+    "password": "dlwngus123!Q",
+    "nickname": "ex",
+    "profile": "uploads/1732253556716-Default-Profile-Picture-PNG-Download-Image.png",
+    "user_id": 3
+  },
+  {
+    "useremail": "ex@naver.com",
+    "password": "dlwngus123!Q",
+    "nickname": "ex@",
+    "profile": "uploads/1732254283314-127.0.0.1_5500_public_index.html.png",
+    "user_id": 4
   }
 ]
