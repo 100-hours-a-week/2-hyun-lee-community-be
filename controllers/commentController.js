@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import sessionData from '../config/session.js'; 
+import Comment from '../models/comment.js';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url); 
@@ -12,8 +13,39 @@ const postsFilePath = path.join(__dirname,'../data/posts.json');
 
 
 const commentController ={
+    // createComment:async(req,res)=>{
+    //     const user=sessionData[0];
+    //     const {post_id} = req.params;
+    //     const id = Number(post_id);
+    //     const commentData={
+    //             post_id:id,
+    //             content:req.body.content,
+    //             user_id:user.user_id,
+    //             nickname:user.nickname,
+    //             profile:user.profile,
+    //             create_at: new Date()
+    //             }
+    //     fs.readFile(commentsFilePath,'utf-8',(err,data)=>{
+    //         if(err){
+    //              console.error('파일 읽기 오류: ',err);
+    //              return res.status(500).json({success: false, message: '서버 오류'});
+    //         }
+    //         const comments= JSON.parse(data);
+    //         commentData.comment_id = comments.length;
+    //         comments.push(commentData);
+    //         fs.writeFile(commentsFilePath,JSON.stringify(comments,null,2),(err)=>{
+    //             if(err){
+    //                 console.error('파일 저장 오류:',err);
+    //                 return res.status(500).json({success: false,message :'서버 오류'});
+    //             }
+    //             res.status(201).json({success: true, comment:commentData,message: '댓글 작성완료'});
+                
+    //         })
+            
+    //     });
+    // },
     createComment:async(req,res)=>{
-        const user=sessionData[0];
+        const user= req.session.user;
         const {post_id} = req.params;
         const id = Number(post_id);
         const commentData={
@@ -22,106 +54,139 @@ const commentController ={
                 user_id:user.user_id,
                 nickname:user.nickname,
                 profile:user.profile,
-                create_at: new Date()
                 }
-        fs.readFile(commentsFilePath,'utf-8',(err,data)=>{
-            if(err){
-                 console.error('파일 읽기 오류: ',err);
-                 return res.status(500).json({success: false, message: '서버 오류'});
-            }
-            const comments= JSON.parse(data);
-            commentData.comment_id = comments.length;
-            comments.push(commentData);
-            fs.writeFile(commentsFilePath,JSON.stringify(comments,null,2),(err)=>{
-                if(err){
-                    console.error('파일 저장 오류:',err);
-                    return res.status(500).json({success: false,message :'서버 오류'});
-                }
-                res.status(201).json({success: true, comment:commentData,message: '댓글 작성완료'});
+        try{
+        const results = await Comment.createComment(commentData);    
+        
+        res.status(201).json({success: true, comment:results,message: '댓글 작성완료'});
                 
-            })
             
-        });
+        } catch(error){
+            return res.status(500).json({success: false,message :'서버 오류'});
+        }
     },
-    getAllComments: async(req,res)=>{
-       const {post_id} = req.params;
+    // getAllComments: async(req,res)=>{
+    //    const {post_id} = req.params;
     
-        fs.readFile(commentsFilePath,'utf-8',(err,data)=>{
-            if(err){
-                 console.error('파일 읽기 오류: ',err);
-                 return res.status(500).json({success: false, message: '서버 오류'});
-            }
-            const comments= JSON.parse(data);
+    //     fs.readFile(commentsFilePath,'utf-8',(err,data)=>{
+    //         if(err){
+    //              console.error('파일 읽기 오류: ',err);
+    //              return res.status(500).json({success: false, message: '서버 오류'});
+    //         }
+    //         const comments= JSON.parse(data);
 
-            const comment = comments.filter(c=> c.post_id=== Number(post_id));
-            console.log(comment);
-            res.status(200).json({comment,user_id:sessionData[0].user_id});
-        });
-    },
+    //         const comment = comments.filter(c=> c.post_id=== Number(post_id));
+    //         console.log(comment);
+    //         res.status(200).json({comment,user_id:sessionData[0].user_id});
+    //     });
+    // },
+    getAllComments: async(req,res)=>{
+        const {post_id} = req.params;
+        const user_id = req.session.user.user_id;
+
+        try{
+            const comments = await Comment.getAllComments(post_id);
+            res.status(200).json({success : true, comments, user_id:user_id});
+        } catch (error){
+            console.error(error);
+            return res.status(500).json({success: false,message :'서버 오류'});
+            
+        }
+     },
+    // deleteComment:async(req,res)=>{
+    //     const {post_id,comment_id}=req.params;
+    //     fs.readFile(commentsFilePath,'utf-8',(err,data)=>{
+    //         if(err){
+    //              console.error('파일 읽기 오류: ',err);
+    //              return res.status(500).json({success: false, message: '서버 오류'});
+    //         }
+    //         const comments= JSON.parse(data);
+            
+    //         const comment = comments.filter(c=>  !(c.post_id === Number(post_id) && c.comment_id === Number(comment_id)));
+       
+    //         fs.writeFile(commentsFilePath,JSON.stringify(comment,null,2),(err)=>{
+    //             if(err){
+    //                 console.error('파일 저장 오류:',err);
+    //                 return res.status(500).json({success: false,message :'서버 오류'});
+    //             }
+    //             res.status(201).json({success: true, message: '댓글 삭제완료'});   
+    //         });
+            
+    //    });
+    //    //댓글수 감소
+    //    fs.readFile(postsFilePath,'utf-8',(err,data)=>{
+    //     if(err){
+    //          console.error('파일 읽기 오류: ',err);
+    //          return res.status(500).json({success: false, message: '서버 오류'});
+    //     }
+    //     const posts= JSON.parse(data);
+    //     const post= posts.find(p=> p.post_id===Number(post_id));
+    //     post.comment_count -= 1;
+    //     fs.writeFile(postsFilePath,JSON.stringify(posts,null,2),(err)=>{
+    //         if(err){
+    //             console.error('파일 저장 오류:',err);
+    //             return res.status(500).json({success: false,message :'서버 오류'});
+    //         }
+    //     })
+        
+    // });
+
+    // },
     deleteComment:async(req,res)=>{
         const {post_id,comment_id}=req.params;
-        fs.readFile(commentsFilePath,'utf-8',(err,data)=>{
-            if(err){
-                 console.error('파일 읽기 오류: ',err);
-                 return res.status(500).json({success: false, message: '서버 오류'});
-            }
-            const comments= JSON.parse(data);
-            
-            const comment = comments.filter(c=>  !(c.post_id === Number(post_id) && c.comment_id === Number(comment_id)));
-       
-            fs.writeFile(commentsFilePath,JSON.stringify(comment,null,2),(err)=>{
-                if(err){
-                    console.error('파일 저장 오류:',err);
-                    return res.status(500).json({success: false,message :'서버 오류'});
-                }
-                res.status(201).json({success: true, message: '댓글 삭제완료'});   
-            });
-            
-       });
-       //댓글수 감소
-       fs.readFile(postsFilePath,'utf-8',(err,data)=>{
-        if(err){
-             console.error('파일 읽기 오류: ',err);
-             return res.status(500).json({success: false, message: '서버 오류'});
+        try{
+        const result = await Comment.deleteComment(post_id,comment_id);
+        res.status(201).json({success: true, message: '댓글 삭제완료'});  
+        } catch(error){
+            console.error(error);
+            return res.status(500).json({success: false,message :'서버 오류'});
         }
-        const posts= JSON.parse(data);
-        const post= posts.find(p=> p.post_id===Number(post_id));
-        post.comment_count -= 1;
-        fs.writeFile(postsFilePath,JSON.stringify(posts,null,2),(err)=>{
-            if(err){
-                console.error('파일 저장 오류:',err);
-                return res.status(500).json({success: false,message :'서버 오류'});
-            }
-        })
         
-    });
+        
 
     },
+
+    // updateComment : async (req,res)=>{
+    //     const {post_id,comment_id}=req.params;
+    //     const newContent=req.body.content;
+    //     fs.readFile(commentsFilePath,'utf-8',(err,data)=>{
+    //         if(err){
+    //              console.error('파일 읽기 오류: ',err);
+    //              return res.status(500).json({success: false, message: '서버 오류'});
+    //         }
+    //         const comments= JSON.parse(data);
+            
+    //         const comment = comments.find(c=>  c.post_id === Number(post_id) && c.comment_id === Number(comment_id));
+       
+    //         comment.content=newContent;
+    //         comment.create_at=new Date();
+
+    //         fs.writeFile(commentsFilePath,JSON.stringify(comments,null,2),(err)=>{
+    //             if(err){
+    //                 console.error('파일 저장 오류:',err);
+    //                 return res.status(500).json({success: false,message :'서버 오류'});
+    //             }
+    //             res.status(201).json({success: true, message: '댓글 수정완료'});   
+    //         });
+            
+    //    });
+    // },
     updateComment : async (req,res)=>{
         const {post_id,comment_id}=req.params;
         const newContent=req.body.content;
-        fs.readFile(commentsFilePath,'utf-8',(err,data)=>{
-            if(err){
-                 console.error('파일 읽기 오류: ',err);
-                 return res.status(500).json({success: false, message: '서버 오류'});
-            }
-            const comments= JSON.parse(data);
-            
-            const comment = comments.find(c=>  c.post_id === Number(post_id) && c.comment_id === Number(comment_id));
-       
-            comment.content=newContent;
-            comment.create_at=new Date();
 
-            fs.writeFile(commentsFilePath,JSON.stringify(comments,null,2),(err)=>{
-                if(err){
-                    console.error('파일 저장 오류:',err);
-                    return res.status(500).json({success: false,message :'서버 오류'});
-                }
-                res.status(201).json({success: true, message: '댓글 수정완료'});   
-            });
+        try{
+            await Comment.updateComment(post_id,comment_id,newContent);
+            res.status(201).json({success: true, message: '댓글 수정완료'});
+        } catch(error){
+            console.error(error);
+            return res.status(500).json({success: false,message :'서버 오류'});
+        }
+                   
             
-       });
     },
+
+    
     deleteUserComments:async(req,res)=>{
         const {user_id}=req.params;
         fs.readFile(commentsFilePath,'utf-8',(err,data)=>{

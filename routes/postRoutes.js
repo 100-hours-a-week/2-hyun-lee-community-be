@@ -26,7 +26,7 @@ router.post('/posts', upload.single('postImage'), postController.createPost);
 router.get('/posts',postController.getAllPosts)
 
 
-router.patch('/posts/likes/:post_id', postController.likesUpdate);
+router.patch('/posts/likes/:post_id', postController.updateLikes);
 
 router.patch('/posts/:post_id',postController.getPosts);
 

@@ -11,7 +11,7 @@ const User = {
             const hashedPassword = await bcrypt.hash(userData.password, salt);
             const query = 'INSERT INTO user (useremail, password, nickname, profile) VALUES (?, ?, ?, ?)';
             const [results] = await db.execute(query, [userData.useremail, hashedPassword, userData.nickname, userData.profile]);
-  
+         
             return results;
         } catch (err) {
             console.error(err.message);

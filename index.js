@@ -22,20 +22,19 @@ const app= express();
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
-app.use(session({
-    secret:'secret',
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-      maxAge: 24 * 60 * 60 * 1000,
+app.use( session({
+  secret: 'secretkey',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+      secure: false, 
       httpOnly: true,
-      sameSite: 'None',
-      secure: false,
-  }
+      maxAge: 60 * 60 * 1000, 
+  },
 }));
 app.use(
   cors({
-    origin: 'http://127.0.0.1:5500',
+    origin: 'http://localhost:8000',
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     credentials: true,
   }),

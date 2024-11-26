@@ -1,47 +1,20 @@
 [
   {
     "post_id": 1,
-    "content": "qweqwe",
+    "content": "qwe",
     "user_id": 1,
-    "nickname": "hiwe",
-    "profile": "uploads/1732348904302-배경_카클스_yellow.png",
-    "create_at": "2024-11-21T15:22:43.819Z",
+    "nickname": "dahelloweq",
+    "profile": "uploads/1732509478249-2syJC1722251676.jpg",
+    "create_at": "2024-11-25T04:19:23.496Z",
     "comment_id": 0
   },
   {
     "post_id": 2,
-    "content": "eee",
+    "content": "qwew",
     "user_id": 1,
-    "nickname": "hiwe",
-    "profile": "uploads/1732348904302-배경_카클스_yellow.png",
-    "create_at": "2024-11-21T15:22:48.862Z",
+    "nickname": "dahelloweq",
+    "profile": "uploads/1732509478249-2syJC1722251676.jpg",
+    "create_at": "2024-11-25T04:38:11.206Z",
     "comment_id": 1
-  },
-  {
-    "post_id": 2,
-    "content": "qweqwe",
-    "user_id": 1,
-    "nickname": "hiwe",
-    "profile": "uploads/1732348904302-배경_카클스_yellow.png",
-    "create_at": "2024-11-21T15:22:51.120Z",
-    "comment_id": 2
-  },
-  {
-    "post_id": 3,
-    "content": "wee",
-    "user_id": 2,
-    "nickname": "helloW",
-    "profile": "uploads/1732202642390-2608C5D1-2A50-41CF-B358-500BE332297D.jpg",
-    "create_at": "2024-11-21T15:23:32.755Z",
-    "comment_id": 3
-  },
-  {
-    "post_id": 1,
-    "content": "qweqwe",
-    "user_id": 2,
-    "nickname": "helloW",
-    "profile": "uploads/1732202642390-2608C5D1-2A50-41CF-B358-500BE332297D.jpg",
-    "create_at": "2024-11-21T15:23:37.059Z",
-    "comment_id": 4
   }
 ]

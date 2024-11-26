@@ -3,114 +3,110 @@ import db from '../config/db.js';
 
 
 const Post = {
-    create: (postData)=>{
-        const query='INSERT INTO board(page_title,page_content,create_at,user_fk,likes_count, view_count,page_image,comment_count) VALUES (?,?,NOW(),?,0,0,?,0)';
-        return new Promise((resolve,reject)=>{
-            db.query(query,[postData.postTitle,postData.postContent,postData.userId,postData.postImage],(err,result)=>{
-                if(err){
-                    return reject(err);
-                }
-                resolve(result);
-            });
-        });
+    create: async (postData)=>{
+        try {
+            const query = `
+                INSERT INTO board 
+                (page_title, page_content, create_at, user_id, likes_count, view_count, page_image, comment_count) 
+                VALUES (?, ?, NOW(), ?, 0, 0, ?, 0)
+            `;
+
+            const postTitle = postData.postTitle ?? null;
+            const postContent = postData.postContent ?? null;
+            const userId = postData.userId ?? null;
+            const postImage = postData.page_image ?? null;
+
+        
+            const [results] = await db.execute(query, [
+                postTitle,
+                postContent,
+                userId,
+                postImage
+            ]);  
+            return results[0]; 
+        } catch (err) {
+            console.error(err.message);
+        }
     },
 
     // 게시글 목록 조회
     getAllPosts: async () => {
         const sql = `
-        SELECT  b.board_id, b.page_title, b.likes_count, b.create_at, b.view_count, b.comment_count, u.nickname, u.profile
+        SELECT b.post_id, b.page_title, b.likes_count, b.create_at, b.view_count, b.comment_count, u.nickname, u.profile
         FROM board AS b
-        JOIN user AS u ON b.user_fk = u.user_id
-        ORDER BY b.board_id DESC;
-        `;
+        JOIN user AS u ON b.user_id = u.user_id
+        ORDER BY b.post_id DESC;
+    `;
 
-        try {
-            const results = await db.promise().query(sql);
-            return results;
-        } catch (error) {
-            throw new Error('게시글 조회 실패: ' + error.message);
-        }
-    },
-    getPosts: async (board_id) => {
+    try {
+        const [results] = await db.execute(sql);
+        return results;
+    } catch (error) {
+        console.error(error.message);
         
-        const sql = `
-        SELECT * FROM board,user WHERE board.board_id=${board_id} and board.user_fk=user.user_id;
-        `;
-        
-        try {
-            const results = await db.promise().query(sql);
-            return results;
-        } catch (error) {
-            throw new Error('게시글 조회 실패: ' + error.message);
-        }
-    },
-
-    deletePost: async (board_id)=>{
-        const sql=`DELETE FROM board WHERE board_id=${board_id};`
-        try{
-            const result= await db.promise().query(sql);
-            return result;
-        } catch(error){
-            throw new Error('게시글 삭제 실패: ' + error.message);
-        }
-    },
-    createComment: async(commentData)=>{
-        const insertSql = `INSERT INTO comment (board_fk, user_id, content, create_at) VALUES (?, ?, ?, NOW())`;
-        const selectSql = `SELECT * FROM comment,user WHERE comment_id = ? and user.user_id=?`; 
-    
-        return new Promise((resolve, reject) => {
-            db.query(insertSql, [commentData.board_id, commentData.user_id, commentData.content], (err, result) => {
-                if (err) {
-                    return reject(err);
-                }
-                const comment_id = result.insertId;
-                const user_id=commentData.user_id;
-    
-                db.query(selectSql, [comment_id,user_id], (err, rows) => {
-                    if (err) {
-                        return reject(err);
-                    }
-                    resolve(rows[0]); 
-                });
-            });
-        });
-    },
-    getAllComments: async(board_id)=>{
-        return new Promise((resolve, reject) => {
-            const query = `
-                SELECT c.*, u.nickname, u.profile
-                FROM comment c
-                JOIN user u ON c.user_id = u.user_id
-                WHERE c.board_fk = ${board_id}
-                ORDER BY c.create_at DESC
-            `;
-            db.query(query, [board_id], (err, results) => {
-                if (err) return reject(err);
-                resolve(results);
-            });
-        });
-    },
-    getComments :async(commentData)=>{
-        const sql=`SELECT * FROM comment,user WHERE comment.comment_id=${commentData.commentId} AND comment.user_id=user.user_id AND comment.board_fk=${commentData.boardId}`;
-
-        try {
-            const results = await db.promise().query(sql);
-            return results;
-        } catch (error) {
-            throw new Error('게시글 조회 실패: ' + error.message);
-        }
-        
-    },
-
-    deleteComment: async(commentData)=>{
-        const sql=`DELETE FROM comment WHERE comment_id=${commentData.commentId}`;
-        try{
-            const result= await db.promise().query(sql);
-            return result;
-        } catch(error){
-            throw new Error('댓글 삭제 실패: ' + error.message);
-        }
     }
+    },
+    getPosts: async (post_id) => {
+        
+        const updateSql = `
+        UPDATE board 
+        SET view_count = view_count + 1 
+        WHERE post_id = ?;
+        `;
+
+        const sql = `
+        SELECT * FROM board,user WHERE board.post_id=${post_id} and board.user_id=user.user_id;
+        `;
+
+        
+        try {
+            await db.execute(updateSql,[post_id]);
+            const results = await db.execute(sql);
+            return results[0];
+        } catch (error) {
+            throw new Error('게시글 조회 실패: ' + error.message);
+        }
+    },
+
+    deletePost: async (post_id)=>{
+        const sql=`DELETE FROM board WHERE post_id=?;`
+        try{
+            const result= await db.execute(sql,[post_id]);
+            return result;
+        } catch(error){
+            console.log(error)
+        }
+    },
+    updatePost: async(post_id,postData) =>{
+        const sql = ` UPDATE board SET page_title = ?, page_content = ?, page_image = ?, create_at = NOW() WHERE post_id = ?;`;
+
+        try{
+        const [result] = await db.execute(sql, [
+            postData.page_title,
+            postData.page_content,
+            postData.page_image,
+            post_id,
+        ]);
+        return result;
+        } catch(error){
+            console.error(error);
+        }
+
+
+    },
+    updateLikes: async(post_id) =>{
+        const sql = `UPDATE board SET likes_count = likes_count + 1 WHERE post_id = ?;`;
+        try{
+            const [result] = await db.execute(sql,[post_id]);
+            return result;
+        }catch(error){
+            console.error(error);
+        }
+
+
+    }
+
+    
 };
 
 
