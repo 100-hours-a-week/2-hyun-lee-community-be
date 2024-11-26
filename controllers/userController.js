@@ -219,14 +219,25 @@ const userController ={
     //             res.status(200).json({ success: true, message: '로그인 성공', user: user });
     //         });
     //     },
-        
-        logout : async(req,res)=>{
-            if(!sessionData){
-                return res.status(500).json({success: false, message: '서버 오류'});
+    
+    // logout : async(req,res)=>{
+    //     if(!sessionData){
+    //         return res.status(500).json({success: false, message: '서버 오류'});
+    //     }
+    //     sessionData.pop();
+    //     res.status(200).json({success:true, message: '로그아웃 성공'});
+    // },
+    logout : async(req,res)=>{
+        req.session.destroy((err) => {
+            if (err) {
+                console.error('세션 삭제 오류:', err);
+                return res.status(500).json({ success: false, message: '로그아웃 실패' });
             }
-            sessionData.pop();
-            res.status(200).json({success:true, message: '로그아웃 성공'});
-        },
+            res.clearCookie('connect.sid');
+            res.status(200).json({ success: true, message: '로그아웃 성공' });
+        });
+    
+    },
 
         // loadUser : async(req,res)=>{
             
@@ -238,7 +249,7 @@ const userController ={
         // },
 
         loadUser : async(req,res)=>{
-            console.log('req,session',req.session.user);
+            
             if(!req.session.user){
                 return res.status(500).json({success: false, message: '서버 오류'});
             }
