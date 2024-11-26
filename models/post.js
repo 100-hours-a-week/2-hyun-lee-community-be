@@ -55,13 +55,13 @@ const Post = {
         `;
 
         const sql = `
-        SELECT * FROM board,user WHERE board.post_id=${post_id} and board.user_id=user.user_id;
+        SELECT * FROM board,user WHERE board.post_id= ? and board.user_id=user.user_id;
         `;
 
         
         try {
             await db.execute(updateSql,[post_id]);
-            const results = await db.execute(sql);
+            const results = await db.execute(sql,[post_id]);
             return results[0];
         } catch (error) {
             throw new Error('게시글 조회 실패: ' + error.message);
@@ -75,6 +75,16 @@ const Post = {
             return result;
         } catch(error){
             console.log(error)
+        }
+    },
+    deleteAllPosts : async (user_id)=>{
+        
+        const sql = `DELETE FROM board WHERE user_id = ?`;
+        try{
+            const result = await db.execute(sql,[user_id]);
+            return result[0];
+        } catch(error){
+            console.error(error);
         }
     },
     updatePost: async(post_id,postData) =>{

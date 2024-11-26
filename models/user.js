@@ -66,31 +66,63 @@ const User = {
        }
         
     },
-    findByNickname: async (nickname) => {
+    checkNickname: async (nickname) => {
         try{
             const query = 'SELECT COUNT(*) as count FROM user WHERE nickname = ?';
             const [result] = await db.execute(query, [nickname]);
+            
  
-            if (result[0].count > 0) {
-                return true; 
-            }
-            return false; 
+            return result[0].count > 0;
        } catch(err){
         console.error(err);
         throw err;
        }
     },
 
-    findById: async (email) => {
-        return new Promise((resolve, reject) => {
-            db.query('SELECT * FROM user WHERE useremail = ?', [email], (err, results) => {
-                if (err) {
-                    return reject(err);
-                }
-                resolve(result[0].userId); 
-            });
-        });
+    checkNicknameForUpdate: async (nickname,user_id) => {
+        try{
+            const query = 'SELECT COUNT(*) as count FROM user WHERE nickname = ? AND user_id != ?;';
+            const [result] = await db.execute(query, [nickname,user_id]);
+            
+ 
+            return result[0].count > 0;
+       } catch(err){
+        console.error(err);
+        throw err;
+       }
     },
+
+    getUser: async (user_id) => {
+        const sql = `SELECT * FROM user WHERE user_id = ?`;
+        
+        try{
+            const [result] = await db.execute(sql,[user_id]);
+            return result[0];
+        } catch(error){
+            console.error(error);
+        }
+    },
+
+    updateUser: async (user_id,userData)=>{
+        const sql = `UPDATE user SET profile = ?, nickname = ? WHERE user_id = ?;`;
+        try{
+            const [result] = await db.execute(sql,[userData.profileImage, userData.nickname,user_id]);
+            return result[0];
+        }catch(error){
+            console.error(error);
+        }
+ 
+    },
+    deleteUser: async (user_id)=>{
+        const sql =`DELETE FROM user WHERE user_id = ? `;
+        try{
+            const [result] = await db.execute(sql,[user_id]);
+            return result[0];
+        } catch(error){
+            console.error(error);
+        }
+    },
+
     findByPassword: async (email)=>{
         return new Promise((resolve,reject)=>{
             db.query('SELECT * FROM user WHERE useremail = ?', [email], (err, results) => {

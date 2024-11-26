@@ -25,7 +25,7 @@ router.get('/users/email/check', userController.checkEmail);
 
 router.get('/users/nickname/check', userController.checkNickname);
 
-
+router.get('/users/nickname/update/check', userController.checkNicknameForUpdate);
 
 router.post('/users/login', userController.login);
 
@@ -35,7 +35,7 @@ router.get('/user/profile',userController.loadUser);
 
 router.patch('/user/profile',upload.single('profileImage'),userController.updateUser);
 
-router.delete(`/user/:user_id/comments`,userController.deleteUser);
+router.delete(`/user/:user_id`,userController.deleteUser);
 
 router.patch('/user/password',upload.none(),userController.updatePassword);
 

@@ -52,8 +52,6 @@ const commentController ={
                 post_id:id,
                 content:req.body.content,
                 user_id:user.user_id,
-                nickname:user.nickname,
-                profile:user.profile,
                 }
         try{
         const results = await Comment.createComment(commentData);    
@@ -187,60 +185,67 @@ const commentController ={
     },
 
     
+    // deleteUserComments:async(req,res)=>{
+    //     const {user_id}=req.params;
+    //     fs.readFile(commentsFilePath,'utf-8',(err,data)=>{
+    //         if(err){
+    //              console.error('파일 읽기 오류: ',err);
+    //              return res.status(500).json({success: false, message: '서버 오류'});
+    //         }
+    //         const comments= JSON.parse(data);
+            
+    //         const allComment = comments.filter(c=> (c.user_id === Number(user_id)));
+    //         const comment = comments.filter(c=> !(c.user_id === Number(user_id)));
+            
+    //         fs.readFile(postsFilePath,'utf-8',(err,data)=>{
+    //             if(err){
+    //                  console.error('파일 읽기 오류: ',err);
+    //                  return res.status(500).json({success: false, message: '서버 오류'});
+    //             }
+    //             const posts= JSON.parse(data);
+
+    //             allComment.forEach(c=>{
+    //                 const post = posts.find(p=>p.post_id===Number(c.post_id));
+    //                 if(post){
+    //                     post.comment_count -= 1;
+
+    //                 }                    
+    //             }); 
+
+    //             fs.writeFile(postsFilePath,JSON.stringify(posts,null,2),(err)=>{
+    //                 if(err){
+    //                     console.error('파일 저장 오류:',err);
+    //                     return res.status(500).json({success: false,message :'서버 오류'});
+    //                 }
+    //             });
+
+    //             fs.writeFile(commentsFilePath,JSON.stringify(comment,null,2),(err)=>{
+    //                 if(err){
+    //                     console.error('파일 저장 오류:',err);
+    //                     return res.status(500).json({success: false,message :'서버 오류'});
+    //                 }
+    //                 res.status(201).json({success: true, message: '모든 댓글 삭제 완료'});   
+    //             });
+
+    //         });
+    //     });
+    // },
+
     deleteUserComments:async(req,res)=>{
         const {user_id}=req.params;
-        fs.readFile(commentsFilePath,'utf-8',(err,data)=>{
-            if(err){
-                 console.error('파일 읽기 오류: ',err);
-                 return res.status(500).json({success: false, message: '서버 오류'});
-            }
-            const comments= JSON.parse(data);
-            
-            const allComment = comments.filter(c=> (c.user_id === Number(user_id)));
-            const comment = comments.filter(c=> !(c.user_id === Number(user_id)));
-            
-            fs.readFile(postsFilePath,'utf-8',(err,data)=>{
-                if(err){
-                     console.error('파일 읽기 오류: ',err);
-                     return res.status(500).json({success: false, message: '서버 오류'});
-                }
-                const posts= JSON.parse(data);
 
-                allComment.forEach(c=>{
-                    const post = posts.find(p=>p.post_id===Number(c.post_id));
-                    if(post){
-                        post.comment_count -= 1;
+        try{
+        const result = await Comment.deleteAllComments(user_id);
 
-                    }                    
-                }); 
-
-                fs.writeFile(postsFilePath,JSON.stringify(posts,null,2),(err)=>{
-                    if(err){
-                        console.error('파일 저장 오류:',err);
-                        return res.status(500).json({success: false,message :'서버 오류'});
-                    }
-                });
-
-                fs.writeFile(commentsFilePath,JSON.stringify(comment,null,2),(err)=>{
-                    if(err){
-                        console.error('파일 저장 오류:',err);
-                        return res.status(500).json({success: false,message :'서버 오류'});
-                    }
-                    res.status(201).json({success: true, message: '모든 댓글 삭제 완료'});   
-                });
-
-            });
- });
-           
-            // fs.writeFile(commentsFilePath,JSON.stringify(comment,null,2),(err)=>{
-            //     if(err){
-            //         console.error('파일 저장 오류:',err);
-            //         return res.status(500).json({success: false,message :'서버 오류'});
-            //     }
-            //     res.status(201).json({success: true, message: '댓글 삭제완료'});   
-            // });
-       
-    }
+        if(!result){
+            return res.status(400).json({success:false,message: '댓글이 존재하지 않습니다.'});
+        }
+        
+        res.status(201).json({success: true, message: '모든 댓글 삭제 완료'});   
+        } catch(error){
+            console.error(error);
+        }    
+    },
 
 }
 

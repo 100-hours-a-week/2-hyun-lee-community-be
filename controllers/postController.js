@@ -475,31 +475,48 @@ const postController ={
          });
     },
 
+    // deleteUserPosts: async(req,res)=>{
+    //     const {user_id}=req.params;
+
+    //     console.log("user",user_id);
+    //     fs.readFile(postsFilePath,'utf-8',(err,data)=>{
+    //         if(err){
+    //             console.error('파일 읽기 오류: ',err);
+    //             return res.status(500).json({success: false, message: '서버 오류'});
+    //         }
+    //         const posts= JSON.parse(data);
+
+    //         const post = posts.filter(p=> !(p.user_id=== Number(user_id)));
+            
+    //         console.log("post",post);
+    //         fs.writeFile(postsFilePath, JSON.stringify(post, null, 2), (err) => {
+    //             if (err) {
+    //                 console.error('파일 쓰기 오류:', err);
+    //                 return res.status(500).json({success: false, message: '서버 오류' });
+    //             }
+
+                
+    //             res.status(200).json({ success: true, message: '모든 게시글 삭제 완료' });
+    //         });
+    //     });
+    // },
     deleteUserPosts: async(req,res)=>{
         const {user_id}=req.params;
 
-        console.log("user",user_id);
-        fs.readFile(postsFilePath,'utf-8',(err,data)=>{
-            if(err){
-                console.error('파일 읽기 오류: ',err);
-                return res.status(500).json({success: false, message: '서버 오류'});
+        try{
+            const result = await Post.deleteAllPosts(user_id);
+    
+            if(!result){
+                return res.status(400).json({success:false,message: '게시글이 존재하지 않습니다.'});
             }
-            const posts= JSON.parse(data);
-
-            const post = posts.filter(p=> !(p.user_id=== Number(user_id)));
             
-            console.log("post",post);
-            fs.writeFile(postsFilePath, JSON.stringify(post, null, 2), (err) => {
-                if (err) {
-                    console.error('파일 쓰기 오류:', err);
-                    return res.status(500).json({success: false, message: '서버 오류' });
-                }
+            res.status(201).json({success: true, message: '모든 게시글 삭제 완료'});   
+            } catch(error){
+                console.error(error);
+            }    
 
-                
-                res.status(200).json({ success: true, message: '모든 게시글 삭제 완료' });
-            });
-        });
-    }
+       
+    },
 
 }
 

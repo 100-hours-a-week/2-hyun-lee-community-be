@@ -163,7 +163,6 @@ const userController ={
     login: async (req,res)=>{
                 const {useremail,password}=req.body;
                 const userData={useremail,password};
-                console.log("userData",userData);
                 try{
                     const result=await User.loginCheck(userData);
                     console.log("result",result);
@@ -177,8 +176,6 @@ const userController ={
                             profile : result.user.profile
                         };
                     
-                        console.log("sessionId",req.session.id);
-                        console.log("sessionData",req.session.user);
                         return res.status(200).json({ success: true, message: '로그인 성공', user:result.user});
                     } else{
                         return res.status(401).json({ success: false,message:result.message});
@@ -248,120 +245,166 @@ const userController ={
 
         // },
 
-        loadUser : async(req,res)=>{
+    loadUser : async(req,res)=>{
             
-            if(!req.session.user){
-                return res.status(500).json({success: false, message: '서버 오류'});
-            }
-            res.status(200).json({userInfo :req.session.user,success:true, message: '프로필이미지 로드 성공'});
+        if(!req.session.user){
+            return res.status(500).json({success: false, message: '서버 오류'});
+        }
+        res.status(200).json({userInfo :req.session.user,success:true, message: '프로필이미지 로드 성공'});
 
-        },
-        updateUser : async(req,res)=>{
-            const profileImage = req.file ? req.file.path : null; 
-            const nickname=req.body.nickname;
-            const user_id=req.body.user_id;
+    },
+    // updateUser : async(req,res)=>{
+    //     const profileImage = req.file ? req.file.path : null; 
+    //     const nickname=req.body.nickname;
+    //     const user_id=req.body.user_id;
 
 
-            fs.readFile(usersFilePath,'utf-8',(err,data)=>{
-                if(err){
-                     console.error('파일 읽기 오류: ',err);
-                     return res.status(500).json({success: false, message: '서버 오류'});
-                }
+    //         fs.readFile(usersFilePath,'utf-8',(err,data)=>{
+    //             if(err){
+    //                  console.error('파일 읽기 오류: ',err);
+    //                  return res.status(500).json({success: false, message: '서버 오류'});
+    //             }
 
-                const users= JSON.parse(data)|| [];
+    //             const users= JSON.parse(data)|| [];
 
-                //유지 정보 찾기
-                const user = users.find(u => u.user_id === Number(user_id));
-                console.log("u",user);
+    //             //유지 정보 찾기
+    //             const user = users.find(u => u.user_id === Number(user_id));
+    //             console.log("u",user);
                 
-                if (!user) {
-                    return res.status(401).json({ success: false, message: '회원 정보를 찾지 못하였습니다.' });
-                }
-                const allUser=users.filter(u => !(u.user_id === Number(user_id)));
+    //             if (!user) {
+    //                 return res.status(401).json({ success: false, message: '회원 정보를 찾지 못하였습니다.' });
+    //             }
+    //             const allUser=users.filter(u => !(u.user_id === Number(user_id)));
             
-                //닉네임 중복 확인
-                if(allUser.some(user=> user.nickname === nickname)){
-                    return res.status(400).json({result:"nickname" ,message: '이미 등록된 닉네임 입니다.'});
-                }
+    //             //닉네임 중복 확인
+    //             if(allUser.some(user=> user.nickname === nickname)){
+    //                 return res.status(400).json({result:"nickname" ,message: '이미 등록된 닉네임 입니다.'});
+    //             }
 
-                const oldProfilePath = user.profile;
+    //             const oldProfilePath = user.profile;
 
-                user.nickname=nickname;
-                if(profileImage){
-                    user.profile = profileImage;
-                    fs.readFile(postsFilePath,'utf-8',(err,data)=>{
-                        if(err){
-                            console.error('파일 읽기 오류: ',err);
-                            return res.status(500).json({success: false, message: '서버 오류'});
-                            }
-                        const posts = JSON.parse(data)|| [];
+    //             user.nickname=nickname;
+    //             if(profileImage){
+    //                 user.profile = profileImage;
+    //                 fs.readFile(postsFilePath,'utf-8',(err,data)=>{
+    //                     if(err){
+    //                         console.error('파일 읽기 오류: ',err);
+    //                         return res.status(500).json({success: false, message: '서버 오류'});
+    //                         }
+    //                     const posts = JSON.parse(data)|| [];
 
-                        const userPosts = posts.filter(p => p.user_id === Number(user_id));
+    //                     const userPosts = posts.filter(p => p.user_id === Number(user_id));
 
-                        userPosts.forEach(post => {
-                            post.profile = profileImage;
-                            post.nickname = nickname;
-                        });
+    //                     userPosts.forEach(post => {
+    //                         post.profile = profileImage;
+    //                         post.nickname = nickname;
+    //                     });
 
-                        fs.writeFile(postsFilePath, JSON.stringify(posts, null, 2), (err) => {
-                            if (err) {
-                                console.error('파일 쓰기 오류:', err);
-                                return res.status(500).json({success: false, message: '서버 오류' });
-                            }
-                        });    
-                    })
+    //                     fs.writeFile(postsFilePath, JSON.stringify(posts, null, 2), (err) => {
+    //                         if (err) {
+    //                             console.error('파일 쓰기 오류:', err);
+    //                             return res.status(500).json({success: false, message: '서버 오류' });
+    //                         }
+    //                     });    
+    //                 })
 
-                    fs.readFile(commentsFilePath,'utf-8',(err,data)=>{
-                        if(err){
-                             console.error('파일 읽기 오류: ',err);
-                             return res.status(500).json({success: false, message: '서버 오류'});
-                        }
-                        const comments= JSON.parse(data)||[];
+    //                 fs.readFile(commentsFilePath,'utf-8',(err,data)=>{
+    //                     if(err){
+    //                          console.error('파일 읽기 오류: ',err);
+    //                          return res.status(500).json({success: false, message: '서버 오류'});
+    //                     }
+    //                     const comments= JSON.parse(data)||[];
 
                         
-                        const userComments = comments.filter(c=> c.user_id === Number(user_id));
+    //                     const userComments = comments.filter(c=> c.user_id === Number(user_id));
 
-                        userComments.forEach(comment=>{
-                            comment.profile=profileImage;
-                            comment.nickname=nickname;
-                        })
+    //                     userComments.forEach(comment=>{
+    //                         comment.profile=profileImage;
+    //                         comment.nickname=nickname;
+    //                     })
                    
-                        fs.writeFile(commentsFilePath,JSON.stringify(comments,null,2),(err)=>{
-                            if(err){
-                                console.error('파일 저장 오류:',err);
-                                return res.status(500).json({success: false,message :'서버 오류'});
-                            }  
-                        });
+    //                     fs.writeFile(commentsFilePath,JSON.stringify(comments,null,2),(err)=>{
+    //                         if(err){
+    //                             console.error('파일 저장 오류:',err);
+    //                             return res.status(500).json({success: false,message :'서버 오류'});
+    //                         }  
+    //                     });
                         
-                    });
+    //                 });
                     
-                    if (oldProfilePath && oldProfilePath !== profileImage) {
-                        fs.unlink(oldProfilePath, (unlinkErr) => {
-                            if (unlinkErr) {
-                                console.error('기존 파일 삭제 오류:', unlinkErr);
-                            } else {
-                                console.log('기존 파일 삭제 완료:', oldProfilePath);
-                            }
-                        });
-                    } 
+    //                 if (oldProfilePath && oldProfilePath !== profileImage) {
+    //                     fs.unlink(oldProfilePath, (unlinkErr) => {
+    //                         if (unlinkErr) {
+    //                             console.error('기존 파일 삭제 오류:', unlinkErr);
+    //                         } else {
+    //                             console.log('기존 파일 삭제 완료:', oldProfilePath);
+    //                         }
+    //                     });
+    //                 } 
+    //             }
+
+    //             //세션 업데이트
+    //             sessionData[0].nickname=nickname;
+    //             sessionData[0].profile=profileImage;
+
+    //             fs.writeFile(usersFilePath,JSON.stringify(users,null,2),(err)=>{
+    //                 if(err){
+    //                     console.error('파일 저장 오류:',err);
+    //                     return res.status(500).json({ success:false, message :'서버 오류'});
+    //                 }
+    //                 res.status(201).json({
+    //                     message: '수정 완료',
+    //                     success:true
+    //                 });
+    //             });
+
+    //         });
+
+          
+    //     },
+    updateUser : async(req,res)=>{
+        const user_id=req.body.user_id; 
+        const userData ={
+            profileImage : req.file ? req.file.path : null,
+            nickname : req.body.nickname
+        }
+
+
+        try{
+        const userResult = await User.getUser(user_id);
+
+        if (!userResult) {
+            return res.status(401).json({ success: false, message: '회원 정보를 찾지 못하였습니다.' });
+        }
+        if(userData.profileImage ===null){
+            userData.profileImage = userResult.profile;
+        }
+
+        console.log("user Data :",userData);
+        await User.updateUser(user_id,userData);
+        
+        if (userData.profileImage && userResult.profile && userResult.profile !== userData.profileImage) {
+            fs.unlink(userResult.profile, (unlinkErr) => {
+                if (unlinkErr) {
+                    console.error('기존 파일 삭제 오류:', unlinkErr);
+                } else {
+                    console.log('기존 파일 삭제 완료:', userResult.profile);
                 }
-
-                //세션 업데이트
-                sessionData[0].nickname=nickname;
-                sessionData[0].profile=profileImage;
-
-                fs.writeFile(usersFilePath,JSON.stringify(users,null,2),(err)=>{
-                    if(err){
-                        console.error('파일 저장 오류:',err);
-                        return res.status(500).json({ success:false, message :'서버 오류'});
-                    }
-                    res.status(201).json({
-                        message: '수정 완료',
-                        success:true
-                    });
-                });
-
             });
+        }
+        
+
+        if (req.session && req.session.user) {
+            req.session.user.nickname = userData.nickname;
+            req.session.user.profile = userData.profileImage;
+        } 
+
+        res.status(201).json({message: '수정 완료',success:true}); 
+        } catch(error){
+            console.error(error);
+            res.status(500).json({ success: false, message: '서버 오류' });
+        }
+    
 
           
         },
@@ -410,7 +453,18 @@ const userController ={
         // },
         checkNickname: async(req,res)=>{
             const nickname = req.query.nickname;
-            const nicknameExists = await User.findByNickname(nickname);
+            const nicknameExists = await User.checkNickname(nickname);
+            if (nicknameExists) {
+                return res.status(400).json({success:false,message: '이미 등록된 닉네임 입니다.'});
+            }
+            res.status(200).json({ success: true, message: '등록된 닉네임이 없습니다.' });
+        
+        },
+
+        checkNicknameForUpdate: async(req,res)=>{
+            const nickname = req.query.nickname;
+            const user_id = req.query.user_id;
+            const nicknameExists = await User.checkNicknameForUpdate(nickname,user_id);
             if (nicknameExists) {
                 return res.status(400).json({success:false,message: '이미 등록된 닉네임 입니다.'});
             }
@@ -421,32 +475,25 @@ const userController ={
         deleteUser :async(req,res)=>{
             const {user_id}=req.params;
 
-            fs.readFile(usersFilePath,'utf-8',(err,data)=>{
-                if(err){
-                     console.error('파일 읽기 오류: ',err);
-                     return res.status(500).json({success: false,message: '서버 오류'});
-                }
+            try{
+                const result = User.deleteUser(user_id);
 
-                const users= JSON.parse(data)|| [];
-
-                //유지 정보 찾기
-                const user = users.filter(u => !(u.user_id === Number(user_id)));
-                 sessionData.pop();
-                if (!user) {
-                    return res.status(401).json({ success: false, message: '회원 정보가 없습니다.' });
+                if(!result){
+                return res.status(400).json({success:false,message: '유저가 존재하지 않습니다.'});
+            }
+            
+            req.session.destroy((err) => {
+                if (err) {
+                    console.error("세션 삭제 오류:", err);
+                    return res.status(500).json({ success: false, message: "세션 삭제 실패" });
                 }
-                sessionData.pop();
-                fs.writeFile(usersFilePath,JSON.stringify(user,null,2),(err)=>{
-                    if(err){
-                        console.error('파일 저장 오류:',err);
-                        return res.status(500).json({ success:false, message :'서버 오류'});
-                    }
-                    res.status(200).json({
-                        message: '회원탈퇴 완료',
-                        success:true
-                    });
-                });
+    
+                res.clearCookie('connect.sid');
+                res.status(200).json({ success: true, message: "회원 탈퇴 완료" });
             });
+            } catch(error){
+                console.error(error);
+            }  
         },
 
         updatePassword: async(req,res)=>{

@@ -16,7 +16,7 @@ router.patch('/posts/:post_id/comment/:comment_id',commentController.updateComme
 
 router.post('/comment/',commentController.createComment);
 
-router.delete('/user/:user_id',commentController.deleteUserComments)
+router.delete('/user/:user_id/comments',commentController.deleteUserComments)
 
 
 
