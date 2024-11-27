@@ -66,6 +66,7 @@ const Comment = {
         const sqlSelectBoard = `SELECT post_id FROM board WHERE user_id =?;`;
         const sqlSelectComment = `SELECT post_id FROM comment WHERE user_id =?;`
         const sql = ` DELETE FROM comment WHERE post_id =?;`;
+        const sqlDelete =`DELETE FROM comment WHERE user_id = ?`;
         const sqlUpdate =` UPDATE board SET comment_count = comment_count - 1 WHERE post_id = ?;`;
 
         try{
@@ -74,7 +75,6 @@ const Comment = {
              const [selectCommentResult] = await db.execute(sqlSelectComment,[user_id]);
              const CommentPostIds = selectCommentResult.map(comment => comment.post_id);
             
-            console.log("c",CommentPostIds);
 
             for (const boardPostId of boardPostIds) {
                 await db.execute(sql, [boardPostId]);
@@ -82,6 +82,7 @@ const Comment = {
             for (const CommentPostId of CommentPostIds) {
                 await db.execute(sqlUpdate, [CommentPostId]);
             }
+            await db.execute(sqlDelete,[user_id]);
             
             return {success: true, message: `${CommentPostIds.length}개의 게시글에 대한 댓글이 삭제되었습니다.`};
         } catch(error){

@@ -123,17 +123,20 @@ const User = {
         }
     },
 
-    findByPassword: async (email)=>{
-        return new Promise((resolve,reject)=>{
-            db.query('SELECT * FROM user WHERE useremail = ?', [email], (err, results) => {
-                if (err) {
-                    return reject(err);
-                }
-                resolve(results.length > 0); // 중복이면 true, 아니면 false 반환
-            });
-        });
+    updateUserPassword:async (user_id,password)=>{
+        const sql = `UPDATE user SET password = ? WHERE user_id = ?`;
+
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+            
         
-    },
+        try{
+            const [result] = await db.execute(sql,[hashedPassword,user_id]);
+            return result[0];
+        }catch(error){
+            console.error(error);
+        }
+    }
 };
 
 export default User;
