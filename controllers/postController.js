@@ -4,6 +4,7 @@ import fs from 'fs';
 import path from 'path'; 
 import sessionData from '../config/session.js'; 
 import { fileURLToPath } from 'url';
+import { console } from 'inspector';
 
 const __filename = fileURLToPath(import.meta.url); 
 const __dirname = path.dirname(__filename);
@@ -220,6 +221,17 @@ const postController ={
             res.status(500).json({ success:false,message: '게시글 조회 실패' });
         }
     },
+
+    updateViews: async(req,res)=>{
+        const {post_id}=req.params;
+        try{
+            await Post.updateViews(post_id);
+            res.status(200).json({success:true, message :'조회수 업데이트 성공'});
+        }catch (error) {
+            console.error(error);
+            res.status(500).json({ success:false,message: '조회수 업데이트 실패' });
+        }
+    },
     // deletePost: async(req,res)=>{
     //     const{post_id} = req.params;
  
@@ -430,7 +442,7 @@ const postController ={
     // },
 
     updateLikes: async (req,res)=>{
-        const {post_id} = req.params;
+        const {post_id,user_id} = req.params;
 
         try{
         const post = await Post.getPosts(post_id);
@@ -439,9 +451,9 @@ const postController ={
                 return res.status(404).json({ success: false, message: '게시글을 찾을 수 없습니다.' });
             }
 
-            const result = await Post.updateLikes(post_id);
+            const result = await Post.updateLikes(post_id,user_id);
 
-            if (result.affectedRows === 0) {
+            if (!result.success) {
                 return res.status(500).json({ success: false, message: '게시글 수정 실패' });
             }
             
@@ -450,30 +462,51 @@ const postController ={
             console.error(error);
         }
     },
-    commentCountUpdate:async(req,res)=>{
+    likesStatus: async(req,res)=>{
         const {post_id} = req.params;
-        fs.readFile(postsFilePath,'utf-8',(err,data)=>{
-            if(err){
-                console.error('파일 읽기 오류: ',err);
-                return res.status(500).json({success: false, message: '서버 오류'});
-                }
-            const posts= JSON.parse(data);
+        const user_id =req.session.user.user_id;
+        const userId = String(user_id);
+        try{
+            const result = await Post.likesStatus(post_id,user_id);
 
-            const post = posts.find(p=> p.post_id=== Number(post_id));
-      
-            post.comment_count += 1;
-
-        fs.writeFile(postsFilePath, JSON.stringify(posts, null, 2), (err) => {
-            if (err) {
-                console.error('파일 쓰기 오류:', err);
-                return res.status(500).json({success: false, message: '서버 오류' });
+            if (result.length === 0) {
+                return res.status(404).json({ success: false, message: '게시물이 존재하지 않습니다.' });
             }
 
+            const liked_by_user = result[0].liked_by_user ? JSON.parse(result[0].liked_by_user) : [];
             
-            res.status(200).json({ success: true, message: '댓글수 업데이트 완료' });
-             });
-         });
+            const isLiked = liked_by_user.includes(userId);
+        
+            res.status(200).json({ success: true, isLiked });
+        } catch(error){
+            console.error(error);
+        }
     },
+
+    // commentCountUpdate:async(req,res)=>{
+    //     const {post_id} = req.params;
+    //     fs.readFile(postsFilePath,'utf-8',(err,data)=>{
+    //         if(err){
+    //             console.error('파일 읽기 오류: ',err);
+    //             return res.status(500).json({success: false, message: '서버 오류'});
+    //             }
+    //         const posts= JSON.parse(data);
+
+    //         const post = posts.find(p=> p.post_id=== Number(post_id));
+      
+    //         post.comment_count += 1;
+
+    //     fs.writeFile(postsFilePath, JSON.stringify(posts, null, 2), (err) => {
+    //         if (err) {
+    //             console.error('파일 쓰기 오류:', err);
+    //             return res.status(500).json({success: false, message: '서버 오류' });
+    //         }
+
+            
+    //         res.status(200).json({ success: true, message: '댓글수 업데이트 완료' });
+    //          });
+    //      });
+    // },
 
     // deleteUserPosts: async(req,res)=>{
     //     const {user_id}=req.params;

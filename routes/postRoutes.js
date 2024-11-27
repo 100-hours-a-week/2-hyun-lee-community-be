@@ -26,14 +26,19 @@ router.post('/posts', upload.single('postImage'), postController.createPost);
 router.get('/posts',postController.getAllPosts)
 
 
-router.patch('/posts/likes/:post_id', postController.updateLikes);
+router.patch('/posts/likes/:post_id/:user_id', postController.updateLikes);
 
-router.patch('/posts/:post_id',postController.getPosts);
+router.get('/likes/status/:post_id', postController.likesStatus);
+
+
+router.patch('/posts/:post_id', postController.updateViews);
+
+router.get('/posts/:post_id',postController.getPosts);
 
 router.patch('/posts/update/:post_id',upload.single('postImage'),postController.updatePost);
 
 
- router.patch('/posts/comments/counts/:post_id', postController.commentCountUpdate);
+ //router.patch('/posts/comments/counts/:post_id', postController.commentCountUpdate);
 
 
 router.delete('/posts/:post_id', postController.deletePost);
