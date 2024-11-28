@@ -111,7 +111,7 @@ const Post = {
 
 
     },
-    likesStatus: async(post_id,user_id)=>{
+    likesStatus: async(post_id)=>{
         const sql=`SELECT liked_by_user FROM board WHERE post_id = ?`;
         try{
             const result = await db.execute(sql,[post_id]);
