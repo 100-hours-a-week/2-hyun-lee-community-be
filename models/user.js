@@ -24,11 +24,14 @@ const User = {
             const {useremail,password}=userData;
             const query = 'SELECT * FROM user WHERE useremail = ?';
             const [results] = await db.execute(query,[useremail]);
-
+            
             const user = results[0];
+
+            if(!user){
+                return { success: false, message: '*이메일이 존재하지않습니다.' };
+            }
             // 비밀번호 비교
             const isMatch = await bcrypt.compare(password, user.password);
-            
             if (isMatch) {
                 return { success:true, message: '로그인 성공', user };
             } else {
@@ -129,7 +132,6 @@ const User = {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
             
-        
         try{
             const [result] = await db.execute(sql,[hashedPassword,user_id]);
             return result[0];
