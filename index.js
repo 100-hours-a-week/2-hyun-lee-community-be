@@ -50,9 +50,9 @@ app.use(
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
-app.use('/',userRoutes); 
-app.use('/',postRoutes);
-app.use('/',commentRoutes);
+app.use('/api',userRoutes); 
+app.use('/api',postRoutes);
+app.use('/api',commentRoutes);
 
 const PORT=3000;
 
