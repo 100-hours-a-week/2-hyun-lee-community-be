@@ -34,7 +34,7 @@ app.use( session({
 }));
 app.use(
   cors({
-    origin: 'http://localhost:8000',
+    origin: ['http://52.79.119.220:8000','http://52.79.119.220:8001','http://52.79.119.220','http://localhost:8000','http://localhost:8001'],
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     credentials: true,
   }),
@@ -68,6 +68,6 @@ app.use((req, res, next) => {
     next();
 });
 
-app.listen(PORT,()=>{
+app.listen(PORT,'0.0.0.0',()=>{
     console.log(`server is running at http://localhost:${PORT}`.green);
 });
