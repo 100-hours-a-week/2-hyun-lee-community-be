@@ -40,14 +40,9 @@ app.use(
   }),
 )
 
-// app.use((req, res, next) => {
-//   console.log('Session ID:', req.sessionID);
-//   console.log('Session Data:', req.session);
-//   next();
-// });
 
 // 정적 파일 제공
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/api/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
 app.use('/api',userRoutes); 
