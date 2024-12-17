@@ -3,7 +3,6 @@ import express from 'express';
 
 const router = express.Router();
 
-router.get('/likes/status/:post_id', likeController.likesStatus);
 
 router.patch('/posts/likes/:post_id/:user_id', likeController.updateLikes);
 

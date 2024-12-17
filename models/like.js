@@ -7,7 +7,6 @@ const Like = {
         const deleteLikesSql = `DELETE FROM likes WHERE post_id = ? AND user_id = ?`;
         try{
             const [rows] = await db.execute(getLikesSql, [post_id,user_id]);
-            console.log("rosss",rows[0].likes_count);
             if(rows[0].likes_count>0){
                     await db.execute(deleteLikesSql,[post_id,user_id]);  
                     return { success: true, message:"좋아요 업데이트" };              
