@@ -32,9 +32,9 @@ const Post = {
     // 게시글 목록 조회
     getAllPosts: async () => {
         const sql = `
-        SELECT b.post_id, b.page_title, b.likes_count, b.create_at, b.view_count, b.comment_count, u.nickname, u.profile
+        SELECT b.post_id, b.page_title, b.likes_count, b.create_at, b.view_count, b.comment_count, u.nickname, u.profile_image
         FROM board AS b
-        JOIN user AS u ON b.user_id = u.user_id
+        JOIN users AS u ON b.user_id = u.user_id
         ORDER BY b.post_id DESC;
     `;
 
@@ -50,7 +50,7 @@ const Post = {
         
 
         const sql = `
-        SELECT * FROM board,user WHERE board.post_id= ? and board.user_id=user.user_id;
+        SELECT * FROM board,users WHERE board.post_id= ? and board.user_id=users.user_id;
         `;
 
         
@@ -90,6 +90,15 @@ const Post = {
         try{
             const result = await db.execute(sql,[user_id]);
             return result[0];
+        } catch(error){
+            console.error(error);
+        }
+    },
+    getAllPostsByUserId : async (user_id)=>{
+        const sql =`SELECT * FROM board WHERE user_id =?`;
+        try{
+            const [rows] = await db.execute(sql,[user_id]);
+            return rows;
         } catch(error){
             console.error(error);
         }

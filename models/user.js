@@ -9,8 +9,8 @@ const User = {
 
             const salt = await bcrypt.genSalt(10);
             const hashedPassword = await bcrypt.hash(userData.password, salt);
-            const query = 'INSERT INTO user (useremail, password, nickname, profile) VALUES (?, ?, ?, ?)';
-            const [results] = await db.execute(query, [userData.useremail, hashedPassword, userData.nickname, userData.profile]);
+            const query = 'INSERT INTO users (email, password, nickname, profile_image) VALUES (?, ?, ?, ?)';
+            const [results] = await db.execute(query, [userData.email, hashedPassword, userData.nickname, userData.profile_image]);
          
             return results;
         } catch (err) {
@@ -21,9 +21,9 @@ const User = {
 
     loginCheck: async (userData)=>{        
         try{
-            const {useremail,password}=userData;
-            const query = 'SELECT * FROM user WHERE useremail = ?';
-            const [results] = await db.execute(query,[useremail]);
+            const {email,password}=userData;
+            const query = 'SELECT * FROM users WHERE email = ?';
+            const [results] = await db.execute(query,[email]);
             
             const user = results[0];
 
@@ -45,7 +45,7 @@ const User = {
     findAll: async (userData) => {
         const { offset, limit } = userData;
         return new Promise((resolve, reject) => {
-            db.query(`SELECT * FROM user LIMIT ${limit} OFFSET ${offset}`, (err, results) => {
+            db.query(`SELECT * FROM users LIMIT ${limit} OFFSET ${offset}`, (err, results) => {
                 if (err) {
                     return reject(err);
                 }
@@ -56,7 +56,7 @@ const User = {
     
     findByEmail: async (email)=>{
        try{
-            const query = 'SELECT COUNT(*) as count FROM user WHERE useremail = ?';
+            const query = 'SELECT COUNT(*) as count FROM users WHERE email = ?';
             const [result] = await db.execute(query, [email]);
  
             if (result[0].count > 0) {
@@ -71,7 +71,7 @@ const User = {
     },
     checkNickname: async (nickname) => {
         try{
-            const query = 'SELECT COUNT(*) as count FROM user WHERE nickname = ?';
+            const query = 'SELECT COUNT(*) as count FROM users WHERE nickname = ?';
             const [result] = await db.execute(query, [nickname]);
             
  
@@ -84,7 +84,7 @@ const User = {
 
     checkNicknameForUpdate: async (nickname,user_id) => {
         try{
-            const query = 'SELECT COUNT(*) as count FROM user WHERE nickname = ? AND user_id != ?;';
+            const query = 'SELECT COUNT(*) as count FROM users WHERE nickname = ? AND user_id != ?;';
             const [result] = await db.execute(query, [nickname,user_id]);
             
  
@@ -96,7 +96,7 @@ const User = {
     },
 
     getUser: async (user_id) => {
-        const sql = `SELECT * FROM user WHERE user_id = ?`;
+        const sql = `SELECT * FROM users WHERE user_id = ?`;
         
         try{
             const [result] = await db.execute(sql,[user_id]);
@@ -107,7 +107,7 @@ const User = {
     },
 
     updateUser: async (user_id,userData)=>{
-        const sql = `UPDATE user SET profile = ?, nickname = ? WHERE user_id = ?;`;
+        const sql = `UPDATE users SET profile_image = ?, nickname = ? WHERE user_id = ?;`;
         try{
             const [result] = await db.execute(sql,[userData.profileImage, userData.nickname,user_id]);
             return result[0];
@@ -117,7 +117,7 @@ const User = {
  
     },
     deleteUser: async (user_id)=>{
-        const sql =`DELETE FROM user WHERE user_id = ? `;
+        const sql =`DELETE FROM users WHERE user_id = ? `;
         try{
             const [result] = await db.execute(sql,[user_id]);
             return result[0];
@@ -127,7 +127,7 @@ const User = {
     },
 
     updateUserPassword:async (user_id,password)=>{
-        const sql = `UPDATE user SET password = ? WHERE user_id = ?`;
+        const sql = `UPDATE users SET password = ? WHERE user_id = ?`;
 
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);

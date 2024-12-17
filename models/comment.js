@@ -5,10 +5,21 @@ const Comment = {
     
     getAllComments:async (post_id)=>{
         try{
-            const sql =`SELECT c.comment_id, c.post_id, c.comment_content, c.create_at, c.user_id, u.nickname, u.profile 
-                        FROM comment AS c INNER JOIN user AS u ON  c.user_id = u.user_id WHERE c.post_id = ?;`
+            const sql =`SELECT c.comment_id, c.post_id, c.comment_content, c.create_at, c.user_id, u.nickname, u.profile_image 
+                        FROM comment AS c INNER JOIN users AS u ON  c.user_id = u.user_id WHERE c.post_id = ?;`
 
             const results = await db.execute(sql,[post_id]);
+            return results[0];
+        } catch (error) {
+            console.error(error);
+        }
+    },
+    getComment: async(comment_id) =>{
+        try{
+            const sql =`SELECT c.comment_id, c.post_id, c.comment_content, c.create_at, c.user_id, u.nickname, u.profile_image 
+                        FROM comment AS c INNER JOIN users AS u ON  c.user_id = u.user_id WHERE c.comment_id = ?;`
+
+            const results = await db.execute(sql,[comment_id]);
             return results[0];
         } catch (error) {
             console.error(error);

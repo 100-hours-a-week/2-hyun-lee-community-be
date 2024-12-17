@@ -1,9 +1,33 @@
 import express from 'express';
 import multer from 'multer';
 import userController from '../controllers/userController.js';
+import AWS from 'aws-sdk';
+import multerS3 from 'multer-s3';
 
 const router = express.Router();
 
+AWS.config.update({
+  region: 'ap-northeast-2',
+  accessKeyId: process.env.S3_ACCESS_KEY,
+  secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+});
+
+const s3 = new AWS.S3();
+
+
+const storage = multerS3({
+	s3,
+	acl:'public-read',
+	bucket:'hyun.lee.bucket',
+	contentType: multerS3.AUTO_CONTENT_TYPE,
+    	key: (req, file, cb) => {
+        const originalName = Buffer.from(file.originalname, 'latin1').toString('utf8');
+        const sanitizedFileName = originalName.replace(/\s+/g, '_');
+        const uniqueName = `uploads/${Date.now()}-${sanitizedFileName}`; 
+        cb(null, uniqueName);
+    },
+});
+/*
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'uploads'); 
@@ -15,7 +39,9 @@ const storage = multer.diskStorage({
         cb(null, uniqueName);
     },
 });
+*/
 const upload = multer({ storage });
+
 
 
 
@@ -38,26 +64,6 @@ router.patch('/user/profile',upload.single('profileImage'),userController.update
 router.delete(`/user/:user_id`,userController.deleteUser);
 
 router.patch('/user/password',upload.none(),userController.updatePassword);
-
-// router.post('/users/check', userController.checkLogin);
-
-
-// router.get('/check-session', (req, res) => {
-//     console.log("req::::::",req.session);
-//     if (req.session) {
-//         res.json({ sessionData: req.session });
-//     } else {
-//         res.json({ message: 'No session data available' });
-//     }
-// });
-
-// // 닉네임 중복 확인 라우트
-// router.get('/check-nickname', userController.checkNickname);
-
-
-// //사용자 목록 조회 라우트
-// router.get("/users",userController.getUsers);
-
 
 
 
