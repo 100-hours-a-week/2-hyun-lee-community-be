@@ -30,7 +30,7 @@ const postController ={
                     user_id:sessionData[0].user_id,
                     nickname:sessionData[0].nickname,
                     profile:sessionData[0].profile,
-                    page_image: req.file ? req.file.path : '',
+                    post_image: req.file ? req.file.path : '',
                     create_at: new Date(),
                     view_count:0,
                     likes_count:0,
@@ -137,7 +137,7 @@ const postController ={
 
             const post = posts.find(p=> p.post_id=== Number(post_id));   
 
-            const oldImagePath = post.page_image;
+            const oldImagePath = post.post_image;
            
             
             post.post_title=req.body.postTitle;

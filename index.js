@@ -2,6 +2,7 @@ import express from 'express';
 import userRoutes from './routes/userRoutes.js';
 import postRoutes from './routes/postRoutes.js';
 import commentRoutes from './routes/commentRoutes.js';
+import likeRoutes from './routes/likeRoutes.js';
 import colors from 'colors';
 import moment from 'moment';
 import path from 'path';
@@ -48,6 +49,8 @@ app.use('/api/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/api',userRoutes); 
 app.use('/api',postRoutes);
 app.use('/api',commentRoutes);
+app.use('/api',likeRoutes);
+
 
 const PORT=3000;
 

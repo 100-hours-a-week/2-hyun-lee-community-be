@@ -7,14 +7,14 @@ const Post = {
         try {
             const query = `
                 INSERT INTO board 
-                (post_title, post_content, create_at, user_id, likes_count, view_count, page_image, comment_count) 
-                VALUES (?, ?, NOW(), ?, 0, 0, ?, 0)
+                (post_title, post_content, create_at, user_id, view_count, post_image, comment_count) 
+                VALUES (?, ?, NOW(), ?, 0, ?, 0)
             `;
 
             const postTitle = postData.postTitle ?? null;
             const postContent = postData.postContent ?? null;
             const userId = postData.userId ?? null;
-            const postImage = postData.page_image ?? null;
+            const postImage = postData.post_image ?? null;
 
         
             const [results] = await db.execute(query, [
@@ -31,11 +31,13 @@ const Post = {
 
     // 게시글 목록 조회
     getAllPosts: async () => {
-        const sql = `
-        SELECT b.post_id, b.post_title, b.likes_count, b.create_at, b.view_count, b.comment_count, u.nickname, u.profile_image
-        FROM board AS b
-        JOIN users AS u ON b.user_id = u.user_id
-        ORDER BY b.post_id DESC;
+        const sql = `SELECT b.post_id, b.post_title, COUNT(l.post_id) AS likes_count, b.create_at, b.view_count, b.comment_count, u.nickname, u.profile_image
+FROM board AS b
+JOIN users AS u ON b.user_id = u.user_id
+LEFT JOIN likes AS l ON b.post_id = l.post_id 
+GROUP BY b.post_id, b.post_title, b.create_at, b.view_count, b.comment_count, u.nickname, u.profile_image
+ORDER BY b.post_id DESC;
+
     `;
 
     try {
@@ -49,11 +51,11 @@ const Post = {
     getPosts: async (post_id) => {
         
 
-        const sql = `
-        SELECT * FROM board,users WHERE board.post_id= ? and board.user_id=users.user_id;
-        `;
-
-        
+        const sql = `SELECT b.post_id, b.user_id, b.post_title, b.post_content, b.post_image, b.create_at, b.view_count, b.comment_count, u.nickname, u.profile_image,COUNT(l.post_id) AS likes_count FROM board AS b
+                    JOIN users AS u ON b.user_id = u.user_id
+                    LEFT JOIN likes AS l ON b.post_id = l.post_id
+                    WHERE b.post_id = ?
+                    GROUP BY b.post_id, b.user_id, b.post_title, b.post_content, b.post_image, b.create_at, b.view_count, b.comment_count, u.nickname, u.profile_image`;
         try {
             const results = await db.execute(sql,[post_id]);
             return results[0];
@@ -104,13 +106,13 @@ const Post = {
         }
     },
     updatePost: async(post_id,postData) =>{
-        const sql = ` UPDATE board SET post_title = ?, post_content = ?, page_image = ?, create_at = NOW() WHERE post_id = ?;`;
+        const sql = ` UPDATE board SET post_title = ?, post_content = ?, post_image = ?, create_at = NOW() WHERE post_id = ?;`;
 
         try{
         const [result] = await db.execute(sql, [
             postData.post_title,
             postData.post_content,
-            postData.page_image,
+            postData.post_image,
             post_id,
         ]);
         return result;

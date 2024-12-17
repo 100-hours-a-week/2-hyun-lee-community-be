@@ -49,7 +49,7 @@ createUser: async (req,res)=>{
                 
     },
     login: async (req,res)=>{
-                const {useremail,password}=req.body;
+                const {email,password}=req.body;
                 const userData={useremail,password};
                 console.log("userData",userData);
 

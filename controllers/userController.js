@@ -95,13 +95,13 @@ const userController ={
             return res.status(401).json({ success: false, message: '회원 정보를 찾지 못하였습니다.' });
         }
         if(userData.profileImage ===null){
-            userData.profileImage = decodeURIComponent(userResult.profile);
+            userData.profileImage = decodeURIComponent(userResult.profile_image);
         }
         const originProfile=userResult.profile_image.replace(CDN_URL,S3_URL);
        
         await User.updateUser(user_id,userData);
         
-        if (userData.profileImage && userResult.profile && userResult.profile_image !== userData.profileImage) {
+        if (userData.profileImage && userResult.profile_image && userResult.profile_image !== userData.profileImage) {
             s3.deleteObject({
                 Bucket: 'hyun.lee.bucket',
                 Key: decodeURIComponent(originProfile.split('amazonaws.com/hyun.lee.bucket/')[1]),

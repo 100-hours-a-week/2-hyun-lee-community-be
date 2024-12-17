@@ -84,7 +84,7 @@ const Comment = {
 
              const [selectBoardResult] = await db.execute(sqlSelectBoard,[user_id]);
              const boardPostIds = selectBoardResult.map(post => post.post_id);
-            console.log(boardPostIds);
+            console.log(selectBoardResult);
              const [selectCommentResult] = await db.execute(sqlSelectComment,[user_id]);
              const CommentPostIds = selectCommentResult.map(comment => comment.post_id);
             

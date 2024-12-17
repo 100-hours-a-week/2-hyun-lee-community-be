@@ -37,7 +37,7 @@ const postController ={
             postContent: req.body.postContent,
             userId:user.user_id,
             userNickname:user.nickname,
-            page_image: req.file ? decodeURIComponent(req.file.location.replace(S3_URL,CDN_URL)) : '',
+            post_image: req.file ? decodeURIComponent(req.file.location.replace(S3_URL,CDN_URL)) : '',
         };
         try{
             const result= await Post.create(postData);
@@ -75,7 +75,7 @@ const postController ={
        const user_id = req.session.user.user_id;
        try {
         const post = await Post.getPosts(post_id);
-        const image = post[0].page_image;
+        const image = post[0].post_image;
         if(image !==""){
             const delete_image =image.replace(CDN_URL,S3_URL);
             s3.deleteObject({
@@ -100,7 +100,7 @@ const postController ={
         const  postData ={
             postTitle:req.body.postTitle,
             postContent: req.body.postContent,
-            page_image: req.file ? decodeURIComponent(req.file.location.replace(S3_URL,CDN_URL)) : '',
+            post_image: req.file ? decodeURIComponent(req.file.location.replace(S3_URL,CDN_URL)) : '',
             postDelete: req.body.postDelete === 'true', 
         }
         try{
@@ -111,7 +111,7 @@ const postController ={
             }
 
         
-            const oldImagePath = post[0].page_image.replace(CDN_URL,S3_URL);        
+            const oldImagePath = post[0].post_image.replace(CDN_URL,S3_URL);        
             if (postData.postDelete) {
                  if(oldImagePath){
                         s3.deleteObject({
@@ -135,11 +135,11 @@ const postController ={
             //         });
             //     }
                     
-                postData.page_image = ''; 
+                postData.post_image = ''; 
             } else {
                
                 if (!req.file) {
-                    postData.page_image = oldImagePath; 
+                    postData.post_image = oldImagePath; 
                 
                 } else if (oldImagePath) {
                         s3.deleteObject({
@@ -163,7 +163,7 @@ const postController ={
             const updateResult = await Post.updatePost(post_id, {
                 post_title: postData.postTitle,
                 post_content: postData.postContent,
-                page_image: postData.page_image,
+                post_image: postData.post_image,
             });
 
             if (updateResult.affectedRows === 0) {
@@ -180,48 +180,6 @@ const postController ={
         }
          
     },
-
-    updateLikes: async (req,res)=>{
-        const {post_id,user_id} = req.params;
-
-        try{
-        const post = await Post.getPosts(post_id);
-            
-            if (!post) {
-                return res.status(404).json({ success: false, message: '게시글을 찾을 수 없습니다.' });
-            }
-
-            const result = await Post.updateLikes(post_id,user_id);
-
-            if (!result.success) {
-                return res.status(500).json({ success: false, message: '게시글 수정 실패' });
-            }
-            
-            res.status(200).json({ success: true, message: '좋아요 업데이트 완료' });
-        } catch(error){
-            console.error(error);
-        }
-    },
-    likesStatus: async(req,res)=>{
-        const {post_id} = req.params;
-        const user_id =req.session.user.user_id;
-        const userId = String(user_id);
-        try{
-            const result = await Post.likesStatus(post_id,user_id);
-
-            if (result.length === 0) {
-                return res.status(404).json({ success: false, message: '게시물이 존재하지 않습니다.' });
-            }
-
-            const liked_by_user = result[0].liked_by_user ? JSON.parse(result[0].liked_by_user) : [];
-            
-            const isLiked = liked_by_user.includes(userId);
-        
-            res.status(200).json({ success: true, isLiked });
-        } catch(error){
-            console.error(error);
-        }
-    },
     deleteUserPosts: async(req,res)=>{
         const {user_id}=req.params;
 
@@ -232,8 +190,8 @@ const postController ={
                 return res.status(400).json({success:false,message: '게시글이 존재하지 않습니다.'});
             }
             const deleteImagePromises = posts.map(post=>{
-                if(post.page_image !==""){
-                    const delete_image =post.page_image.replace(CDN_URL,S3_URL);
+                if(post.post_image !==""){
+                    const delete_image =post.post_image.replace(CDN_URL,S3_URL);
                     const key = decodeURIComponent(delete_image.split('amazonaws.com/hyun.lee.bucket/')[1]);
                     return new Promise ((resolve,reject)=>{
                         s3.deleteObject({
