@@ -25,8 +25,8 @@ const postController ={
     createPost: async(req,res)=>{
       
                     const postData ={
-                    page_title:req.body.postTitle,
-                    page_content: req.body.postContent,
+                    post_title:req.body.postTitle,
+                    post_content: req.body.postContent,
                     user_id:sessionData[0].user_id,
                     nickname:sessionData[0].nickname,
                     profile:sessionData[0].profile,
@@ -140,8 +140,8 @@ const postController ={
             const oldImagePath = post.page_image;
            
             
-            post.page_title=req.body.postTitle;
-            post.page_content=req.body.postContent;
+            post.post_title=req.body.postTitle;
+            post.post_content=req.body.postContent;
             if (req.body.postDelete === 'true') {
                 if (oldImagePath) {
                     fs.unlink(oldImagePath, (err) => {

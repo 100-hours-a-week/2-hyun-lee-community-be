@@ -81,8 +81,10 @@ const Comment = {
         const sqlUpdate =` UPDATE board SET comment_count = comment_count - 1 WHERE post_id = ?;`;
 
         try{
+
              const [selectBoardResult] = await db.execute(sqlSelectBoard,[user_id]);
              const boardPostIds = selectBoardResult.map(post => post.post_id);
+            console.log(boardPostIds);
              const [selectCommentResult] = await db.execute(sqlSelectComment,[user_id]);
              const CommentPostIds = selectCommentResult.map(comment => comment.post_id);
             

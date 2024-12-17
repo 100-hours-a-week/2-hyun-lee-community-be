@@ -52,7 +52,6 @@ const postController ={
         const user_id = req.session.user.user_id;
         try {
             const posts = await Post.getPosts(post_id);
-            
             res.status(200).json({success:true, posts,user_id:user_id, message :'게시글 조회 성공'});
         } catch (error) {
             console.error(error);
@@ -73,6 +72,7 @@ const postController ={
     
     deletePost: async(req,res)=>{
        const{post_id} = req.params;
+       const user_id = req.session.user.user_id;
        try {
         const post = await Post.getPosts(post_id);
         const image = post[0].page_image;
@@ -86,7 +86,7 @@ const postController ={
                 console.log('기존 이미지 삭제 성공:',delete_image);
             });
         }
-        await Comment.deleteAllComments(post_id);
+        await Comment.deleteAllComments(user_id);
         await Post.deletePost(post_id);
         res.status(200).json({image,success:true, message:"게시글 삭제 성공"});
         } catch (error) {
@@ -161,8 +161,8 @@ const postController ={
                     // });
                 }
             const updateResult = await Post.updatePost(post_id, {
-                page_title: postData.postTitle,
-                page_content: postData.postContent,
+                post_title: postData.postTitle,
+                post_content: postData.postContent,
                 page_image: postData.page_image,
             });
 

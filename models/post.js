@@ -7,7 +7,7 @@ const Post = {
         try {
             const query = `
                 INSERT INTO board 
-                (page_title, page_content, create_at, user_id, likes_count, view_count, page_image, comment_count) 
+                (post_title, post_content, create_at, user_id, likes_count, view_count, page_image, comment_count) 
                 VALUES (?, ?, NOW(), ?, 0, 0, ?, 0)
             `;
 
@@ -32,7 +32,7 @@ const Post = {
     // 게시글 목록 조회
     getAllPosts: async () => {
         const sql = `
-        SELECT b.post_id, b.page_title, b.likes_count, b.create_at, b.view_count, b.comment_count, u.nickname, u.profile_image
+        SELECT b.post_id, b.post_title, b.likes_count, b.create_at, b.view_count, b.comment_count, u.nickname, u.profile_image
         FROM board AS b
         JOIN users AS u ON b.user_id = u.user_id
         ORDER BY b.post_id DESC;
@@ -104,12 +104,12 @@ const Post = {
         }
     },
     updatePost: async(post_id,postData) =>{
-        const sql = ` UPDATE board SET page_title = ?, page_content = ?, page_image = ?, create_at = NOW() WHERE post_id = ?;`;
+        const sql = ` UPDATE board SET post_title = ?, post_content = ?, page_image = ?, create_at = NOW() WHERE post_id = ?;`;
 
         try{
         const [result] = await db.execute(sql, [
-            postData.page_title,
-            postData.page_content,
+            postData.post_title,
+            postData.post_content,
             postData.page_image,
             post_id,
         ]);
