@@ -190,7 +190,7 @@ const postController ={
                 return res.status(400).json({success:false,message: '게시글이 존재하지 않습니다.'});
             }
             const deleteImagePromises = posts.map(post=>{
-                if(post.post_image !==""){
+                if(post.page_image !==""){
                     const delete_image =post.post_image.replace(CDN_URL,S3_URL);
                     const key = decodeURIComponent(delete_image.split('amazonaws.com/hyun.lee.bucket/')[1]);
                     return new Promise ((resolve,reject)=>{

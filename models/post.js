@@ -7,8 +7,8 @@ const Post = {
         try {
             const query = `
                 INSERT INTO board 
-                (post_title, post_content, create_at, user_id, view_count, post_image, comment_count) 
-                VALUES (?, ?, NOW(), ?, 0, ?, 0)
+                (post_title, post_content, create_at, user_id, view_count, post_image) 
+                VALUES (?, ?, NOW(), ?, 0, ?)
             `;
 
             const postTitle = postData.postTitle ?? null;
@@ -30,14 +30,10 @@ const Post = {
     },
 
     // 게시글 목록 조회
+    //TODO : 이거 수정
     getAllPosts: async () => {
-        const sql = `SELECT b.post_id, b.post_title, COUNT(l.post_id) AS likes_count, b.create_at, b.view_count, b.comment_count, u.nickname, u.profile_image
-FROM board AS b
-JOIN users AS u ON b.user_id = u.user_id
-LEFT JOIN likes AS l ON b.post_id = l.post_id 
-GROUP BY b.post_id, b.post_title, b.create_at, b.view_count, b.comment_count, u.nickname, u.profile_image
-ORDER BY b.post_id DESC;
-
+        const sql = `SELECT b.post_id, b.post_title, (SELECT COUNT(*) FROM likes l WHERE l.post_id = b.post_id) AS likes_count,(SELECT COUNT(*) FROM comment c WHERE c.post_id = b.post_id) AS comment_count, b.create_at, 
+                    b.view_count, u.nickname, u.profile_image FROM board AS b JOIN users AS u ON b.user_id = u.user_id ORDER BY b.post_id DESC;
     `;
 
     try {
@@ -51,11 +47,11 @@ ORDER BY b.post_id DESC;
     getPosts: async (post_id) => {
         
 
-        const sql = `SELECT b.post_id, b.user_id, b.post_title, b.post_content, b.post_image, b.create_at, b.view_count, b.comment_count, u.nickname, u.profile_image,COUNT(l.post_id) AS likes_count FROM board AS b
-                    JOIN users AS u ON b.user_id = u.user_id
-                    LEFT JOIN likes AS l ON b.post_id = l.post_id
-                    WHERE b.post_id = ?
-                    GROUP BY b.post_id, b.user_id, b.post_title, b.post_content, b.post_image, b.create_at, b.view_count, b.comment_count, u.nickname, u.profile_image`;
+        const sql = `SELECT b.post_id, b.user_id, b.post_title, b.post_content, b.post_image, b.create_at, b.view_count, u.nickname, u.profile_image,
+                    (SELECT COUNT(*) FROM likes l WHERE l.post_id = b.post_id) AS likes_count,
+                    (SELECT COUNT(*) FROM comment c WHERE c.post_id = b.post_id) AS comment_count 
+                    FROM board AS b JOIN users AS u ON b.user_id = u.user_id WHERE b.post_id = ?;
+`;
         try {
             const results = await db.execute(sql,[post_id]);
             return results[0];

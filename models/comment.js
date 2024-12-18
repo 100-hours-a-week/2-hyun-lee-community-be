@@ -36,16 +36,7 @@ const Comment = {
         SELECT * FROM comment WHERE comment_id = ?;
         `;
 
-        const sqlUpdate =   `
-        UPDATE board
-        SET comment_count = comment_count + 1
-        WHERE post_id = ?;
-        `;
-       
-
         try {
-        
-            await db.execute(sqlUpdate,[commentData.post_id]);
         
         const [results] = await db.execute(sqlInsert, [
             commentData.post_id,
@@ -63,11 +54,9 @@ const Comment = {
     },
     deleteComment: async(post_id,comment_id) =>{
         const sql =`DELETE FROM comment WHERE post_id =? AND comment_id = ?;`;
-        const sqlUpdate =` UPDATE board SET comment_count = comment_count - 1 WHERE post_id = ?;`;
 
         try{
             await db.execute(sql,[post_id,comment_id]);
-            await db.execute(sqlUpdate,[post_id]);
 
         }catch(error){
             console.error(error);
@@ -78,22 +67,16 @@ const Comment = {
         const sqlSelectComment = `SELECT post_id FROM comment WHERE user_id =?;`
         const sql = ` DELETE FROM comment WHERE post_id =?;`;
         const sqlDelete =`DELETE FROM comment WHERE user_id = ?`;
-        const sqlUpdate =` UPDATE board SET comment_count = comment_count - 1 WHERE post_id = ?;`;
-
         try{
 
              const [selectBoardResult] = await db.execute(sqlSelectBoard,[user_id]);
              const boardPostIds = selectBoardResult.map(post => post.post_id);
-            console.log(selectBoardResult);
              const [selectCommentResult] = await db.execute(sqlSelectComment,[user_id]);
              const CommentPostIds = selectCommentResult.map(comment => comment.post_id);
             
 
             for (const boardPostId of boardPostIds) {
                 await db.execute(sql, [boardPostId]);
-            }
-            for (const CommentPostId of CommentPostIds) {
-                await db.execute(sqlUpdate, [CommentPostId]);
             }
             await db.execute(sqlDelete,[user_id]);
             
