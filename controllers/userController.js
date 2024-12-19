@@ -21,16 +21,13 @@ const userController ={
     createUser: async (req,res)=>{
         try{
             const { email, password, nickname } = req.body;
+            console.log(req.body);
             const profile_image = req.file ? decodeURIComponent(req.file.location.replace(S3_URL,CDN_URL)) : null;
             const userData = {email, password, nickname, profile_image};
-
-
+            
             const result= await User.create(userData);
             
-            return res.status(201).json({
-            message: '회원가입 성공',
-            success:true
-            });
+            return res.status(201).json({success:true, message: '회원가입 성공' });
         } catch(error){
             console.error('Error in createUser:', error); 
             res.status(500).json({success:false,message:'서버 오류'});
@@ -85,9 +82,8 @@ const userController ={
             profileImage :  req.file ? decodeURIComponent(req.file.location.replace(S3_URL,CDN_URL))  : null,
             nickname : req.body.nickname
         }
-
-
         try{
+                
         const userResult = await User.getUser(user_id);
 
         if (!userResult) {

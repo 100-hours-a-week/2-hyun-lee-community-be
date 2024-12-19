@@ -3,6 +3,7 @@ import multer from 'multer';
 import userController from '../controllers/userController.js';
 import AWS from 'aws-sdk';
 import multerS3 from 'multer-s3';
+import {validateCreateUser ,validateUpdateUser}  from '../middlewares/validators.js';
 
 const router = express.Router();
 
@@ -40,12 +41,14 @@ const storage = multer.diskStorage({
     },
 });
 */
+
+
+
 const upload = multer({ storage });
 
 
 
-
-router.post('/users/register', upload.single('profileImage'), userController.createUser);
+router.post('/users/register',upload.single('profileImage'),validateCreateUser,userController.createUser);
 
 router.get('/users/email/check', userController.checkEmail);
 
@@ -59,7 +62,7 @@ router.get('/users/logout', userController.logout);
 
 router.get('/user/profile',userController.loadUser);
 
-router.patch('/user/profile',upload.single('profileImage'),userController.updateUser);
+router.patch('/user/profile',upload.single('profileImage'),validateUpdateUser,userController.updateUser);
 
 router.delete(`/user/:user_id`,userController.deleteUser);
 
