@@ -51,7 +51,6 @@ const userController ={
                             nickname: result.user.nickname,
                             profile_image : result.user.profile_image
                         };
-                    
                         return res.status(200).json({ success: true, message: '로그인 성공', user:result.user});
                     } else{
                         return res.status(401).json({ success: false,message:result.message});
@@ -210,7 +209,7 @@ const userController ={
     
             }
 
-       }
+       },
 
     };
 

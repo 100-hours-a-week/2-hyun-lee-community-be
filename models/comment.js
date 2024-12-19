@@ -78,6 +78,7 @@ const Comment = {
             for (const boardPostId of boardPostIds) {
                 await db.execute(sql, [boardPostId]);
             }
+        
             await db.execute(sqlDelete,[user_id]);
             
             return {success: true, message: `${CommentPostIds.length}개의 게시글에 대한 댓글이 삭제되었습니다.`};
