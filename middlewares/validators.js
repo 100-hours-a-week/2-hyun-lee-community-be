@@ -34,7 +34,7 @@ export  async function validateCreateUser(req, res, next){
         }
     }
     //비밀번호 검증
-    if(password.length < 8 || password.length > 20 || !/[A-Z]/.test(password) || !/[a-z]/.test(password) || !/[0-9]/.test(password) || !/[!@#$%^&*(),.?":{}|<>]/.test(password)){
+    if(password.length < 8 || password.length > 20 || !/[A-Z]/.test(password) || !/[a-z]/.test(password) || !/[0-9]/.test(password) || !/[!@#$%^&*(),.?":{}|<>=+\_\-~`//]/.test(password)){
         errors.push('비밀번호는 8자 이상, 20자 이하이며, 대문자, 소문자, 숫자, 특수문자를 각각 최소 1개 포함해야 합니다.');
     }
     if (password !== confirmPassword) {
