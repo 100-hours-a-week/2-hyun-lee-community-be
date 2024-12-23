@@ -35,7 +35,7 @@ app.use( session({
 }));
 app.use(
   cors({
-    origin: ['http://52.79.119.220:8000','http://52.79.119.220:8001','http://52.79.119.220','http://localhost:8000','http://localhost:8001'],
+    origin: ['http://52.78.32.212:8000','http://52.78.32.212:8001','http://52.78.32.212','http://localhost:8000','http://localhost:8001'],
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     credentials: true,
   }),
@@ -52,7 +52,7 @@ app.use('/api',commentRoutes);
 app.use('/api',likeRoutes);
 
 
-const PORT=3000;
+const PORT=3001;
 
 app.use((err, req, res, next) => {
     console.error(err.stack); 

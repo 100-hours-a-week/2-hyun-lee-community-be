@@ -10,6 +10,7 @@ const Post = {
                 (post_title, post_content, create_at, user_id, view_count, post_image) 
                 VALUES (?, ?, NOW(), ?, 0, ?)
             `;
+            const selectSql=` SELECT * FROM board WHERE post_id = LAST_INSERT_ID(); `
 
             const postTitle = postData.postTitle ?? null;
             const postContent = postData.postContent ?? null;
@@ -17,20 +18,18 @@ const Post = {
             const postImage = postData.post_image ?? null;
 
         
-            const [results] = await db.execute(query, [
+           await db.execute(query, [
                 postTitle,
                 postContent,
                 userId,
                 postImage
-            ]);  
-            return results[0]; 
+            ]);
+            const result = await db.execute(selectSql);
+            return result[0]; 
         } catch (err) {
             console.error(err.message);
         }
     },
-
-    // 게시글 목록 조회
-    //TODO : 이거 수정
     getAllPosts: async () => {
         const sql = `SELECT b.post_id, b.post_title, (SELECT COUNT(*) FROM likes l WHERE l.post_id = b.post_id) AS likes_count,(SELECT COUNT(*) FROM comment c WHERE c.post_id = b.post_id) AS comment_count, b.create_at, 
                     b.view_count, u.nickname, u.profile_image FROM board AS b JOIN users AS u ON b.user_id = u.user_id ORDER BY b.post_id DESC;

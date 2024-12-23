@@ -41,7 +41,7 @@ const postController ={
         };
         try{
             const result= await Post.create(postData);
-            return res.status(201).json({success: true,message:'게시글 작성 완료'});
+            return res.status(201).json({post:result[0],success: true,message:'게시글 작성 완료'});
         }catch (error) {
             console.error(error);
             res.status(500).json({ success: false, message: '서버 오류' });
