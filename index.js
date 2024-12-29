@@ -35,7 +35,7 @@ app.use( session({
 }));
 app.use(
   cors({
-    origin: "*",
+    origin: ['http://52.78.32.212:8001', 'http://52.78.32.212:8000', 'http://localhost:8000','http://localhost:8001'],
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     credentials: true,
   }),
