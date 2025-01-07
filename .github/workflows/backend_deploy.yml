@@ -65,6 +65,30 @@ jobs:
             "AWSEBDockerrunVersion": 2,
             "containerDefinitions": [
               {
+                "name": "frontend",
+                "image": "${ECR_REGISTRY}/hyun.lee/community-fe:${FRONTEND_SHA}",
+                "essential": true,
+                "memory": 128,
+                "portMappings": [
+                  {
+                    "hostPort": 3001,
+                    "containerPort": 3001
+                  }
+                ]
+              },
+              {
+                "name": "backend",
+                "image": "${ECR_REGISTRY}/hyun.lee/community-be:${BACKEND_IMAGE_TAG}",
+                "essential": true,
+                "memory": 128,
+                "portMappings": [
+                  {
+                    "hostPort": 8001,
+                    "containerPort": 8001
+                  }
+                ]
+              },
+              {
                 "name": "nginx",
                 "image": "nginx:latest",
                 "essential": true,
@@ -81,32 +105,8 @@ jobs:
                     "containerPath": "/etc/nginx/nginx.conf"
                   }
                 ]
-              },
-              {
-                "name": "frontend",
-                "image": "${ECR_REGISTRY}/hyun.lee/community-fe:${FRONTEND_SHA}",
-                "essential": false,
-                "memory": 128,
-                "portMappings": [
-                  {
-                    "hostPort": 3001,
-                    "containerPort": 3001
-                  }
-                ]
-              },
-              {
-                "name": "backend",
-                "image": "${ECR_REGISTRY}/hyun.lee/community-be:${BACKEND_IMAGE_TAG}",
-                "essential": false,
-                "memory": 128,
-                "portMappings": [
-                  {
-                    "hostPort": 8001,
-                    "containerPort": 8001
-                  }
-                ]
-              }
             ],
+          
             "volumes": [
                 {
                   "name": "nginx",
