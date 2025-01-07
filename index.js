@@ -35,7 +35,7 @@ app.use( session({
 }));
 app.use(
   cors({
-    origin: ['http://52.78.32.212','http://52.78.32.212:8001', 'http://52.78.32.212:8000', 'http://localhost:8000','http://localhost:8001'],
+    origin: ['http://52.78.32.212','http://52.78.32.212:8001', 'http://52.78.32.212:8000', 'http://localhost:8000','http://localhost:8001','http://communityapp-env.eba-6tkf3pgq.ap-northeast-2.elasticbeanstalk.com'],
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     credentials: true,
   }),
