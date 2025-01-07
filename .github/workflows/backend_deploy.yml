@@ -26,7 +26,18 @@ jobs:
 
       - name: Log in to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v2  
-
+     
+      - name: Get Frontend SHA from S3
+        env: 
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          S3_BUCKET: hyun.lee.bucket
+        run: |
+          echo "downloading frontend-latest.txt from S3..."
+          aws s3 cp s3://$S3_BUCKET/frontend-latest.txt frontend-latest.txt --region $AWS_REGION
+          
+          FRONTEND_SHA=$(cat frontend-latest.txt)
+          echo "Frontend SHA from S3: $FRONTEND_SHA"
+          echo "FRONTEND_SHA=$FRONTEND_SHA" >> $GITHUB_ENV
       
       - name: Build and Push Docker Image
         env:
@@ -34,6 +45,111 @@ jobs:
           ECR_REPOSITORY: hyun.lee/community-be
           IMAGE_TAG: ${{ github.sha }}
         run: |
+          echo "Building and pushing BE image: $BACKEND_IMAGE_TAG"
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-  
+
+      - name: Deploy to Elastic Beanstalk
+        env:
+          ECR_REGISTRY: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
+          ECR_REPOSITORY: hyun.lee/community-be
+          IMAGE_TAG: ${{ github.sha }}
+          APPLICATION_NAME: ${{ secrets.EB_APP_NAME  }}
+          ENVIRONMENT_NAME: ${{ secrets.EB_ENV_NAME  }}
+
+      - name: Generate Dockerrun.aws.json
+        env:
+          ECR_REGISTRY: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
+          BACKEND_IMAGE_TAG: ${{ github.sha }}
+          NGINX_IMAGE_TAG: ${{ github.sha }}
+        run: |
+      
+          FRONTEND_SHA="${{ env.FRONTEND_SHA }}"
+
+          echo "Frontend image will use tag: $FRONTEND_SHA"
+          echo "Backend image will use tag: $BACKEND_IMAGE_TAG"
+
+          cat <<EOF > Dockerrun.aws.json
+          {
+            "AWSEBDockerrunVersion": 2,
+            "containerDefinitions": [
+              {
+                "name": "nginx",
+                "image": "nginx:latest",
+                "essential": true,
+                "memory": 128,
+                "portMappings": [
+                  {
+                    "hostPort": 80,
+                    "containerPort": 80
+                  }
+                ],
+                "mountPoints": [
+                  {
+                    "sourceVolume": "nginx",
+                    "containerPath": "/etc/nginx/nginx.conf"
+                  }
+                ]
+              },
+              {
+                "name": "frontend",
+                "image": "${ECR_REGISTRY}/hyun.lee/community-fe:${FRONTEND_SHA}",
+                "essential": false,
+                "memory": 128,
+                "portMappings": [
+                  {
+                    "hostPort": 3001,
+                    "containerPort": 3001
+                  }
+                ]
+              },
+              {
+                "name": "backend",
+                "image": "${ECR_REGISTRY}/hyun.lee/community-be:${BACKEND_IMAGE_TAG}",
+                "essential": false,
+                "memory": 128,
+                "portMappings": [
+                  {
+                    "hostPort": 8001,
+                    "containerPort": 8001
+                  }
+                ]
+              }
+            ],
+            "volumes": [
+                {
+                  "name": "nginx",
+                  "host": {
+                  "sourcePath": "/var/app/current/nginx/nginx.conf"  
+                }
+              }
+            ]
+          }
+          EOF
+      - name: Deploy to Elastic Beanstalk
+        env:
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          S3_BUCKET: hyun.lee.bucket
+          APPLICATION_NAME: ${{ secrets.EB_APP_NAME }}
+          ENVIRONMENT_NAME: ${{ secrets.EB_ENV_NAME }}
+          VERSION_LABEL: ${{ github.sha }}
+        run: |
+          echo "Zipping Dockerrun.aws.json..."
+          zip -r deploy.zip Dockerrun.aws.json
+
+          echo "Uploading to S3..."
+          aws s3 cp deploy.zip s3://$S3_BUCKET/$VERSION_LABEL-deploy.zip --region $AWS_REGION
+
+          echo "Creating new EB application version..."
+          aws elasticbeanstalk create-application-version \
+            --application-name "$APPLICATION_NAME" \
+            --version-label "$VERSION_LABEL" \
+            --source-bundle S3Bucket="$S3_BUCKET",S3Key="$VERSION_LABEL-deploy.zip" \
+            --auto-create-application \
+            --region "$AWS_REGION"
+
+          echo "Updating EB environment..."
+          aws elasticbeanstalk update-environment \
+            --environment-name "$ENVIRONMENT_NAME" \
+            --version-label "$VERSION_LABEL" \
+            --region "$AWS_REGION"
