@@ -136,8 +136,8 @@ jobs:
           S3_BUCKET: hyun.lee.bucket
           APPLICATION_NAME: ${{ secrets.EB_APP_NAME }}
           ENVIRONMENT_NAME: ${{ secrets.EB_ENV_NAME }}
-          VERSION_LABEL: $(git rev-parse HEAD)-$(date +%s)
         run: |
+          VERSION_LABEL="$(git rev-parse HEAD)-$(date +%s)"
           echo "Zipping Dockerrun.aws.json..."
           zip -r deploy.zip Dockerrun.aws.json nginx/
 
