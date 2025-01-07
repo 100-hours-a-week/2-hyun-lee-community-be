@@ -126,7 +126,7 @@ jobs:
           VERSION_LABEL: ${{ github.sha }}
         run: |
           echo "Zipping Dockerrun.aws.json..."
-          zip -r deploy.zip Dockerrun.aws.json
+          zip -r deploy.zip Dockerrun.aws.json nginx/
 
           echo "Uploading to S3..."
           aws s3 cp deploy.zip s3://$S3_BUCKET/$VERSION_LABEL-deploy.zip --region $AWS_REGION
