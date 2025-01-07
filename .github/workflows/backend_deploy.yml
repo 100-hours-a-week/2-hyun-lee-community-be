@@ -105,18 +105,19 @@ jobs:
                     "containerPath": "/etc/nginx/nginx.conf"
                   }
                 ]
+              }
             ],
-          
             "volumes": [
-                {
-                  "name": "nginx",
-                  "host": {
-                  "sourcePath": "/var/app/current/nginx/nginx.conf"  
+              {
+                "name": "nginx",
+                "host": {
+                  "sourcePath": "/var/app/current/nginx/nginx.conf"
                 }
               }
             ]
           }
           EOF
+
       - name: Deploy to Elastic Beanstalk
         env:
           AWS_REGION: ${{ secrets.AWS_REGION }}
