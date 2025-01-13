@@ -1,8 +1,8 @@
 import User from '../models/user.js'; 
 import AWS from 'aws-sdk'
 
-const S3_URL = 'https://your-s3-url.com/';
-const CDN_URL = 'https://your-cdn-url.com/';
+const S3_URL = 'https://s3.ap-northeast-2.amazonaws.com/hyun.lee.bucket/';
+const CDN_URL = 'https://d2m8tt5bgy55i.cloudfront.net/';
 
 
 AWS.config.update({
@@ -19,7 +19,6 @@ export  async function validateCreateUser(req, res, next){
     const profile_image = req.file ? decodeURIComponent(req.file.location.replace(S3_URL,CDN_URL)) : null;
     const userData = {email, password, nickname, profile_image};
     const errors =[];
-    console.log("email",email);
     //프로필 이미지 검증
     if(!profile_image){
         errors.push('프로필 사진을 추가해주세요.');
