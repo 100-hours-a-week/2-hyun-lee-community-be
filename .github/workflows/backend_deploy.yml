@@ -80,7 +80,7 @@ jobs:
                 "name": "frontend",
                 "image": "${ECR_REGISTRY}/hyun.lee/community-re:${FRONTEND_SHA}",
                 "essential": true,
-                "memory": 256,
+                "memory": 512,
                 "portMappings": [
                   {
                     "hostPort": 8001,
