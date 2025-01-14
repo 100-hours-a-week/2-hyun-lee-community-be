@@ -28,24 +28,12 @@ const storage = multerS3({
         cb(null, uniqueName);
     },
 });
-/*
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads'); 
-    },
-    filename: (req, file, cb) => {
-        const originalName = Buffer.from(file.originalname, 'latin1').toString('utf8');
-        const sanitizedFileName = originalName.replace(/\s+/g, '_');
-        const uniqueName = `${Date.now()}-${sanitizedFileName}`;
-        cb(null, uniqueName);
+const upload = multer({
+    storage,
+    limits: {
+      fileSize: 1024 * 1024,
     },
 });
-*/
-
-
-
-const upload = multer({ storage });
-
 
 
 router.post('/users/register',upload.single('profileImage'),validateCreateUser,userController.createUser);

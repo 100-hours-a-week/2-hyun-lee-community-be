@@ -23,26 +23,21 @@ const storage = multerS3({
         const originalName = Buffer.from(file.originalname, 'latin1').toString('utf8');
         const sanitizedFileName = originalName.replace(/\s+/g, '_');
         const uniqueName = `uploads/files/${Date.now()}-${sanitizedFileName}`; 
+        
+        if (sanitizedFileName.length > 30) {
+        return cb(new Error('파일 이름은 최대 30글자까지 가능합니다.'));
+      }
         cb(null, uniqueName);
     },
 });
 
 
-/*
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/files'); 
-    },
-    filename: (req, file, cb) => {
-        const originalName = Buffer.from(file.originalname, 'latin1').toString('utf8');
-        const sanitizedFileName = originalName.replace(/\s+/g, '_');
-        const uniqueName = `${Date.now()}-${sanitizedFileName}`;
-        cb(null, uniqueName);
-
+const upload = multer({
+    storage,
+    limits: {
+      fileSize: 1024 * 1024, 
     },
 });
-*/
-const upload = multer({ storage });
 
 
 
