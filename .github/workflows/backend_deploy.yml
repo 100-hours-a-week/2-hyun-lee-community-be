@@ -100,8 +100,8 @@ jobs:
                     "containerPort": 3001
                   }
                 ]
-              },
-            ],
+              }
+            ]
             
           }
           EOF
