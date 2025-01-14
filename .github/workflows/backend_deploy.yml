@@ -80,7 +80,7 @@ jobs:
                 "name": "frontend",
                 "image": "${ECR_REGISTRY}/hyun.lee/community-re:${FRONTEND_SHA}",
                 "essential": true,
-                "memory": 512,
+                "memory": 256,
                 "portMappings": [
                   {
                     "hostPort": 8001,
@@ -92,7 +92,7 @@ jobs:
                 "name": "backend",
                 "image": "${ECR_REGISTRY}/hyun.lee/community-be:${BACKEND_IMAGE_TAG}",
                 "essential": true,
-                "memory": 512,
+                "memory": 256,
                 "portMappings": [
                   {
                     "hostPort": 3001,
