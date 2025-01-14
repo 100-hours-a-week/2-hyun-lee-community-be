@@ -83,8 +83,8 @@ jobs:
                 "memory": 128,
                 "portMappings": [
                   {
-                    "hostPort": 3001,
-                    "containerPort": 3001
+                    "hostPort": 8001,
+                    "containerPort": 8001
                   }
                 ]
               },
@@ -95,8 +95,8 @@ jobs:
                 "memory": 128,
                 "portMappings": [
                   {
-                    "hostPort": 8001,
-                    "containerPort": 8001
+                    "hostPort": 3001,
+                    "containerPort": 3001
                   }
                 ]
               },
