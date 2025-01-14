@@ -78,7 +78,7 @@ jobs:
             "containerDefinitions": [
               {
                 "name": "frontend",
-                "image": "${ECR_REGISTRY}/hyun.lee/community-fe:${FRONTEND_SHA}",
+                "image": "${ECR_REGISTRY}/hyun.lee/community-re:${FRONTEND_SHA}",
                 "essential": true,
                 "memory": 128,
                 "portMappings": [
