@@ -78,31 +78,55 @@ jobs:
             "containerDefinitions": [
               {
                 "name": "frontend",
-                "image": "${ECR_REGISTRY}/hyun.lee/community-re:${FRONTEND_SHA}",
+                "image": "${ECR_REGISTRY}/hyun.lee/community-fe:${FRONTEND_SHA}",
                 "essential": true,
-                "memory": 256,
-                "portMappings": [
-                  {
-                    "hostPort": 80,
-                    "containerPort": 80
-                  }
-                ],
-                "links": ["backend"]
-              },
-              {
-                "name": "backend",
-                "image": "${ECR_REGISTRY}/hyun.lee/community-be:${BACKEND_IMAGE_TAG}",
-                "essential": true,
-                "memory": 256,
+                "memory": 128,
                 "portMappings": [
                   {
                     "hostPort": 3001,
                     "containerPort": 3001
                   }
                 ]
+              },
+              {
+                "name": "backend",
+                "image": "${ECR_REGISTRY}/hyun.lee/community-be:${BACKEND_IMAGE_TAG}",
+                "essential": true,
+                "memory": 128,
+                "portMappings": [
+                  {
+                    "hostPort": 8001,
+                    "containerPort": 8001
+                  }
+                ]
+              },
+              {
+                "name": "nginx",
+                "image": "nginx:latest",
+                "essential": true,
+                "memory": 128,
+                "portMappings": [
+                  {
+                    "hostPort": 80,
+                    "containerPort": 80
+                  }
+                ],
+                "mountPoints": [
+                  {
+                    "sourceVolume": "nginx",
+                    "containerPath": "/etc/nginx/nginx.conf"
+                  }
+                ]
+              }
+            ],
+            "volumes": [
+              {
+                "name": "nginx",
+                "host": {
+                  "sourcePath": "/var/app/current/nginx/nginx.conf"
+                }
               }
             ]
-            
           }
           EOF
 
