@@ -71,7 +71,7 @@ const userController ={
     loadUser : async(req,res)=>{
             
         if(!req.session.user){
-            return res.status(500).json({success: false, message: '서버 오류'});
+            return res.status(401).json({success: false, message: '권한이 없습니다.'});
         }
         res.status(200).json({userInfo :req.session.user,success:true, message: '프로필이미지 로드 성공'});
 
@@ -198,7 +198,7 @@ const userController ={
                     return res.status(400).json({success:false,message: '유저가 존재하지 않습니다.'});
                 }
 
-                res.status(201).json({ message: '비밀번호 수정 완료', success:true });
+                res.status(201).json({ message: '수정 완료', success:true });
             }catch(error){
                 console.error(error);
                 res.status(500).json({ success: false, message: '서버 오류' });
