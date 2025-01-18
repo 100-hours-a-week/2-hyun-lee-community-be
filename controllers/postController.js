@@ -123,17 +123,6 @@ const postController ={
                     })
             }
             
-            // if (postData.postDelete) {
-            
-            //     if (oldImagePath) {
-            //         fs.unlink(oldImagePath, (err) => {
-            //             if (err) {
-            //                 console.error('기존 이미지 삭제 오류:', err);
-            //             } else {
-            //                 console.log('기존 이미지 삭제 성공:', oldImagePath);
-            //             }
-            //         });
-            //     }
                     
                 postData.post_image = ''; 
             } else {
@@ -152,13 +141,6 @@ const postController ={
                     };
                     
                     
-                    // fs.unlink(oldImagePath, (unlinkErr) => {
-                    //     if (unlinkErr) {
-                    //         console.error('기존 파일 삭제 오류:', unlinkErr);
-                    //     } else {
-                    //         console.log('기존 파일 삭제 완료:', oldImagePath);
-                    //     }
-                    // });
                 }
             const updateResult = await Post.updatePost(post_id, {
                 post_title: postData.postTitle,
