@@ -153,7 +153,7 @@ const postController ={
             }
     
           
-            res.status(200).json({success: true, message: '게시글 수ㅇ정 완료' });
+            res.status(200).json({success: true, message: '게시글 수정 완료' });
     
 
         } catch (error) {

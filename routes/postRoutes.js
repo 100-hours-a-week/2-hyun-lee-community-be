@@ -24,8 +24,8 @@ const storage = multerS3({
         const sanitizedFileName = originalName.replace(/\s+/g, '_');
         const uniqueName = `uploads/files/${Date.now()}-${sanitizedFileName}`; 
         
-        if (sanitizedFileName.length > 30) {
-        return cb(new Error('파일 이름은 최대 30글자까지 가능합니다.'));
+        if (sanitizedFileName.length > 50) {
+        return cb(new Error('파일 이름은 최대 50글자까지 가능합니다.'));
       }
         cb(null, uniqueName);
     },
