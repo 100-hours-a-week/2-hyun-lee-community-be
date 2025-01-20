@@ -22,8 +22,7 @@ export function checkOwnershipParam(req, res, next) {
 export function checkOwnershipBody(req, res, next) {
     const loginUserId = req.session.user.user_id;
     const bodyUserId = req.body.user_id;
-    
-    if (loginUserId !== bodyUserId) {
+    if (loginUserId !== Number(bodyUserId)) {
       return res.status(403).json({ success:false, message: '권한이 없습니다.' });
     }
     next();

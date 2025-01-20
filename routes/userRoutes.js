@@ -50,11 +50,11 @@ router.get('/users/logout', userController.logout);
 
 router.get('/user/profile',userController.loadUser);
 
-router.patch('/user/profile',checkAuth,checkOwnershipBody,upload.single('profileImage'),validateUpdateUser,userController.updateUser);
+router.patch('/user/profile',upload.single('profileImage'),checkAuth,checkOwnershipBody,validateUpdateUser,userController.updateUser);
 
 router.delete(`/user/:user_id`,checkAuth,checkOwnershipParam,userController.deleteUser);
 
-router.patch('/user/password',checkAuth,checkOwnershipBody,upload.none(),userController.updatePassword);
+router.patch('/user/password',upload.none(),checkAuth,checkOwnershipBody,userController.updatePassword);
 
 
 
