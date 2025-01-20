@@ -3,6 +3,7 @@ import multer from 'multer';
 import postController from '../controllers/postController.js';
 import AWS from 'aws-sdk';
 import multerS3 from 'multer-s3';
+import { checkAuth, checkPostOwnership, checkOwnershipParam } from '../middlewares/checkAuth.js';
 const router = express.Router();
 
 AWS.config.update({
@@ -42,7 +43,7 @@ const upload = multer({
 
 
 
-router.post('/posts', upload.single('postImage'), postController.createPost);
+router.post('/posts',checkAuth, upload.single('postImage'), postController.createPost);
 
 router.get('/posts',postController.getAllPosts)
 
@@ -53,12 +54,12 @@ router.patch('/posts/:post_id', postController.updateViews);
 
 router.get('/posts/:post_id',postController.getPosts);
 
-router.patch('/posts/update/:post_id',upload.single('postImage'),postController.updatePost);
+router.patch('/posts/update/:post_id',checkAuth,checkPostOwnership,upload.single('postImage'),postController.updatePost);
 
 
-router.delete('/posts/:post_id', postController.deletePost);
+router.delete('/posts/:post_id',checkAuth,checkPostOwnership, postController.deletePost);
 
-router.delete('/user/:user_id/posts',postController.deleteUserPosts)
+router.delete('/user/:user_id/posts',checkAuth,checkOwnershipParam,postController.deleteUserPosts)
 
 
 

@@ -187,9 +187,11 @@ const userController ={
             }  
         },
         updatePassword: async(req,res)=>{
-            const password = req.body.password; 
+            const password = req.body.password;
+            const confirmPassword =req.body.confirmPassword; 
             const user_id=req.body.user_id;
 
+            if(password !== confirmPassword) return res.status(400).json({success:false, message:"비밀번호가 다릅니다."});
             try{
                 const result = User.updateUserPassword(user_id,password);
                 

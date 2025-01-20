@@ -4,7 +4,7 @@ import userController from '../controllers/userController.js';
 import AWS from 'aws-sdk';
 import multerS3 from 'multer-s3';
 import {validateCreateUser ,validateUpdateUser}  from '../middlewares/validators.js';
-
+import { checkAuth, checkOwnershipBody, checkOwnershipParam } from '../middlewares/checkAuth.js';
 const router = express.Router();
 
 AWS.config.update({
@@ -50,11 +50,11 @@ router.get('/users/logout', userController.logout);
 
 router.get('/user/profile',userController.loadUser);
 
-router.patch('/user/profile',upload.single('profileImage'),validateUpdateUser,userController.updateUser);
+router.patch('/user/profile',checkAuth,checkOwnershipBody,upload.single('profileImage'),validateUpdateUser,userController.updateUser);
 
-router.delete(`/user/:user_id`,userController.deleteUser);
+router.delete(`/user/:user_id`,checkAuth,checkOwnershipParam,userController.deleteUser);
 
-router.patch('/user/password',upload.none(),userController.updatePassword);
+router.patch('/user/password',checkAuth,checkOwnershipBody,upload.none(),userController.updatePassword);
 
 
 
