@@ -18,7 +18,7 @@ router.patch('/posts/:post_id/comment/:comment_id',checkAuth,checkCommentOwnersh
 
 router.post('/comment/',checkAuth,commentController.createComment);
 
-router.delete('/user/:user_id/comments',checkAuth,checkOwnershipParam,commentController.deleteUserComments)
+//router.delete('/user/:user_id/comments',checkAuth,checkOwnershipParam,commentController.deleteUserComments)
 
 
 

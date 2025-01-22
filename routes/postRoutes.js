@@ -59,7 +59,7 @@ router.patch('/posts/update/:post_id',upload.single('postImage'),checkAuth,check
 
 router.delete('/posts/:post_id',checkAuth,checkPostOwnership, postController.deletePost);
 
-router.delete('/user/:user_id/posts',checkAuth,checkOwnershipParam,postController.deleteUserPosts)
+//router.delete('/user/:user_id/posts',checkAuth,checkOwnershipParam,postController.deleteUserPosts)
 
 
 
