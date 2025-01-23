@@ -1,5 +1,3 @@
-import Like from '../models/like.js'; 
-import Post from '../models/post.js';
 import likeService from '../services/likeService.js';
 
 const likeController = {
