@@ -1,7 +1,6 @@
 import Like from '../models/like.js'; 
 import Post from '../models/post.js';
 import AppError from '../utils/AppError.js';
-import Comment from '../models/comment.js';
 
 
 const updateLikes = async(req) => {
