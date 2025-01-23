@@ -1,5 +1,5 @@
 import Post from '../models/post.js'; 
-import s3 from '../middlewares/awsS3.js';
+import s3 from '../utils/awsS3.js';
 import AppError from '../utils/AppError.js';
 import Comment from '../models/comment.js';
 

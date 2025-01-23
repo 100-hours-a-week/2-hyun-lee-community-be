@@ -1,5 +1,5 @@
 import User from '../models/user.js';
-import s3 from '../middlewares/awsS3.js';
+import s3 from '../utils/awsS3.js';
 import AppError from '../utils/AppError.js';
 
 const CDN_URL = 'https://d2m8tt5bgy55i.cloudfront.net/';
