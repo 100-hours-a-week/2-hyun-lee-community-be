@@ -1,17 +1,5 @@
-import User from '../models/user.js';
-import AWS from 'aws-sdk';
 import userService from '../services/userService.js';
 
-const CDN_URL = 'https://d2m8tt5bgy55i.cloudfront.net/';
-const S3_URL = 'https://s3.ap-northeast-2.amazonaws.com/hyun.lee.bucket/';
-
-AWS.config.update({
-  region: 'ap-northeast-2',
-  accessKeyId: process.env.S3_ACCESS_KEY,
-  secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
-});
-
-const s3 = new AWS.S3();
 
 const userController = {
   createUser: async (req, res, next) => {
