@@ -117,3 +117,43 @@ export  async function validateUpdateUser(req,res,next){
     }
     next();
 }
+
+
+export function validatePassword(req, res, next) {
+    const password = req.body.password;
+    const confirmPassword = req.body.confirmPassword;
+  
+    const errors = [];
+  
+    if (!password || !confirmPassword) {
+      errors.push("*비밀번호와 비밀번호 확인을 입력해주세요.");
+    }
+  
+    
+    if (password !== confirmPassword) {
+      errors.push("*비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+    }
+  
+    
+    if (
+      password.length < 8 ||
+      password.length > 20 ||
+      !/[A-Z]/.test(password) || 
+      !/[a-z]/.test(password) || 
+      !/[0-9]/.test(password) || 
+      !/[!@#$%^&*(),.?":{}|<>=+\_\-~`//]/.test(password) 
+    ) {
+      errors.push(
+        "*비밀번호는 8자 이상, 20자 이하이며, 대문자, 소문자, 숫자, 특수문자를 각각 최소 1개 포함해야 합니다."
+      );
+    }
+  
+    
+    if (errors.length > 0) {
+      return res.status(400).json({ success: false, message: errors });
+    }
+  
+    
+    next();
+  }
+  

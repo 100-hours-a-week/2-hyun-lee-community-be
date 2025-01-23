@@ -291,6 +291,7 @@ const postController = {
         success: true,
         message: '모든 게시글 삭제 완료',
       });
+      
     } catch (error) {
       console.error('Error in deleteUserPosts:', error);
       return res.status(500).json({ success: false, message: '서버 오류' });

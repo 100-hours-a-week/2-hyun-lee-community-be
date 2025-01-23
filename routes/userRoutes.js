@@ -3,8 +3,9 @@ import multer from 'multer';
 import userController from '../controllers/userController.js';
 import AWS from 'aws-sdk';
 import multerS3 from 'multer-s3';
-import {validateCreateUser ,validateUpdateUser}  from '../middlewares/validators.js';
+import {validateCreateUser ,validateUpdateUser, validatePassword}  from '../middlewares/validators.js';
 import { checkAuth, checkOwnershipBody, checkOwnershipParam } from '../middlewares/checkAuth.js';
+import errorHandler from '../middlewares/errorHandler.js'; 
 const router = express.Router();
 
 AWS.config.update({
@@ -54,8 +55,8 @@ router.patch('/user/profile',upload.single('profileImage'),checkAuth,checkOwners
 
 router.delete(`/user/:user_id`,checkAuth,checkOwnershipParam,userController.deleteUser);
 
-router.patch('/user/password',upload.none(),checkAuth,checkOwnershipBody,userController.updatePassword);
+router.patch('/user/password',upload.none(),checkAuth,checkOwnershipBody,validatePassword,userController.updatePassword);
 
-
+router.use(errorHandler);
 
 export default router;
