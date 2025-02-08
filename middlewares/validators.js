@@ -156,4 +156,22 @@ export function validatePassword(req, res, next) {
     
     next();
   }
+
+export function validatePostTitle(req,res,next){
+    const user = req.session.user;
+    const { postTitle, postContent } = req.body;
+
+    const errors = [];
+
+    if (postTitle.length > 26) {
+        errors.push("*제목을 26자 이하로 작성해주세요.");
+    }
+    
+    if (errors.length > 0) {
+        return res.status(400).json({ success: false, message: errors });
+    }
+    
+      
+      next();
+}
   
